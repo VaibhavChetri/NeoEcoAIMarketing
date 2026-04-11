@@ -1,0 +1,53 @@
+[
+  {
+    "id": "cs-001",
+    "title": "Rendall & Rittner — Award-Winning Block Cleaning Partnership",
+    "client": "Rendall & Rittner (Property Manager of the Year 2024)",
+    "industry": "Property Management",
+    "country": "North London",
+    "challenge": "Rendall & Rittner, named Property Manager of the Year 2024, needed a reliable block cleaning contractor who could maintain the highest standards across their North London portfolio. Their previous contractor was inconsistent with scheduling, used harsh chemicals that generated tenant complaints, and lacked accountability — providing no evidence of completed work.",
+    "solution": "Neo Eco Cleaning provided: (1) Dedicated cleaning teams for each property in the portfolio; (2) 100% eco-friendly cleaning products — no toxic chemicals in shared residential spaces; (3) Consistent weekly scheduling with photographic evidence of completed cleans; (4) Quality Guarantee — any complaint resolved at no additional cost; (5) Ex-Hilton Hotel trained staff delivering hospitality-grade cleaning standards.",
+    "results": {
+      "cost_savings": "15% reduction in annual cleaning costs vs previous contractor",
+      "delivery": "100% on-schedule performance — zero missed cleans in 12 months",
+      "quality": "Tenant cleaning complaints reduced by 90%",
+      "reorder": "Multi-year contract signed after 3-month trial period"
+    },
+    "testimonial": "Neo Eco Cleaning has transformed the communal areas across our North London portfolio. The consistency, the eco-friendly approach, and the quality guarantee give us complete confidence. We've seen a dramatic reduction in tenant complaints since switching.",
+    "created_at": "2025-06-15"
+  },
+  {
+    "id": "cs-002",
+    "title": "MVN Block Management — North London Communal Cleaning",
+    "client": "MVN Block Management",
+    "industry": "Block Management",
+    "country": "North London",
+    "challenge": "MVN Block Management oversees multiple residential blocks across North London and needed a cleaning contractor who understood the specific requirements of communal area maintenance. Key concerns included bin room hygiene, stairwell safety (non-slip cleaning), and finding a contractor who could cover multiple sites on a reliable rotating schedule.",
+    "solution": "Neo Eco Cleaning implemented: (1) Multi-site cleaning rotation covering all MVN properties; (2) Specialised bin room sanitisation protocol with eco-friendly disinfectants; (3) Non-slip stairwell cleaning using appropriate eco products; (4) Regular cleaning reports with before/after photographic documentation; (5) Flexible scheduling to accommodate tenant preferences.",
+    "results": {
+      "cost_savings": "Consolidated cleaning costs across portfolio by 20%",
+      "delivery": "All properties serviced on schedule — zero disruptions",
+      "quality": "Fire safety compliance maintained through clean, clutter-free communal areas",
+      "reorder": "Expanded from 3 properties to 8 within first year"
+    },
+    "testimonial": "Neo Eco Cleaning understands the specific needs of block management. Their reliability and eco-friendly approach align perfectly with what our leaseholders expect. The photographic documentation gives us complete oversight.",
+    "created_at": "2025-09-20"
+  },
+  {
+    "id": "cs-003",
+    "title": "Victoria Wharf — COVID-Safe Deep Cleaning During Pandemic",
+    "client": "Victoria Wharf Residential Development",
+    "industry": "Residential Property",
+    "country": "London",
+    "challenge": "During the peak of the COVID-19 outbreak, Victoria Wharf's communal areas required intensive deep cleaning with strict safety protocols. The existing cleaning contractor could not guarantee COVID-safe practices, maintain extended cleaning hours, or provide the PPE-compliant service the development required.",
+    "solution": "Neo Eco Cleaning stepped in with: (1) Extended cleaning hours during the peak of the outbreak; (2) Full PPE compliance — masks, gloves, and protective equipment for all staff; (3) Hospital-grade eco-friendly sanitisation of all high-touch surfaces; (4) Frequent cleaning rotation — multiple visits per day for high-traffic communal areas; (5) Transparent COVID-safe protocol documentation for building management.",
+    "results": {
+      "cost_savings": "Emergency response without premium pricing",
+      "delivery": "Same-day deployment — cleaning started within 24 hours of engagement",
+      "quality": "Zero COVID-related complaints from residents during service period",
+      "reorder": "Retained as permanent block cleaning contractor post-pandemic"
+    },
+    "testimonial": "Neo Eco Cleaning spent extended hours to clean the filthy communal areas during the peak of the Coronavirus outbreak. All staff took appropriate professional measures to prevent the spread of COVID-19 by wearing masks and gloves. Their response was exceptional.",
+    "created_at": "2024-04-10"
+  }
+]

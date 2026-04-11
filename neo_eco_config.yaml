@@ -1,0 +1,251 @@
+# ============================================================
+# Neo Eco Cleaning — Company Configuration
+# B2C/B2B Eco-Friendly Cleaning Services → North London
+# ============================================================
+
+company:
+  name: "Neo Eco Cleaning"
+  industry: "Professional Eco-Friendly Cleaning Services"
+  target_market: "Property Managers, Building Management Companies & Residential Clients in North London"
+  website: "https://neoecocleaning.co.uk"
+  tagline: "Professional Eco-Friendly Cleaning for North London"
+  phone: "+44 (0) 77680 66860"
+  email: "priyanka.singh@neoecocleaning.co.uk"
+  instagram: "neoecocleaning"
+
+ideal_customer_profile:
+  company_types:
+    - "Property Management Companies"
+    - "Building Management Companies"
+    - "Estate Agencies"
+    - "Housing Associations"
+    - "Facilities Management Companies"
+    - "Residential Developers"
+    - "Commercial Property Managers"
+    - "Block Management Companies"
+    - "Letting Agencies"
+
+  locations:
+    - "Barnet"
+    - "Enfield"
+    - "Camden"
+    - "Islington"
+    - "Haringey"
+    - "North London"
+    - "Central London"
+    - "West London"
+    - "East London"
+    - "Hertfordshire"
+
+  decision_makers:
+    - "Property Manager"
+    - "Building Manager"
+    - "Facilities Manager"
+    - "Estate Manager"
+    - "Managing Agent"
+    - "Director of Estates"
+    - "Operations Manager"
+    - "Contracts Manager"
+    - "Head of Property"
+    - "Managing Director"
+
+  company_size:
+    min_employees: 1
+    max_employees: 500
+
+  scoring_weights:
+    company_size: 0.15
+    industry_match: 0.30
+    location_match: 0.25
+    engagement: 0.30
+
+value_proposition:
+  main_message: "Professional eco-friendly cleaning services trusted by award-winning property managers in North London"
+
+  key_benefits:
+    - "100% eco-friendly cleaning products — no toxic chemicals"
+    - "50+ years combined cleaning experience across the team"
+    - "Ex-Hilton Hotel trained cleaning staff — the highest standards"
+    - "Quality Guarantee — all complaints resolved at no additional cost"
+    - "Trusted by Rendall & Rittner (Property Manager of the Year 2024)"
+    - "Trusted by MVN Block Management"
+    - "COVID-safe cleaning protocols with PPE and sanitisation"
+    - "Dedicated North London coverage — fast response times"
+
+  differentiators:
+    - "Named, verifiable award-winning clients — not anonymous testimonials"
+    - "North London specialists — not a faceless national company"
+    - "100% eco-friendly — we minimise our carbon footprint in every clean"
+    - "Ex-Hilton Hotel cleaning team — 5-star standards at competitive rates"
+    - "Quality Guarantee — complaints resolved at zero additional cost"
+    - "24/7 availability for emergency cleaning needs"
+
+  pain_points_addressed:
+    - "Unreliable cleaning contractors who miss scheduled cleans"
+    - "Poor cleaning standards that generate tenant complaints"
+    - "Cleaning companies using harsh chemicals in shared residential spaces"
+    - "Difficulty finding contractors who specialise in block/communal areas"
+    - "Lack of transparency and accountability from cleaning companies"
+    - "National companies with no local knowledge of North London properties"
+
+  named_clients:
+    - name: "Rendall & Rittner"
+      credential: "Property Manager of the Year 2024"
+      service: "Block cleaning"
+    - name: "MVN Block Management"
+      credential: "North London block management specialist"
+      service: "Communal area cleaning"
+    - name: "Victoria Wharf"
+      credential: "Premium residential development"
+      service: "Deep cleaning during COVID-19"
+
+service_categories:
+  - category: "Block & Communal Cleaning"
+    description: "Regular scheduled cleaning of communal areas, stairwells, lobbies, bin rooms, and shared spaces in residential blocks"
+    pricing_range_gbp: "From £150/month"
+    response_time: "Same-day setup consultation"
+    frequency: ["Weekly", "Bi-weekly", "Monthly", "Ad-hoc"]
+    includes:
+      - "Stairwell mopping and vacuuming"
+      - "Lobby and entrance cleaning"
+      - "Bin room sanitisation"
+      - "Window cleaning (internal communal)"
+      - "Light fixture cleaning"
+      - "Handrail and surface sanitisation"
+    eco_features: ["100% eco-friendly products", "Microfibre technology", "Minimal water usage"]
+
+  - category: "Commercial Office Cleaning"
+    description: "Professional cleaning services for offices, retail spaces, and commercial premises"
+    pricing_range_gbp: "From £200/month"
+    response_time: "Free site survey within 48 hours"
+    frequency: ["Daily", "3x weekly", "Weekly"]
+    includes:
+      - "Desk and workstation cleaning"
+      - "Kitchen and break room deep clean"
+      - "Bathroom sanitisation"
+      - "Floor vacuuming and mopping"
+      - "Waste removal and recycling"
+    eco_features: ["Non-toxic surface cleaners", "Biodegradable products", "Eco-certified supplies"]
+
+  - category: "End of Tenancy Cleaning"
+    description: "Deep cleaning service to prepare properties for new tenants, meeting letting agent and landlord standards"
+    pricing_range_gbp: "From £180/property"
+    response_time: "24-hour turnaround available"
+    frequency: ["One-off"]
+    includes:
+      - "Full kitchen deep clean (oven, hob, extractor)"
+      - "Bathroom deep clean and descaling"
+      - "Complete floor cleaning"
+      - "Window cleaning (interior)"
+      - "Wall spot cleaning"
+      - "Skirting board and fixture cleaning"
+    eco_features: ["Eco-friendly oven cleaners", "Chemical-free descaling", "Natural degreasing"]
+
+  - category: "Pressure Washing"
+    description: "High-pressure cleaning for external areas including car parks, pathways, driveways, and building exteriors"
+    pricing_range_gbp: "From £250/session"
+    response_time: "Site assessment within 72 hours"
+    frequency: ["Quarterly", "Bi-annual", "One-off"]
+    includes:
+      - "Driveway and pathway cleaning"
+      - "Car park cleaning"
+      - "Building exterior washing"
+      - "Patio and decking cleaning"
+      - "Graffiti removal"
+    eco_features: ["Water-efficient pressure systems", "Eco-friendly cleaning solutions", "Proper drainage management"]
+
+  - category: "Window Cleaning"
+    description: "Interior and exterior window cleaning for residential blocks and commercial premises"
+    pricing_range_gbp: "From £100/session"
+    response_time: "Scheduled within 1 week"
+    frequency: ["Monthly", "Bi-monthly", "Quarterly"]
+    includes:
+      - "External window cleaning"
+      - "Internal window cleaning"
+      - "Frame and sill cleaning"
+      - "Glass door cleaning"
+    eco_features: ["Purified water systems", "No chemical streaking agents", "Eco-friendly glass cleaners"]
+
+  - category: "Residential Deep Clean"
+    description: "Comprehensive one-off or regular deep cleaning for private homes, flats, and apartments"
+    pricing_range_gbp: "From £150/session"
+    response_time: "Available within 48 hours"
+    frequency: ["One-off", "Weekly", "Bi-weekly", "Monthly"]
+    includes:
+      - "Full property deep clean"
+      - "Kitchen appliance cleaning"
+      - "Bathroom deep sanitisation"
+      - "Carpet and upholstery cleaning"
+      - "Skirting boards and fixtures"
+    eco_features: ["100% natural cleaning products", "Allergy-friendly", "Pet-safe products"]
+
+email_templates:
+  cold_outreach:
+    subject_lines:
+      - "{{company_name}} — Eco-Friendly Block Cleaning for Your Properties"
+      - "Trusted by Rendall & Rittner — Could We Help {{company_name}}?"
+      - "{{area}} Block Cleaning — Free Site Survey for {{company_name}}"
+      - "Quick Q: Happy with Your Current Cleaning Contractor?"
+      - "Ex-Hilton Standards, Eco-Friendly Products — Block Cleaning for {{company_name}}"
+
+    body_structure:
+      - "Brief personalised intro (reference their properties/portfolio)"
+      - "Specific pain point (unreliable contractors, poor standards, harsh chemicals)"
+      - "Our solution (eco-friendly, quality guarantee, experienced team)"
+      - "Social proof (Rendall & Rittner, MVN Block Management)"
+      - "Low-friction CTA (free site survey, no-obligation quote)"
+
+  follow_up:
+    cadence:
+      - day: 1
+        type: "Initial outreach"
+      - day: 4
+        type: "Case study / client reference share"
+      - day: 8
+        type: "Free site survey offer"
+      - day: 14
+        type: "Breakup email (permission to close file)"
+
+content_guidelines:
+  tone: "Professional, warm, and environmentally conscious — not pushy"
+  max_word_count: 350
+  avoid:
+    - "Generic mass email language"
+    - "Hard selling or pressure tactics"
+    - "Environmental greenwashing — be specific about eco practices"
+    - "Mentioning competitors by name"
+    - "Overpromising or unrealistic guarantees"
+
+  include:
+    - "Specific named clients (Rendall & Rittner, MVN Block Management)"
+    - "Eco-friendly product details"
+    - "Quality Guarantee reference"
+    - "North London expertise"
+    - "Clear, low-pressure next step (free survey, no-obligation quote)"
+    - "Personal touch (reference their properties/area)"
+
+seasonal_outreach:
+  spring:
+    outreach_months: ["February", "March", "April"]
+    focus: "Spring deep clean campaigns, post-winter maintenance, new contract season"
+  summer:
+    outreach_months: ["May", "June", "July"]
+    focus: "Outdoor cleaning, pressure washing, window cleaning campaigns"
+  autumn:
+    outreach_months: ["September", "October"]
+    focus: "Back-to-routine cleaning schedules, pre-winter preparation"
+  winter:
+    outreach_months: ["November", "December", "January"]
+    focus: "Year-end contract renewals, new year cleaning contracts"
+  note: "Property managers typically review contracts quarterly. Target January and April for new contract pitches."
+
+gdpr_compliance:
+  basis: "Legitimate interest (B2B prospecting to property management companies)"
+  requirements:
+    - "Only email business contacts at property management companies"
+    - "Include unsubscribe link in every email"
+    - "Honour opt-outs within 24 hours"
+    - "Don't buy email lists"
+    - "Store opt-outs permanently"
+    - "Include company contact details in footer"
+    - "Comply with UK GDPR and PECR regulations"

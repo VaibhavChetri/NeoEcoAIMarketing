@@ -1,0 +1,24 @@
+[
+  {
+    "id": "campaign_20260411_111253",
+    "name": "Testing",
+    "email_type": "cold_outreach",
+    "description": "",
+    "target_countries": [],
+    "target_industries": [],
+    "status": "draft",
+    "created_at": "2026-04-11T11:12:53.129768",
+    "started_at": null,
+    "completed_at": null,
+    "stats": {
+      "total_leads": 0,
+      "emails_generated": 0,
+      "emails_sent": 4,
+      "emails_opened": 0,
+      "replies": 0,
+      "bounces": 0,
+      "opt_outs": 0,
+      "meetings_booked": 0
+    }
+  }
+]

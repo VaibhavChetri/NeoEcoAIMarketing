@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neo Eco Cleaning — AI Marketing Dashboard</title>
+  <meta name="description"
+    content="B2B Outbound Engine, Sales Pipeline, and Content Ops for Neo Eco Cleaning's UK/EU garment export business." />
+  <link rel="stylesheet" href="/static/styles.css?v=2.1" />
+</head>
+
+<body>
+
+  <div class="app-container">
+    <!-- ═══════ SIDEBAR ═══════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h1>🧵 Neo Eco Cleaning</h1>
+        <p>AI Marketing Hub v2.0</p>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Overview</div>
+          <a class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+            <span class="icon">📊</span><span>Dashboard</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Lead Discovery</div>
+          <a class="nav-item" data-page="apollo-search" onclick="showPage('apollo-search')">
+            <span class="icon">🔍</span><span>Apollo Search</span>
+          </a>
+          <a class="nav-item" data-page="upload-emails" onclick="showPage('upload-emails')">
+            <span class="icon">📤</span><span>Upload Emails</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Outbound Engine</div>
+          <a class="nav-item" data-page="leads" onclick="showPage('leads')">
+            <span class="icon">👥</span><span>Leads</span>
+            <span class="badge" id="leads-count-badge">0</span>
+          </a>
+          <a class="nav-item" data-page="bin" onclick="showPage('bin')">
+            <span class="icon">🗑️</span><span>Bin</span>
+            <span class="badge" id="bin-count-badge" style="background:var(--accent-rose);">0</span>
+          </a>
+          <a class="nav-item" data-page="bulk-email" onclick="showPage('bulk-email')">
+            <span class="icon">✉️</span><span>Bulk Email</span>
+          </a>
+          <a class="nav-item" data-page="email-gen" onclick="showPage('email-gen')">
+            <span class="icon">✨</span><span>Single Email</span>
+          </a>
+          <a class="nav-item" data-page="campaigns" onclick="showPage('campaigns')">
+            <span class="icon">📧</span><span>Campaigns</span>
+          </a>
+          <a class="nav-item" data-page="sent-mails" onclick="showPage('sent-mails')">
+            <span class="icon">📨</span><span>Sent Mails</span>
+          </a>
+          <a class="nav-item" data-page="replies" onclick="showPage('replies')">
+            <span class="icon">📬</span><span>Replies</span>
+            <span class="badge" id="replies-unread-badge" style="background:var(--accent-emerald);">0</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Sales Pipeline</div>
+          <a class="nav-item" data-page="pipeline" onclick="showPage('pipeline')">
+            <span class="icon">🎯</span><span>Pipeline</span>
+          </a>
+          <a class="nav-item" data-page="scoring" onclick="showPage('scoring')">
+            <span class="icon">⭐</span><span>Lead Scoring</span>
+          </a>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-title">Content Ops</div>
+          <a class="nav-item" data-page="catalog" onclick="showPage('catalog')">
+            <span class="icon">📦</span><span>Product Catalog</span>
+          </a>
+          <a class="nav-item" data-page="case-studies" onclick="showPage('case-studies')">
+            <span class="icon">📋</span><span>Case Studies</span>
+          </a>
+          <a class="nav-item" data-page="calendar" onclick="showPage('calendar')">
+            <span class="icon">📅</span><span>Content Calendar</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ═══════ MAIN CONTENT ═══════ -->
+    <main class="main-content">
+
+      <!-- ══════ DASHBOARD PAGE ══════ -->
+      <section class="page-section active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <h2>Dashboard</h2>
+            <p class="subtitle">Neo Eco Cleaning — Eco-Friendly Cleaning Services · North London</p>
+          </div>
+          <div class="btn-group">
+            <button id="btn-refresh-dashboard" class="btn btn-primary" onclick="loadDashboard(true)">🔄 Refresh Dashboard</button>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="dashboard-stats">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-value" id="stat-total-leads">-</div>
+            <div class="stat-label">Total Leads</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📧</div>
+            <div class="stat-value" id="stat-with-email">-</div>
+            <div class="stat-label">With Email</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📨</div>
+            <div class="stat-value" id="stat-contacted">-</div>
+            <div class="stat-label">Contacted</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💬</div>
+            <div class="stat-value" id="stat-replied">-</div>
+            <div class="stat-label">Replied</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="stat-meetings">-</div>
+            <div class="stat-label">Meetings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🗑️</div>
+            <div class="stat-value" id="stat-in-bin">-</div>
+            <div class="stat-label">In Bin</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🌍 Leads by Country</div>
+            </div>
+            <div id="country-breakdown">
+              <p class="text-center" style="color:var(--text-muted)">Loading...</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🏭 Leads by Industry</div>
+            </div>
+            <div id="industry-breakdown">
+              <p class="text-center" style="color:var(--text-muted)">Loading...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ APOLLO SEARCH PAGE ══════ -->
+      <section class="page-section" id="page-apollo-search">
+        <div class="page-header">
+          <div>
+            <h2>🔍 Apollo Lead Search</h2>
+            <p class="subtitle">Search Apollo.io using your ICP from neo_eco_config.yaml</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">ICP Search Configuration</div>
+          </div>
+          <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">
+            Your ICP targets: <strong>Fashion Retailers, Clothing Brands, Department Stores</strong> in
+            <strong>UK, France, Germany, Netherlands, Italy, Spain, Sweden, Denmark, Belgium, Ireland</strong> —
+            Decision makers like <strong>Head of Sourcing, Procurement Director, Buying Manager, CEO</strong> —
+            Company size: <strong>50-10,000 employees</strong>
+          </p>
+          <div class="grid-3 mb-2">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Page Number</label>
+              <input type="number" class="form-input" id="apollo-filter-page" value="1" min="1" placeholder="Page 1">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Location (Override ICP)</label>
+              <input type="text" class="form-input" id="apollo-filter-location" placeholder="e.g. United States, Paris">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Keywords (Override ICP)</label>
+              <input type="text" class="form-input" id="apollo-filter-keywords" placeholder="e.g. Sportswear, Footwear">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label class="form-label">Max Leads</label>
+              <input type="number" class="form-input" id="apollo-filter-limit" value="100" min="1" max="1000">
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" id="btn-apollo-search" onclick="triggerApolloSearch()">
+              🔍 Search Apollo
+            </button>
+            <button class="btn btn-secondary" onclick="changeApolloPage(-1)" style="margin-left: 8px;">
+              ◀ Prev Page
+            </button>
+            <button class="btn btn-secondary" onclick="changeApolloPage(1)">
+              Next Page ▶
+            </button>
+            <button class="btn btn-secondary" onclick="clearApolloSearch()" style="margin-left: 8px; color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.2);">
+              🗑️ Clear
+            </button>
+            <button class="btn btn-secondary" id="btn-apollo-download" onclick="downloadApolloExcel()"
+              style="display:none; margin-left: auto;">
+              📥 Download Excel
+            </button>
+            <button class="btn btn-success" id="btn-apollo-export-crm" onclick="exportApolloToCrm()"
+              style="display:none; background: #1f2937; color: white;">
+              ⚡ Export to CRM
+            </button>
+          </div>
+        </div>
+
+        <div id="apollo-results" style="display:none;">
+          <div class="stats-grid" id="apollo-stats"></div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">🏢 Search Results</div>
+              <span class="badge badge-new" id="apollo-results-count">0 leads</span>
+            </div>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 40px;"><input type="checkbox" id="apollo-select-all" onclick="toggleApolloSelectAll()" checked></th>
+                    <th>Company</th>
+                    <th>Person</th>
+                    <th>Title</th>
+                    <th>Country</th>
+                    <th>Industry</th>
+                    <th>Employees</th>
+                  </tr>
+                </thead>
+                <tbody id="apollo-table-body">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ UPLOAD EMAILS PAGE ══════ -->
+      <section class="page-section" id="page-upload-emails">
+        <div class="page-header">
+          <div>
+            <h2>📤 Upload Emails</h2>
+            <p class="subtitle">Upload scraped email addresses to merge with your leads</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📁 Upload File</div>
+            </div>
+            <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">
+              Upload a CSV or Excel (.xlsx) file with at minimum these columns:
+              <strong>Company Name</strong> and <strong>Email</strong>.
+              Optional columns: <strong>Person, Primary_Designation</strong>.
+            </p>
+            <div class="upload-dropzone" id="upload-dropzone">
+              <div class="upload-icon">📁</div>
+              <h3>Drop your CSV/Excel here</h3>
+              <p>or click to browse</p>
+              <input type="file" id="email-file-input" accept=".csv,.xlsx,.xls" style="display:none;"
+                onchange="handleFileSelect(event)" />
+            </div>
+            <button class="btn btn-primary mt-2" id="btn-upload" onclick="uploadEmails()" style="display:none;">
+              📤 Upload & Merge Emails
+            </button>
+            <div id="upload-file-info" style="display:none;" class="mt-2">
+              <p style="color:var(--accent-emerald);font-size:0.85rem;" id="upload-file-name"></p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📋 Upload Instructions</div>
+            </div>
+            <div style="color:var(--text-secondary);font-size:0.85rem;line-height:1.8;">
+              <p><strong>Step-by-step workflow:</strong></p>
+              <ol style="padding-left:20px;margin-top:8px;">
+                <li>Search Apollo → download the Excel sheet</li>
+                <li>Go to <a href="https://app.apollo.io" target="_blank"
+                    style="color:var(--accent-blue);">Apollo.io</a> and manually find email addresses</li>
+                <li>Fill in the <strong>Email</strong> column in the Excel</li>
+                <li>Upload the file here → emails merge with your leads</li>
+                <li>Go to <strong>Bulk Email</strong> → generate & send</li>
+              </ol>
+              <div class="mt-2" style="padding:12px;background:rgba(99,102,241,0.08);border-radius:8px;">
+                <p><strong>💡 Tip:</strong> Your file must have a <code>Company Name</code> column that matches existing
+                  leads for the merge to work.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="upload-results" style="display:none;" class="card mt-2">
+          <div class="card-header">
+            <div class="card-title">✅ Upload Results</div>
+          </div>
+          <div id="upload-results-content"></div>
+        </div>
+      </section>
+
+      <!-- ══════ BULK EMAIL PAGE ══════ -->
+      <section class="page-section" id="page-bulk-email">
+        <div class="page-header">
+          <div>
+            <h2>✉️ Bulk Email</h2>
+            <p class="subtitle">Generate & send personalized emails</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚡ Email Campaign Setup</div>
+          </div>
+          <div class="flex gap-2" style="flex-wrap:wrap;align-items:end;">
+            <div class="form-group" style="margin-bottom:0;flex:1;min-width:200px;">
+              <label class="form-label">Email Type</label>
+              <select class="form-select" id="bulk-email-type">
+                <option value="cold_outreach">Cold Outreach (Initial Email)</option>
+                <option value="follow_up_case_study">Follow-up: Case Study</option>
+                <option value="follow_up_samples">Follow-up: Free Samples</option>
+                <option value="breakup">Breakup Email</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;flex:1;min-width:200px;">
+              <label class="form-label">Generation Method</label>
+              <select class="form-select" id="bulk-generation-method">
+                <option value="ai">✨ AI Generated</option>
+                <option value="template">📝 Template Based</option>
+              </select>
+            </div>
+            <div class="btn-group" style="margin-bottom:0;">
+              <button class="btn btn-primary" id="btn-generate-all" onclick="generateAllEmails()">
+                ⚡ Generate
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div id="bulk-progress" style="display:none;" class="card">
+          <div class="progress-header">
+            <span id="bulk-progress-text">Generating emails...</span>
+            <span class="loading-spinner"></span>
+          </div>
+          <div class="progress-bar-container mt-1">
+            <div class="progress-bar-fill" id="bulk-progress-bar" style="width:0%;"></div>
+          </div>
+        </div>
+
+        <!-- Selection Toolbar -->
+        <div id="bulk-selection-toolbar" style="display:none;" class="card">
+          <div class="flex-between" style="flex-wrap:wrap; gap:12px;">
+            <div class="flex gap-1" style="align-items:center;">
+              <button class="btn btn-sm btn-secondary" onclick="toggleSelectAllBulk()" id="btn-select-all-bulk">☑️ Select All</button>
+              <button class="btn btn-sm btn-secondary" onclick="deselectAllBulk()">✖️ Deselect All</button>
+              <button class="btn btn-sm btn-danger" onclick="removeSelectedBulk()">🗑️ Remove Selected</button>
+              <span style="font-size:0.82rem; color:var(--text-muted); margin-left:8px;" id="bulk-selection-count">0 selected</span>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-success" id="btn-send-selected" onclick="confirmSendSelectedEmails()">
+                📨 Send Selected
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generated emails list -->
+        <div id="bulk-email-list">
+          <div class="empty-state">
+            <div class="empty-icon">✉️</div>
+            <h3>No emails generated yet</h3>
+            <p>Click "Generate All Emails" to create personalized emails for all leads with email addresses</p>
+          </div>
+        </div>
+
+        <!-- Send results -->
+        <div id="send-results" style="display:none;" class="card mt-2">
+          <div class="card-header">
+            <div class="card-title">📊 Send Results</div>
+          </div>
+          <div id="send-results-content"></div>
+        </div>
+
+        <!-- Bulk Edit Modal -->
+        <div id="bulk-edit-modal"
+          style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index: 1000; align-items:center; justify-content:center; padding-left: 260px;">
+          <div class="card"
+            style="width:90%; max-width:700px; max-height:90vh; overflow-y:auto; background:var(--bg-card); border:1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div class="card-header" style="justify-content:space-between;">
+              <div class="card-title" id="bulk-edit-modal-title">Edit Email</div>
+              <button class="btn btn-secondary" style="padding:4px 8px;font-size:0.8rem;"
+                onclick="closeBulkEditModal()">✕</button>
+            </div>
+            <div style="padding:24px;">
+              <input type="hidden" id="bulk-edit-index" />
+              <div class="form-group">
+                <label class="form-label">Subject</label>
+                <input type="text" id="bulk-edit-subject" class="form-input" />
+              </div>
+              <div class="form-group mb-0">
+                <label class="form-label">Body</label>
+                <textarea id="bulk-edit-body" class="form-textarea" rows="15"></textarea>
+              </div>
+              <div style="display:flex; justify-content:flex-end; gap:10px; margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="closeBulkEditModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveBulkEmailEdit()">💾 Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ LEADS PAGE ══════ -->
+      <section class="page-section" id="page-leads">
+        <div class="page-header">
+          <div>
+            <h2>Leads</h2>
+            <p class="subtitle">UK & EU Fashion Retailers — Your B2B Prospect List</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="importLeads()">📥 Import CSV</button>
+            <button class="btn btn-primary" id="btn-send-to-bulk" onclick="sendSelectedLeadsToBulk()" style="display:none;">✉️ Send to Bulk Email</button>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="card" style="padding: 16px;">
+          <div class="flex gap-2" style="flex-wrap:wrap;align-items:end;">
+            <div class="form-group" style="margin-bottom:0;flex:1;min-width:150px;">
+              <label class="form-label">Country</label>
+              <select class="form-select" id="filter-country" onchange="filterLeads()">
+                <option value="">All Countries</option>
+                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                <option value="France">🇫🇷 France</option>
+                <option value="Germany">🇩🇪 Germany</option>
+                <option value="Netherlands">🇳🇱 Netherlands</option>
+                <option value="Sweden">🇸🇪 Sweden</option>
+                <option value="Denmark">🇩🇰 Denmark</option>
+                <option value="Italy">🇮🇹 Italy</option>
+                <option value="Spain">🇪🇸 Spain</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;flex:1;min-width:150px;">
+              <label class="form-label">Stage</label>
+              <select class="form-select" id="filter-stage" onchange="filterLeads()">
+                <option value="">All Stages</option>
+                <option value="new">New</option>
+                <option value="contacted">Contacted</option>
+                <option value="replied">Replied</option>
+                <option value="meeting_booked">Meeting Booked</option>
+                <option value="negotiation">Negotiation</option>
+                <option value="won">Won</option>
+                <option value="lost">Lost</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:0;flex:2;min-width:200px;">
+              <label class="form-label">Search</label>
+              <input class="form-input" type="text" id="filter-query" placeholder="Search companies..."
+                oninput="filterLeads()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:40px;"><input type="checkbox" id="leads-select-all" onchange="toggleSelectAllLeads(this)" title="Select All"></th>
+                  <th>Company</th>
+                  <th>Country</th>
+                  <th>Industry</th>
+                  <th>Employees</th>
+                  <th>Stage</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leads-table-body">
+                <tr>
+                  <td colspan="6" class="text-center" style="padding:40px;color:var(--text-muted)">Loading leads...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ BIN / TRASH PAGE ══════ -->
+      <section class="page-section" id="page-bin">
+        <div class="page-header">
+          <div>
+            <h2>🗑️ Bin</h2>
+            <p class="subtitle">Deleted leads — restore or permanently delete</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-danger" id="btn-empty-bin" onclick="confirmEmptyBin()" style="display:none;">🗑️
+              Empty Bin</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Country</th>
+                  <th>Industry</th>
+                  <th>Deleted On</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="bin-table-body">
+                <tr>
+                  <td colspan="5">
+                    <div class="empty-state">
+                      <div class="empty-icon">🗑️</div>
+                      <h3>Bin is empty</h3>
+                      <p>Deleted leads will appear here</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ EMAIL GENERATOR PAGE ══════ -->
+      <section class="page-section" id="page-email-gen">
+        <div class="page-header">
+          <div>
+            <h2>Single Email Generator</h2>
+            <p class="subtitle">Gemini Pro — personalized B2B email creation</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">⚙️ Configure</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Select Lead</label>
+              <select class="form-select" id="email-lead-select" onchange="onEmailLeadSelectChange()">
+                <option value="">Choose a company...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Receiver's Email ID</label>
+              <input type="text" class="form-input" id="email-lead-address"
+                placeholder="Autofilled or type manually..." />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Type</label>
+              <select class="form-select" id="email-type-select">
+                <option value="cold_outreach">Cold Outreach (Initial Email)</option>
+                <option value="follow_up_case_study">Follow-up: Case Study</option>
+                <option value="follow_up_samples">Follow-up: Free Samples</option>
+                <option value="breakup">Breakup Email</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Generation Method</label>
+              <select class="form-select" id="generation-method-select"
+                onchange="document.getElementById('btn-generate').innerHTML = this.value === 'ai' ? '✨ Generate Email (AI)' : '📝 Generate Email (Template)'">
+                <option value="ai">✨ AI Generated</option>
+                <option value="template">📝 Template Based</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" onclick="generateEmail()" id="btn-generate">
+              ✨ Generate Email (AI)
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📧 Generated Email</div>
+              <div id="email-quality-badge"></div>
+            </div>
+            <div id="email-result">
+              <div class="empty-state">
+                <div class="empty-icon">✨</div>
+                <h3>No email generated yet</h3>
+                <p>Select a lead and click Generate</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ SENT MAILS PAGE ══════ -->
+      <section class="page-section" id="page-sent-mails">
+        <div class="page-header">
+          <div>
+            <h2>📨 Sent Mails</h2>
+            <p class="subtitle">History of all bulk and single emails sent</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="loadSentMails()">🔄 Refresh</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>To</th>
+                  <th>Company</th>
+                  <th>Subject</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="sent-mails-table-body">
+                <tr>
+                  <td colspan="7">
+                    <div class="empty-state">
+                      <div class="empty-icon">📨</div>
+                      <h3>No sent mails</h3>
+                      <p>Sent emails will appear here</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ CAMPAIGNS PAGE ══════ -->
+      <section class="page-section" id="page-campaigns">
+        <div class="page-header">
+          <div>
+            <h2>Campaigns</h2>
+            <p class="subtitle">Track and manage your outbound email campaigns</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="syncCampaignStats()">🔄 Sync Stats</button>
+            <button class="btn btn-primary" onclick="showCreateCampaignModal()">➕ New Campaign</button>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="campaign-analytics-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="camp-stat-sent">0</div>
+            <div class="stat-label">Bulk Emails Sent</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:var(--accent-violet);" id="camp-stat-opened">0</div>
+            <div class="stat-label">Opens</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:var(--accent-emerald);" id="camp-stat-replies">0</div>
+            <div class="stat-label">Replies</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:var(--accent-rose);" id="camp-stat-bounced">0</div>
+            <div class="stat-label">Bounced</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="camp-stat-open-rate">0%</div>
+            <div class="stat-label">Open Rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="camp-stat-reply-rate">0%</div>
+            <div class="stat-label">Reply Rate</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="campaigns-list">
+            <div class="empty-state">
+              <div class="empty-icon">📧</div>
+              <h3>No campaigns yet</h3>
+              <p>Create your first campaign to start outreach</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ REPLIES PAGE ══════ -->
+      <section class="page-section" id="page-replies">
+        <div class="page-header">
+          <div>
+            <h2>📬 Replies</h2>
+            <p class="subtitle">Inbox replies matched to your outreach leads</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary" id="btn-scan-inbox" onclick="scanInbox()">🔄 Scan Inbox</button>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="replies-stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="reply-stat-total">0</div>
+            <div class="stat-label">Total Replies</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="reply-stat-unread">0</div>
+            <div class="stat-label">Unread</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:var(--accent-emerald);" id="reply-stat-positive">0</div>
+            <div class="stat-label">Positive</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" style="color:var(--accent-rose);" id="reply-stat-negative">0</div>
+            <div class="stat-label">Negative</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Inbox</div>
+          </div>
+          <div id="replies-list">
+            <div class="empty-state">
+              <div class="empty-icon">📭</div>
+              <h3>No replies yet</h3>
+              <p>Click "Scan Inbox" to check for new replies from your leads</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ PIPELINE PAGE ══════ -->
+      <section class="page-section" id="page-pipeline">
+        <div class="page-header">
+          <div>
+            <h2>Sales Pipeline</h2>
+            <p class="subtitle">Kanban view of your deal pipeline</p>
+          </div>
+        </div>
+        <div class="kanban-board" id="kanban-board">
+          <p style="color:var(--text-muted);padding:40px;">Loading pipeline...</p>
+        </div>
+      </section>
+
+      <!-- ══════ SCORING PAGE ══════ -->
+      <section class="page-section" id="page-scoring">
+        <div class="page-header">
+          <div>
+            <h2>Lead Scoring</h2>
+            <p class="subtitle">ICP-based scoring — prioritize your best-fit prospects</p>
+          </div>
+          <button id="btn-refresh-scores" class="btn btn-primary" onclick="loadScoring(true)">🔄 Refresh Scores</button>
+        </div>
+
+        <div class="stats-grid" id="scoring-stats"></div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🏆 Top Leads by Score</div>
+          </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Country</th>
+                  <th>Industry</th>
+                  <th>Score</th>
+                  <th>Grade</th>
+                  <th>Recommendation</th>
+                  <th style="min-width: 250px;">Detailed Reason</th>
+                </tr>
+              </thead>
+              <tbody id="scoring-table-body">
+                <tr>
+                  <td colspan="7" class="text-center" style="padding:40px;color:var(--text-muted)">Click "Refresh
+                    Scores" to analyze leads</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ CATALOG PAGE ══════ -->
+      <section class="page-section" id="page-catalog">
+        <div class="page-header">
+          <div>
+            <h2>Product Catalog</h2>
+            <p class="subtitle">Neo Eco Cleaning product range for B2B buyers</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="saveCatalog('markdown')">📄 Export Markdown</button>
+            <button class="btn btn-primary" onclick="saveCatalog('html')">🌐 Export HTML</button>
+          </div>
+        </div>
+        <div class="card">
+          <div id="catalog-content"
+            style="white-space:pre-wrap;font-size:0.875rem;line-height:1.8;color:var(--text-secondary);">
+            Loading catalog...
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════ CASE STUDIES PAGE ══════ -->
+      <section class="page-section" id="page-case-studies">
+        <div class="page-header">
+          <div>
+            <h2>Case Studies</h2>
+            <p class="subtitle">B2B success stories for prospect outreach</p>
+          </div>
+        </div>
+        <div id="case-studies-list"></div>
+      </section>
+
+      <!-- ══════ CONTENT CALENDAR PAGE ══════ -->
+      <section class="page-section" id="page-calendar">
+        <div class="page-header">
+          <div>
+            <h2>Content Calendar</h2>
+            <p class="subtitle">Monthly B2B content planning</p>
+          </div>
+          <select class="form-select" id="calendar-month" onchange="loadCalendar()" style="width:auto;">
+            <option value="">This Month</option>
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="August">August</option>
+            <option value="September">September</option>
+            <option value="October">October</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+          </select>
+        </div>
+        <div class="card">
+          <div id="calendar-content">Loading calendar...</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Modal container -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-content" onclick="event.stopPropagation()">
+    </div>
+  </div>
+
+  <script src="/static/app.js?v=2.1"></script>
+</body>
+
+</html>

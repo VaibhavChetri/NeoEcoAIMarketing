@@ -1,0 +1,12 @@
+# Neo Eco Cleaning — AI Marketing Dashboard
+.env
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+data/leads.json
+output/
+*.db
+.venv/
+venv/
+node_modules/
