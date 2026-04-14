@@ -19,11 +19,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # SMTP Config
-SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+SMTP_HOST = os.environ.get("SMTP_HOST", "smtppro.zoho.in")
 SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
 SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
-SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "priyanka.singh@neoecocleaning.co.uk")
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "hello@neoecocleaning.co.uk")
 SENDER_NAME = os.environ.get("SENDER_NAME", "Neo Eco Cleaning")
 
 MAX_PER_DAY = int(os.environ.get("MAX_EMAILS_PER_DAY", "30"))
@@ -133,7 +133,7 @@ def _build_html_email(
     <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;">
       Professional Eco-Friendly Cleaning · North London<br/>
       📞 +44 (0) 77680 66860<br/>
-      📧 priyanka.singh@neoecocleaning.co.uk<br/>
+      📧 hello@neoecocleaning.co.uk<br/>
       🌐 <a href="https://neoecocleaning.co.uk" style="color:#059669;text-decoration:none;">neoecocleaning.co.uk</a>
     </p>
   </td></tr>

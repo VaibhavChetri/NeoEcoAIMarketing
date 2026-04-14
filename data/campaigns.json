@@ -13,9 +13,9 @@
     "stats": {
       "total_leads": 0,
       "emails_generated": 0,
-      "emails_sent": 4,
+      "emails_sent": 5,
       "emails_opened": 0,
-      "replies": 0,
+      "replies": 1,
       "bounces": 0,
       "opt_outs": 0,
       "meetings_booked": 0

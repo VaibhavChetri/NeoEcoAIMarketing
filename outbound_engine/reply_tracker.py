@@ -24,9 +24,10 @@ load_dotenv(BASE_DIR / ".env")
 
 DATA_DIR = BASE_DIR / "data"
 REPLIES_FILE = DATA_DIR / "replies.json"
+SEND_LOG_DIR = BASE_DIR / "output" / "send_logs"
 
 # IMAP Configuration
-IMAP_HOST = os.environ.get("IMAP_HOST", "imap.gmail.com")
+IMAP_HOST = os.environ.get("IMAP_HOST", "imappro.zoho.in")
 IMAP_PORT = int(os.environ.get("IMAP_PORT", "993"))
 IMAP_USERNAME = os.environ.get("IMAP_USERNAME", os.environ.get("SMTP_USERNAME", ""))
 IMAP_PASSWORD = os.environ.get("IMAP_PASSWORD", os.environ.get("SMTP_PASSWORD", ""))
@@ -133,8 +134,30 @@ def _strip_quoted_reply(text: str) -> str:
     return result
 
 
+def _get_sent_recipients() -> set:
+    """Build a set of email addresses we've actually sent to from the CRM.
+    Only considers successfully sent emails (status='sent')."""
+    sent_emails = set()
+    if not SEND_LOG_DIR.exists():
+        return sent_emails
+
+    for log_file in SEND_LOG_DIR.glob("*.json"):
+        try:
+            with open(log_file, "r") as f:
+                logs = json.load(f)
+                for entry in logs:
+                    if entry.get("status") == "sent":
+                        to_email = entry.get("to_email", "").lower().strip()
+                        if to_email:
+                            sent_emails.add(to_email)
+        except (json.JSONDecodeError, IOError):
+            continue
+
+    return sent_emails
+
+
 def scan_inbox(days: int = None) -> Dict:
-    """Connect to IMAP, scan inbox for replies, match to leads."""
+    """Connect to IMAP, scan inbox for replies from CRM-sent recipients only."""
     if days is None:
         days = SCAN_DAYS
 
@@ -143,6 +166,17 @@ def scan_inbox(days: int = None) -> Dict:
             "error": "IMAP credentials not configured. Add IMAP_USERNAME and IMAP_PASSWORD to .env",
             "new_replies": 0,
             "replies": [],
+        }
+
+    # Only track replies from people we've actually emailed via the CRM
+    sent_recipients = _get_sent_recipients()
+    if not sent_recipients:
+        return {
+            "new_replies": 0,
+            "total_replies": len(_load_replies()),
+            "replies": [],
+            "scanned_emails": 0,
+            "info": "No sent emails found in CRM logs. Send emails first to start tracking replies.",
         }
 
     existing_replies = _load_replies()
@@ -155,7 +189,8 @@ def scan_inbox(days: int = None) -> Dict:
     for lead in all_leads:
         for contact in lead.get("contacts", []):
             email_addr = contact.get("email", "").lower().strip()
-            if email_addr:
+            # Only include contacts we've actually sent emails to
+            if email_addr and email_addr in sent_recipients:
                 email_to_lead[email_addr] = {
                     "lead_id": lead["id"],
                     "company_name": lead["company_name"],
@@ -181,6 +216,7 @@ def scan_inbox(days: int = None) -> Dict:
 
         msg_ids = messages[0].split()
         print(f"📧 Found {len(msg_ids)} emails in the last {days} days")
+        print(f"🎯 Filtering for replies from {len(sent_recipients)} CRM-sent recipient(s)")
 
         scanned = 0
         for msg_id in msg_ids:
