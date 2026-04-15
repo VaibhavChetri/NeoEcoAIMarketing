@@ -4,8 +4,6 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
-data/leads.json
-output/
 *.db
 .venv/
 venv/

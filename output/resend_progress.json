@@ -1,0 +1,26 @@
+{
+  "sent": [],
+  "errors": [
+    {
+      "email": "jessica@jpropertymanagement.co.uk",
+      "error": "(550, '5.4.6 Unusual sending activity detected. Please try after sometime. <a href=https://www.zoho.com/mail/help/usage-policy.html target=_blank>Learn more.</a>')",
+      "time": "2026-04-15T13:48:06.310430"
+    },
+    {
+      "email": "arshi@grange.london",
+      "error": "(550, '5.4.6 Unusual sending activity detected. Please try after sometime. <a href=https://www.zoho.com/mail/help/usage-policy.html target=_blank>Learn more.</a>')",
+      "time": "2026-04-15T13:49:37.278907"
+    },
+    {
+      "email": "jayne@brixlondon.com",
+      "error": "(550, '5.4.6 Unusual sending activity detected. Please try after sometime. <a href=https://www.zoho.com/mail/help/usage-policy.html target=_blank>Learn more.</a>')",
+      "time": "2026-04-15T13:51:08.093148"
+    },
+    {
+      "email": "jessica@jpropertymanagement.co.uk",
+      "error": "(550, '5.4.6 Unusual sending activity detected. Please try after sometime. <a href=https://www.zoho.com/mail/help/usage-policy.html target=_blank>Learn more.</a>')",
+      "time": "2026-04-15T14:07:41.977128"
+    }
+  ],
+  "pending_from_index": 0
+}

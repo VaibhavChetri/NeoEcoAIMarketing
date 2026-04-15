@@ -1,0 +1,819 @@
+[
+  {
+    "id": "c98faabc",
+    "company_name": "Estate Management London Limited",
+    "website": "http://www.jpropertymanagement.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 7930 9333",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Jessica",
+        "email": "jessica@jpropertymanagement.co.uk",
+        "title": "Founder",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303157",
+    "updated_at": "2026-04-15T13:22:01.303164"
+  },
+  {
+    "id": "4fbf58fc",
+    "company_name": "Grange London Limited",
+    "website": "http://www.grange.london/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3019 6150",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Arshi Mohid",
+        "email": "arshi@grange.london",
+        "title": "Head of property management",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "replied",
+    "score": 0,
+    "tags": [],
+    "notes": [
+      {
+        "text": "Auto-detected reply from arshi@grange.london: Automatic reply: Grange London Limited — Eco-Friendly Block Cleaning for Your Properties",
+        "timestamp": "2026-04-15T16:35:04.341042",
+        "stage_change": "replied"
+      }
+    ],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303182",
+    "updated_at": "2026-04-15T16:35:04.341036"
+  },
+  {
+    "id": "9fe73771",
+    "company_name": "Brix London",
+    "website": "http://brixlondon.com/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3355 3668",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Jayne Newman",
+        "email": "jayne@brixlondon.com",
+        "title": "Office and Operations Lead",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303200",
+    "updated_at": "2026-04-15T13:22:01.303202"
+  },
+  {
+    "id": "9e083db8",
+    "company_name": "Premier London Property Limited",
+    "website": "http://www.premierlondonproperty.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 7793 217076",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Filip Kalik",
+        "email": "filip@premierlondonproperty.co.uk",
+        "title": "Assistant Project Manager",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303215",
+    "updated_at": "2026-04-15T13:22:01.303216"
+  },
+  {
+    "id": "966d2375",
+    "company_name": "F and Co Property Group",
+    "website": "https://fandcoproperty.com/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8783 3929",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "team@fandcoproperty.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303229",
+    "updated_at": "2026-04-15T13:22:01.303231"
+  },
+  {
+    "id": "6f0186f5",
+    "company_name": "Double Eleven Management ltd",
+    "website": "https://www.doubleeleven.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 7724 9199",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Hussam",
+        "email": "hussam@doubleelevenmanagement.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303243",
+    "updated_at": "2026-04-15T13:22:01.303245"
+  },
+  {
+    "id": "1cd50672",
+    "company_name": "Unico Property Management Ltd",
+    "website": "https://www.mbrpropertymanagement.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3005 3474",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@mbrpropertymanagement.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303257",
+    "updated_at": "2026-04-15T13:22:01.303259"
+  },
+  {
+    "id": "236291c2",
+    "company_name": "ION Property Management",
+    "website": "https://unicoproperty.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8381 4401",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@unicoproperty.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303271",
+    "updated_at": "2026-04-15T13:22:01.303272"
+  },
+  {
+    "id": "ea5d57c4",
+    "company_name": "Home World Management Ltd",
+    "website": "https://homeworldmanagement.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8740 3788",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "enquiries@homeworldmanagement.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303285",
+    "updated_at": "2026-04-15T13:22:01.303286"
+  },
+  {
+    "id": "68f7d8ac",
+    "company_name": "Kensington Property Management",
+    "website": "https://www.kensingtonpropertymanagement.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "nan",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "kensingtonproperty2000@gmail.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303299",
+    "updated_at": "2026-04-15T13:22:01.303300"
+  },
+  {
+    "id": "dff79e11",
+    "company_name": "MIH Property Management Ltd",
+    "website": "https://www.mihproperty.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3637 7968",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "abbe@mihproperty.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303312",
+    "updated_at": "2026-04-15T13:22:01.303314"
+  },
+  {
+    "id": "675e939d",
+    "company_name": "Ringley Limited",
+    "website": "http://www.ringley.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 7267 2900",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Andrew",
+        "email": "andrew.selwyn@ringley.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303329",
+    "updated_at": "2026-04-15T13:22:01.303331"
+  },
+  {
+    "id": "b7935b33",
+    "company_name": "Hartswood Lettings & Property Management",
+    "website": "http://www.hartswoodproperty.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8994 8400",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@hartswoodproperty.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303343",
+    "updated_at": "2026-04-15T13:22:01.303344"
+  },
+  {
+    "id": "1bb6770f",
+    "company_name": "Gore Property Management",
+    "website": "https://www.gorepropertymanagement.com/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 7378 214260",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@gorepropertymanagement.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303356",
+    "updated_at": "2026-04-15T13:22:01.303357"
+  },
+  {
+    "id": "88acb264",
+    "company_name": "Diako property management Ltd",
+    "website": "http://www.diakoproperty.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 7507 910606",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@diakoproperty.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303370",
+    "updated_at": "2026-04-15T13:22:01.303371"
+  },
+  {
+    "id": "184a3a72",
+    "company_name": "Andrews Kingsbury",
+    "website": "https://www.andrewsonline.co.uk/about/offices/kingsbury",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8204 2277",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "hello@andrewsonline.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303383",
+    "updated_at": "2026-04-15T13:22:01.303384"
+  },
+  {
+    "id": "5116e6c2",
+    "company_name": "KMP Solutions Limited",
+    "website": "http://www.kmpsolutions.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8371 9171",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@kmpsolutions.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303396",
+    "updated_at": "2026-04-15T13:22:01.303398"
+  },
+  {
+    "id": "94e56064",
+    "company_name": "Trust Property Management",
+    "website": "https://www.trustpremier.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8358 6565",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@trustplc.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303410",
+    "updated_at": "2026-04-15T13:22:01.303411"
+  },
+  {
+    "id": "6c0a8c53",
+    "company_name": "Living London Property Management",
+    "website": "https://livinglondon.com/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 7101 4422",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "hello@livinglondon.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303423",
+    "updated_at": "2026-04-15T13:22:01.303424"
+  },
+  {
+    "id": "98d39134",
+    "company_name": "Lionsgate Property Management",
+    "website": "http://lionsgate-property.com/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3053 6704",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "admin@lionsgate-property.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303436",
+    "updated_at": "2026-04-15T13:22:01.303438"
+  },
+  {
+    "id": "a2eec2da",
+    "company_name": "Crosbie Property Services",
+    "website": "https://crosbiepropertyservices.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3137 3419",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Joshua",
+        "email": "joshua@crosbies.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303450",
+    "updated_at": "2026-04-15T13:22:01.303451"
+  },
+  {
+    "id": "8ff2e991",
+    "company_name": "Imperial Dragon Property Management",
+    "website": "http://www.imperialdragonproperty.com/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 7096 0964",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Sarah",
+        "email": "sarah@imperialdragonproperty.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303463",
+    "updated_at": "2026-04-15T13:22:01.303465"
+  },
+  {
+    "id": "29af3761",
+    "company_name": "Acorn Properties",
+    "website": "http://www.acornproperties.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8200 5554",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@acornproperties.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303477",
+    "updated_at": "2026-04-15T13:22:01.303478"
+  },
+  {
+    "id": "6772a28a",
+    "company_name": "The Property Shop",
+    "website": "http://www.thepropertyshopltd.co.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 8951 1888",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@thepropertyshopltd.co.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303490",
+    "updated_at": "2026-04-15T13:22:01.303492"
+  },
+  {
+    "id": "dd1e2c17",
+    "company_name": "Imperial Properties",
+    "website": "https://imperialproperties.uk/",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "Property Management",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "+44 20 3150 4009",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "nan",
+        "email": "info@imperialproperties.uk",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "new",
+    "score": 0,
+    "tags": [],
+    "notes": [],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303503",
+    "updated_at": "2026-04-15T13:22:01.303505"
+  },
+  {
+    "id": "cd478122",
+    "company_name": "Radlabs Technologies",
+    "website": "https://radlabs.tech/",
+    "about": "",
+    "country": "Inda",
+    "industry": "IT",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "nan",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "pratik",
+        "email": "pratik@radlabs.tech",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "replied",
+    "score": 0,
+    "tags": [],
+    "notes": [
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Eco-Friendly Cleaning for RadLabs' Innovative Space",
+        "timestamp": "2026-04-15T13:25:16.009321",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+        "timestamp": "2026-04-15T13:30:17.266923",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+        "timestamp": "2026-04-15T16:26:50.853952",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Eco-Friendly Cleaning for RadLabs in North London",
+        "timestamp": "2026-04-15T16:35:03.984311",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Quick follow-up: Eco-friendly cleaning for Radlabs Technologies",
+        "timestamp": "2026-04-15T16:40:03.141497",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Eco-Friendly Cleaning for Your North London Properties",
+        "timestamp": "2026-04-15T17:46:08.307926",
+        "stage_change": "replied"
+      }
+    ],
+    "campaigns": [],
+    "created_at": "2026-04-15T13:22:01.303517",
+    "updated_at": "2026-04-15T17:46:08.307913"
+  }
+]
