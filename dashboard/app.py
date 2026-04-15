@@ -12,7 +12,9 @@ import io
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
+from contextlib import asynccontextmanager
 
+import httpx
 from fastapi import FastAPI, Request, Query, UploadFile, File, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, Response
@@ -25,10 +27,41 @@ sys.path.insert(0, str(BASE_DIR))
 
 load_dotenv(BASE_DIR / ".env", override=True)
 
+KEEP_ALIVE_URL = "https://neoecoaimarketing.onrender.com/health"
+KEEP_ALIVE_INTERVAL = 14 * 60  # 14 minutes in seconds
+
+
+async def _keep_alive_pinger():
+    """Ping /health every 14 minutes to prevent Render free-tier spin-down."""
+    async with httpx.AsyncClient(timeout=30) as client:
+        while True:
+            await asyncio.sleep(KEEP_ALIVE_INTERVAL)
+            try:
+                resp = await client.get(KEEP_ALIVE_URL)
+                print(f"[keep-alive] pinged {KEEP_ALIVE_URL} → {resp.status_code}")
+            except Exception as e:
+                print(f"[keep-alive] ping failed: {e}")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Manage background tasks on startup/shutdown."""
+    # Start background tasks
+    keep_alive_task = asyncio.create_task(_keep_alive_pinger())
+    reply_scanner_task = asyncio.create_task(_background_reply_scanner())
+    print("[startup] Background tasks started (keep-alive + reply scanner)")
+    yield
+    # Cancel background tasks on shutdown
+    keep_alive_task.cancel()
+    reply_scanner_task.cancel()
+    print("[shutdown] Background tasks cancelled")
+
+
 app = FastAPI(
     title="Neo Eco Cleaning — AI Marketing Dashboard",
     description="B2C/B2B Outbound Engine for Eco-Friendly Cleaning Services",
     version="2.0.0",
+    lifespan=lifespan,
 )
 
 # Serve static files
@@ -60,6 +93,12 @@ async def serve_dashboard():
     if index_file.exists():
         return HTMLResponse(content=index_file.read_text(encoding="utf-8"))
     return HTMLResponse(content="<h1>Dashboard loading...</h1>")
+
+
+# ─── Health Check (keep-alive target for Render) ─────────────
+@app.get("/health")
+async def health_check():
+    return {"status": "ok"}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -718,11 +757,6 @@ async def _background_reply_scanner():
             await asyncio.to_thread(scan_inbox)
         except Exception as e:
             print(f"Background scan error: {e}")
-
-
-@app.on_event("startup")
-async def startup_event():
-    asyncio.create_task(_background_reply_scanner())
 
 
 # ═══════════════════════════════════════════════════════════════
