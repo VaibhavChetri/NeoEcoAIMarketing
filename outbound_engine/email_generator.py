@@ -189,7 +189,7 @@ CRITICAL PERSONALIZATION RULES:
 MANDATORY EMAIL STRUCTURE (follow this order EXACTLY):
 
 SECTION 1 — PERSONALIZED GREETING (1-2 sentences):
-Open with "Hi {contact_name}," and a sentence referencing something specific about their company from the Company Description.
+If "{contact_name}" is empty, open with just "Hi," (no name). Otherwise open with "Hi {contact_name},". Follow with a sentence referencing something specific about their company from the Company Description.
 
 SECTION 2 — INTRODUCTION + FIT (2-3 sentences):
 Introduce using "we are at Neo Eco Cleaning" (NOT "I'm [Name] from Neo Eco Cleaning" — NEVER use personal name introductions). Explain why we are a great fit for their specific needs.
@@ -283,9 +283,26 @@ def generate_email(
     if lead.get("contacts"):
         contact = lead["contacts"][0]
 
-    # Use only first name for personalization
-    full_name = contact.get("name", "there") or "there"
-    first_name = full_name.split()[0] if full_name and full_name != "there" else "there"
+    # Generic / non-personal email prefixes — no individual's name available
+    GENERIC_EMAIL_PREFIXES = {
+        "hello", "contact", "contacts", "sales", "info", "support", "admin",
+        "office", "enquiries", "enquiry", "team", "mail", "general",
+        "accounts", "billing", "reception", "help", "service", "services",
+        "bookings", "booking", "management", "operations", "hr", "jobs",
+        "marketing", "media", "press", "feedback", "complaints", "noreply",
+        "no-reply", "postmaster", "webmaster",
+    }
+
+    # Determine if we have a real person's name
+    full_name = contact.get("name", "") or ""
+    first_name = full_name.split()[0].strip() if full_name.strip() else ""
+
+    # Check if the email prefix is generic (not a person's name)
+    contact_email = contact.get("email", "") or ""
+    email_prefix = contact_email.split("@")[0].lower().strip() if "@" in contact_email else ""
+
+    if not first_name or first_name.lower() == "there" or email_prefix in GENERIC_EMAIL_PREFIXES:
+        first_name = ""
 
     # Build service recommendations based on the company's profile
     products = _load_products()
@@ -495,7 +512,7 @@ def _generate_from_template(config: Dict, context: Dict, email_type: str) -> Dic
     templates = {
         "cold_outreach": {
             "subject": f"{context['company_name']} — Eco-Friendly Block Cleaning for Your Properties",
-            "body": f"""Hi {context['contact_name']},
+            "body": f"""Hi{(' ' + context['contact_name']) if context['contact_name'] else ''},
 
 I came across {context['company_name']} and was impressed by your presence in the {context['country']} property management market.
 
@@ -521,7 +538,7 @@ Would a free, no-obligation site survey work this week? We can assess your requi
         },
         "follow_up_case_study": {
             "subject": f"How Rendall & Rittner reduced tenant complaints by 90% — could we help {context['company_name']}?",
-            "body": f"""Hi {context['contact_name']},
+            "body": f"""Hi{(' ' + context['contact_name']) if context['contact_name'] else ''},
 
 Following up on my previous note. I wanted to share a quick result:
 
@@ -531,7 +548,7 @@ Would love to discuss how we could achieve similar results for {context['company
         },
         "follow_up_quote": {
             "subject": f"Free site survey for {context['company_name']} — no strings attached",
-            "body": f"""Hi {context['contact_name']},
+            "body": f"""Hi{(' ' + context['contact_name']) if context['contact_name'] else ''},
 
 I know you're busy, so I'll keep this brief.
 
@@ -542,8 +559,8 @@ Our Quality Guarantee means if you're ever unhappy, we resolve it at no extra co
 Interested? Just reply and we'll arrange a convenient time.""",
         },
         "breakup": {
-            "subject": f"Should I close your file, {context['contact_name']}?",
-            "body": f"""Hi {context['contact_name']},
+            "subject": f"Should I close your file{(', ' + context['contact_name']) if context['contact_name'] else ''}?",
+            "body": f"""Hi{(' ' + context['contact_name']) if context['contact_name'] else ''},
 
 I've reached out a few times and haven't heard back, which I completely understand — timing is everything.
 
