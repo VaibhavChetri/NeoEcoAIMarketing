@@ -1576,6 +1576,9 @@ async function loadCampaigns() {
   } catch (e) {
     console.error('Campaigns error:', e);
   }
+
+  // Also load bounced leads section
+  loadBouncedLeads();
 }
 
 async function syncCampaignStats(silent = false) {
@@ -1646,6 +1649,68 @@ async function createCampaign() {
     loadCampaigns();
   } catch (e) {
     showToast('❌ Failed to create campaign', 'error');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  BOUNCED LEADS
+// ═══════════════════════════════════════════════════════════════
+
+async function loadBouncedLeads() {
+  try {
+    const res = await fetch(`${API}/api/bounced`);
+    const data = await res.json();
+    const bounced = data.bounced || [];
+    const tbody = document.getElementById('bounced-table-body');
+
+    // Show/hide action buttons
+    const dlBtn = document.getElementById('btn-download-bounced');
+    const clrBtn = document.getElementById('btn-clear-bounced');
+    if (dlBtn) dlBtn.style.display = bounced.length ? '' : 'none';
+    if (clrBtn) clrBtn.style.display = bounced.length ? '' : 'none';
+
+    if (!bounced.length) {
+      tbody.innerHTML = `<tr><td colspan="6">
+        <div class="empty-state">
+          <div class="empty-icon">✅</div>
+          <h3>No bounced emails</h3>
+          <p>All emails delivered successfully</p>
+        </div>
+      </td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = bounced.map(b => {
+      const dt = b.timestamp ? new Date(b.timestamp) : null;
+      const dateStr = dt ? dt.toLocaleString() : '-';
+      return `
+        <tr>
+          <td style="font-weight:600;color:var(--text-heading);">${escHtml(b.company_name)}</td>
+          <td>${escHtml(b.person)}</td>
+          <td style="color:var(--accent-blue);font-size:0.85rem;">${escHtml(b.to_email)}</td>
+          <td>${escHtml(b.country)}</td>
+          <td style="font-size:0.8rem;color:var(--text-muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escHtml(b.error)}">${escHtml(b.error)}</td>
+          <td style="font-size:0.8rem;color:var(--text-muted);white-space:nowrap;">${dateStr}</td>
+        </tr>`;
+    }).join('');
+  } catch (e) {
+    console.error('Bounced leads error:', e);
+  }
+}
+
+function downloadBouncedCSV() {
+  window.open(`${API}/api/bounced/csv`, '_blank');
+}
+
+async function confirmClearBounced() {
+  if (!confirm('Are you sure you want to clear all bounced lead entries? This cannot be undone.')) return;
+  try {
+    const res = await fetch(`${API}/api/bounced`, { method: 'DELETE' });
+    const data = await res.json();
+    showToast(`✅ ${data.message}`, 'success');
+    loadBouncedLeads();
+  } catch (e) {
+    showToast('❌ Failed to clear bounced', 'error');
   }
 }
 

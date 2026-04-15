@@ -165,22 +165,25 @@ Founded: {founded}
 
 === NEO ECO CLEANING DIFFERENTIATORS ===
 Many property managers face challenges with unreliable cleaning contractors, inconsistent standards, and the use of harsh chemicals in shared residential spaces. We solve all three:
-- 100% eco-friendly cleaning products — no toxic chemicals
-- Ex-Hilton Hotel trained staff — 5-star cleaning standards
+- 100% eco-friendly cleaning products — no toxic chemicals in shared spaces
+- Ex-Hilton Hotel trained staff — hospitality-grade cleaning standards
 - Quality Guarantee — all complaints resolved at no additional cost
-- Trusted by Rendall & Rittner (Property Manager of the Year 2024) and MVN Block Management
-- North London specialists with dedicated local teams
+- Trusted by Rendall & Rittner (Property Manager of the Year 2024), MVN Block Management and many estate agents
 
 CRITICAL PERSONALIZATION RULES:
 1. You MUST read the Company Description above carefully and reference SPECIFIC details about their company (e.g., their property portfolio, areas they cover, types of properties they manage).
 2. Based on the Company Description, identify which of our services are MOST RELEVANT to what this company needs. For example, if they manage residential blocks, recommend block cleaning. If they are estate agents, recommend end-of-tenancy cleaning.
-3. List 2-3 of our most relevant services as BULLET POINTS. Each bullet MUST be on its own line with a BLANK LINE between bullets. Each bullet should include: service name, key benefit, and pricing indicator. Use this EXACT format:
+3. List 3-5 of our most relevant services as BULLET POINTS. Each bullet should include: service name and pricing indicator. Use this EXACT format:
 
-• Block & Communal Cleaning — weekly scheduled cleans from £150/month, includes stairwells, lobbies, and bin rooms
+Block & Communal Cleaning — weekly scheduled cleans from £150/month, includes stairwells, lobbies, and bin rooms.
 
-• End of Tenancy Cleaning — from £180/property, 24-hour turnaround, meets letting agent standards
+End of Tenancy Cleaning — from £180/property, 24-hour turnaround, meets letting agent standards
 
-• Pressure Washing — from £250/session, eco-friendly external cleaning for car parks and pathways
+Professional Carpet Cleaning — from £200 onwards
+
+Jetwashing/ Pressure Washing — from £100 onwards
+
+Gutter Cleaning — from £200 onwards
 
 4. If they manage residential blocks, highlight our Rendall & Rittner and MVN Block Management references.
 5. If they are estate agents or letting agents, emphasise our end-of-tenancy service.
@@ -191,26 +194,27 @@ MANDATORY EMAIL STRUCTURE (follow this order EXACTLY):
 SECTION 1 — PERSONALIZED GREETING (1-2 sentences):
 If "{contact_name}" is empty, open with just "Hi," (no name). Otherwise open with "Hi {contact_name},". Follow with a sentence referencing something specific about their company from the Company Description.
 
-SECTION 2 — INTRODUCTION + FIT (2-3 sentences):
-Introduce using "we are at Neo Eco Cleaning" (NOT "I'm [Name] from Neo Eco Cleaning" — NEVER use personal name introductions). Explain why we are a great fit for their specific needs.
+SECTION 2 — COMPANY DIFFERENTIATORS (include this section EXACTLY as written):
+Many property managers face challenges with unreliable cleaning contractors, inconsistent standards, and the use of harsh chemicals in shared residential spaces. At Neo Eco Cleaning, we solve all three:
 
-SECTION 3 — COMPANY DIFFERENTIATORS (include this paragraph):
-Include a paragraph mentioning that many property managers face challenges with unreliable contractors, inconsistent cleaning standards, and harsh chemicals, and that we solve these with:
-• 100% eco-friendly products — no toxic chemicals in shared spaces
+• 100% eco-friendly cleaning products — no toxic chemicals in shared spaces
+
 • Ex-Hilton Hotel trained staff — hospitality-grade cleaning standards
-• Quality Guarantee — complaints resolved at no additional cost
-• Trusted by Rendall & Rittner (Property Manager of the Year 2024)
 
-SECTION 4 — SERVICE RECOMMENDATIONS (2-3 bullet points):
-Based on what the company manages, recommend 2-3 relevant services from our catalog. Format each as a bullet point with service name, key benefit, and pricing. Put a BLANK LINE between each bullet point.
+• Quality Guarantee — all complaints resolved at no additional cost
 
-SECTION 5 — MANDATORY CLOSING (copy this VERBATIM — do NOT change a single word):
+• Trusted by Rendall & Rittner (Property Manager of the Year 2024), MVN Block Management and many estate agents.
+
+SECTION 3 — SERVICE RECOMMENDATIONS (3-5 services):
+Start with: "Based on your portfolio, we think these services could be particularly relevant:"
+Then list the relevant services. Put each service on its own line.
+
+SECTION 4 — MANDATORY CLOSING (copy this VERBATIM — do NOT change a single word):
 We work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.
 
 Would a free, no-obligation site survey work this week? We can assess your requirements and provide a tailored quote — completely free.
 
 CRITICAL FORMATTING RULES:
-- The email MUST be 250-350 words. Do NOT write less than 250 words.
 - Write COMPLETE sentences — NEVER cut off mid-sentence. If you run out of space, finish the sentence.
 - Put a blank line between each paragraph and between each bullet point.
 - Use plain English. NO special characters, NO unicode symbols, NO emojis.
@@ -226,12 +230,22 @@ We sent them a cold email a few days ago and haven't heard back.
 Company info: {about}
 Area: {country}
 
-This email should:
-- Briefly reference the previous email (don't repeat it)
-- Share a relevant case study: Rendall & Rittner (Property Manager of the Year 2024) hired us for block cleaning and saw 90% reduction in tenant complaints
-- Keep it shorter than the first email (under 120 words)
-- Include a specific number or result to build credibility
-- End with a low-pressure CTA (free site survey)
+This email should follow this EXACT structure:
+
+SECTION 1 — GREETING:
+If "{contact_name}" is empty, open with just "Hi," (no name). Otherwise open with "Hi {contact_name},".
+
+SECTION 2 — BODY (use this EXACT content, replacing only the company name):
+Following up on my previous note. I wanted to share a quick result:
+
+Rendall & Rittner (Property Manager of the Year 2024) came to us after their previous cleaning contractor was inconsistent and generating tenant complaints. Since switching to Neo Eco Cleaning, they've seen a 90% reduction in cleaning-related complaints and zero missed scheduled cleans in 12 months.
+
+Would love to discuss how we could achieve similar results for {company_name}. Shall I arrange a free site survey?
+
+CRITICAL RULES:
+- Keep it very short — under 120 words
+- Do NOT include any sign-off like "Best regards" or "Warm regards"
+- End after the "free site survey?" line
 
 Return a JSON object with:
 {{"subject": "email subject line", "body": "email body text (plain text, no HTML)"}}""",
@@ -242,11 +256,13 @@ Company info: {about}
 Area: {country}
 
 This email should:
+- If "{contact_name}" is empty, open with just "Hi," (no name). Otherwise open with "Hi {contact_name},".
 - Acknowledge they're busy
 - Offer something tangible: a FREE no-obligation site survey and quote
 - Mention that our Quality Guarantee means zero risk
 - Keep it very short (under 100 words)
 - Make it easy to say yes
+- Do NOT include any sign-off like "Best regards" or "Warm regards"
 
 Return a JSON object with:
 {{"subject": "email subject line", "body": "email body text (plain text, no HTML)"}}""",
@@ -256,12 +272,28 @@ This is our 4th and final email — they haven't responded to 3 previous emails.
 Company info: {about}
 Area: {country}
 
-This email should:
-- Be very brief (under 80 words)
-- Politely ask permission to close their file
-- Leave the door open for future contact
-- Use mild reverse psychology ("if now's not the right time...")
-- Include our email (priyanka.singh@neoecocleaning.co.uk) for when they're ready
+This email should follow this EXACT structure:
+
+SECTION 1 — GREETING:
+If "{contact_name}" is empty, open with just "Hi," (no name). Otherwise open with "Hi {contact_name},".
+
+SECTION 2 — BODY (use this EXACT content, replacing only the company name):
+I've reached out a few times and haven't heard back, which I completely understand — timing is everything.
+
+I don't want to be a bother, so I'll close your file for now.
+
+If cleaning ever becomes a priority — whether it's finding a more reliable block cleaning contractor, switching to eco-friendly products, or needing a deep clean — my inbox is always open at hello@neoecocleaning.co.uk.
+
+We work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.
+
+Would a free, no-obligation site survey work this week? We can assess your requirements and provide a tailored quote — completely free.
+
+Wishing {company_name} continued success.
+
+CRITICAL RULES:
+- Be very brief (under 100 words)
+- Do NOT include any sign-off like "Best regards" or "Warm regards"
+- End after the "continued success" line
 
 Return a JSON object with:
 {{"subject": "email subject line", "body": "email body text (plain text, no HTML)"}}""",
@@ -471,9 +503,9 @@ Use escaped newlines (\\n) inside string values. Example format:
         if not result:
             raise ValueError(f"Could not parse Gemini response as JSON: {content[:300]}")
 
-        # Post-processing: ensure the mandatory closing is always present
+        # Post-processing: ensure the mandatory closing is always present (skip for breakup emails)
         body = result.get("body", "")
-        if "completely free" not in body.lower():
+        if email_type != "breakup" and "completely free" not in body.lower():
             # The mandatory closing was cut off — append it
             body = body.rstrip()
             # Clean up any incomplete sentence at the end
@@ -514,8 +546,6 @@ def _generate_from_template(config: Dict, context: Dict, email_type: str) -> Dic
             "subject": f"{context['company_name']} — Eco-Friendly Block Cleaning for Your Properties",
             "body": f"""Hi{(' ' + context['contact_name']) if context['contact_name'] else ''},
 
-I came across {context['company_name']} and was impressed by your presence in the {context['country']} property management market.
-
 Many property managers face challenges with unreliable cleaning contractors, inconsistent standards, and the use of harsh chemicals in shared residential spaces. At Neo Eco Cleaning, we solve all three:
 
 • 100% eco-friendly cleaning products — no toxic chemicals in shared spaces
@@ -524,13 +554,19 @@ Many property managers face challenges with unreliable cleaning contractors, inc
 
 • Quality Guarantee — all complaints resolved at no additional cost
 
-• Trusted by Rendall & Rittner (Property Manager of the Year 2024) and MVN Block Management
+• Trusted by Rendall & Rittner (Property Manager of the Year 2024), MVN Block Management and many estate agents.
 
 Based on your portfolio, we think these services could be particularly relevant:
 
-• Block & Communal Cleaning — weekly scheduled cleans from £150/month, includes stairwells, lobbies, and bin rooms
+Block & Communal Cleaning — weekly scheduled cleans from £150/month, includes stairwells, lobbies, and bin rooms.
 
-• End of Tenancy Cleaning — from £180/property, 24-hour turnaround, meets letting agent standards
+End of Tenancy Cleaning — from £180/property, 24-hour turnaround, meets letting agent standards
+
+Professional Carpet Cleaning - from £200 onwards
+
+Jetwashing/ Pressure Washing - from £100 onwards
+
+Gutter Cleaning - from £200 onwards
 
 We work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.
 
@@ -566,7 +602,11 @@ I've reached out a few times and haven't heard back, which I completely understa
 
 I don't want to be a bother, so I'll close your file for now.
 
-If cleaning ever becomes a priority — whether it's finding a more reliable block cleaning contractor, switching to eco-friendly products, or needing a deep clean — my inbox is always open at priyanka.singh@neoecocleaning.co.uk.
+If cleaning ever becomes a priority — whether it's finding a more reliable block cleaning contractor, switching to eco-friendly products, or needing a deep clean — my inbox is always open at hello@neoecocleaning.co.uk.
+
+We work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.
+
+Would a free, no-obligation site survey work this week? We can assess your requirements and provide a tailored quote — completely free.
 
 Wishing {context['company_name']} continued success.""",
         },

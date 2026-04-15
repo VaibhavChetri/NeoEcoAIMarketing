@@ -826,6 +826,118 @@ async def api_score_lead(lead_id: str):
 
 
 # ═══════════════════════════════════════════════════════════════
+#  BOUNCED LEADS API
+# ═══════════════════════════════════════════════════════════════
+
+def _get_bounced_leads() -> list:
+    """Scan all send logs for error/bounced entries and return enriched records."""
+    send_log_dir = BASE_DIR / "output" / "send_logs"
+    bounced = []
+    if not send_log_dir.exists():
+        return bounced
+
+    for log_file in sorted(send_log_dir.glob("*.json"), reverse=True):
+        try:
+            with open(log_file, "r", encoding="utf-8") as f:
+                logs = json.load(f)
+            for entry in logs:
+                if entry.get("status") in ("error", "bounced"):
+                    # Try to find the lead for company/contact info
+                    lead_id = entry.get("lead_id", "")
+                    company_name = ""
+                    person = ""
+                    country = ""
+                    all_emails = entry.get("to_email", "")
+
+                    # Try to get lead info from leads or bin
+                    try:
+                        from outbound_engine.lead_manager import get_lead, _load_bin
+                        lead = get_lead(lead_id)
+                        if not lead:
+                            bin_leads = _load_bin()
+                            lead = next((l for l in bin_leads if l["id"] == lead_id), None)
+                        if lead:
+                            company_name = lead.get("company_name", "")
+                            country = lead.get("country", "")
+                            contacts = lead.get("contacts", [])
+                            if contacts:
+                                person = contacts[0].get("name", "Not found")
+                                all_emails = ", ".join(c.get("email", "") for c in contacts if c.get("email"))
+                    except Exception:
+                        pass
+
+                    bounced.append({
+                        "lead_id": lead_id,
+                        "company_name": company_name or "-",
+                        "person": person or "Not found",
+                        "to_email": all_emails,
+                        "country": country or "-",
+                        "error": entry.get("error", "Unknown error"),
+                        "timestamp": entry.get("timestamp", ""),
+                        "send_id": entry.get("send_id", ""),
+                    })
+        except Exception:
+            pass
+
+    return bounced
+
+
+@app.get("/api/bounced")
+async def api_get_bounced():
+    """Get all bounced/error email entries."""
+    bounced = _get_bounced_leads()
+    return {"bounced": bounced, "count": len(bounced)}
+
+
+@app.get("/api/bounced/csv")
+async def api_download_bounced_csv():
+    """Download bounced leads as CSV in the same format as the upload template."""
+    bounced = _get_bounced_leads()
+    if not bounced:
+        return JSONResponse(status_code=404, content={"error": "No bounced leads to export"})
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["Company Name", "Person", "Email", "Country", "Bounce Reason", "Bounced At"])
+    for b in bounced:
+        writer.writerow([
+            b["company_name"],
+            b["person"],
+            b["to_email"],
+            b["country"],
+            b["error"],
+            b["timestamp"],
+        ])
+
+    csv_content = output.getvalue()
+    return Response(
+        content=csv_content,
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=bounced_leads.csv"},
+    )
+
+
+@app.delete("/api/bounced")
+async def api_clear_bounced():
+    """Remove all bounced/error entries from send logs."""
+    send_log_dir = BASE_DIR / "output" / "send_logs"
+    cleared = 0
+    if send_log_dir.exists():
+        for log_file in send_log_dir.glob("*.json"):
+            try:
+                with open(log_file, "r", encoding="utf-8") as f:
+                    logs = json.load(f)
+                original_len = len(logs)
+                logs = [l for l in logs if l.get("status") not in ("error", "bounced")]
+                cleared += original_len - len(logs)
+                with open(log_file, "w", encoding="utf-8") as f:
+                    json.dump(logs, f, indent=2, default=str)
+            except Exception:
+                pass
+    return {"success": True, "cleared": cleared, "message": f"Cleared {cleared} bounced entries"}
+
+
+# ═══════════════════════════════════════════════════════════════
 #  BIN / TRASH API
 # ═══════════════════════════════════════════════════════════════
 

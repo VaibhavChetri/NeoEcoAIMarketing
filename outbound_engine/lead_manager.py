@@ -330,20 +330,107 @@ def restore_from_bin(lead_id: str) -> bool:
     return True
 
 
+def _cascade_delete_lead_data(lead_id: str, lead: Dict = None):
+    """Remove all traces of a lead from every data store in the system."""
+    # Collect the lead's email addresses for matching send logs and opens
+    lead_emails = set()
+    if lead:
+        for c in lead.get("contacts", []):
+            email = c.get("email", "").strip().lower()
+            if email:
+                lead_emails.add(email)
+
+    # 1. Generated emails (bulk email queue)
+    gen_file = BASE_DIR / "output" / "generated_emails.json"
+    if gen_file.exists():
+        try:
+            with open(gen_file, "r", encoding="utf-8") as f:
+                gen_emails = json.load(f)
+            gen_emails = [e for e in gen_emails if e.get("lead_id") != lead_id]
+            with open(gen_file, "w", encoding="utf-8") as f:
+                json.dump(gen_emails, f, indent=2, ensure_ascii=False, default=str)
+        except Exception:
+            pass
+
+    # 2. Send logs — remove entries and collect their send_ids for open tracking cleanup
+    deleted_send_ids = set()
+    send_log_dir = BASE_DIR / "output" / "send_logs"
+    if send_log_dir.exists():
+        for log_file in send_log_dir.glob("*.json"):
+            try:
+                with open(log_file, "r", encoding="utf-8") as f:
+                    logs = json.load(f)
+                kept = []
+                for entry in logs:
+                    if entry.get("lead_id") == lead_id or entry.get("to_email", "").lower() in lead_emails:
+                        deleted_send_ids.add(entry.get("send_id", ""))
+                    else:
+                        kept.append(entry)
+                with open(log_file, "w", encoding="utf-8") as f:
+                    json.dump(kept, f, indent=2, default=str)
+            except Exception:
+                pass
+
+    # 3. Email opens — remove opens matching deleted send_ids
+    opens_file = DATA_DIR / "email_opens.json"
+    if opens_file.exists() and deleted_send_ids:
+        try:
+            with open(opens_file, "r", encoding="utf-8") as f:
+                opens = json.load(f)
+            opens = [o for o in opens if o.get("send_id") not in deleted_send_ids]
+            with open(opens_file, "w", encoding="utf-8") as f:
+                json.dump(opens, f, indent=2)
+        except Exception:
+            pass
+
+    # 4. Replies
+    replies_file = DATA_DIR / "replies.json"
+    if replies_file.exists():
+        try:
+            with open(replies_file, "r", encoding="utf-8") as f:
+                replies = json.load(f)
+            replies = [r for r in replies if r.get("lead_id") != lead_id]
+            with open(replies_file, "w", encoding="utf-8") as f:
+                json.dump(replies, f, indent=2, ensure_ascii=False, default=str)
+        except Exception:
+            pass
+
+    # 5. Sales pipeline deals
+    pipeline_file = DATA_DIR / "pipeline.json"
+    if pipeline_file.exists():
+        try:
+            with open(pipeline_file, "r", encoding="utf-8") as f:
+                pipeline = json.load(f)
+            pipeline = [d for d in pipeline if d.get("lead_id") != lead_id]
+            with open(pipeline_file, "w", encoding="utf-8") as f:
+                json.dump(pipeline, f, indent=2, default=str)
+        except Exception:
+            pass
+
+
 def permanent_delete(lead_id: str) -> bool:
-    """Permanently delete a lead from the bin."""
+    """Permanently delete a lead from the bin and cascade-remove all related data."""
     bin_leads = _load_bin()
-    remaining = [l for l in bin_leads if l["id"] != lead_id]
-    if len(remaining) == len(bin_leads):
+    target = None
+    remaining = []
+    for l in bin_leads:
+        if l["id"] == lead_id:
+            target = l
+        else:
+            remaining.append(l)
+    if not target:
         return False
     _save_bin(remaining)
+    _cascade_delete_lead_data(lead_id, target)
     return True
 
 
 def empty_bin() -> int:
-    """Permanently delete ALL leads in the bin. Returns count deleted."""
+    """Permanently delete ALL leads in the bin and cascade-remove all related data. Returns count deleted."""
     bin_leads = _load_bin()
     count = len(bin_leads)
+    for lead in bin_leads:
+        _cascade_delete_lead_data(lead["id"], lead)
     _save_bin([])
     return count
 

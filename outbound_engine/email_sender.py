@@ -132,7 +132,8 @@ def _build_html_email(
     <p style="margin:0 0 4px 0;font-size:13px;color:#374151;font-weight:600;">Neo Eco Cleaning Team</p>
     <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;">
       Professional Eco-Friendly Cleaning · North London<br/>
-      📞 +44 (0) 77680 66860<br/>
+      📞 077680 66860 (whatsapp)<br/>
+      📞 07438885267 (phone)<br/>
       📧 hello@neoecocleaning.co.uk<br/>
       🌐 <a href="https://neoecocleaning.co.uk" style="color:#059669;text-decoration:none;">neoecocleaning.co.uk</a>
     </p>
@@ -195,6 +196,7 @@ async def send_email_async(
             "status": "dry_run",
             "to_email": to_email,
             "subject": subject,
+            "body": body,
             "send_id": send_id,
             "lead_id": lead_id,
             "campaign_id": campaign_id,
@@ -247,6 +249,7 @@ async def send_email_async(
             "status": "sent",
             "to_email": to_email,
             "subject": subject,
+            "body": body,
             "send_id": send_id,
             "lead_id": lead_id,
             "campaign_id": campaign_id,
@@ -260,6 +263,8 @@ async def send_email_async(
         result = {
             "status": "error",
             "to_email": to_email,
+            "subject": subject,
+            "body": body,
             "error": str(e),
             "send_id": send_id,
             "lead_id": lead_id,
