@@ -156,8 +156,72 @@ def _get_sent_recipients() -> set:
     return sent_emails
 
 
+def _update_send_log_to_bounced(bounced_email: str, error_reason: str):
+    """Update a send log entry from 'sent' to 'bounced' when we detect a bounce notification."""
+    if not SEND_LOG_DIR.exists():
+        return False
+
+    bounced_email = bounced_email.lower().strip()
+    updated = False
+
+    for log_file in SEND_LOG_DIR.glob("*.json"):
+        try:
+            with open(log_file, "r", encoding="utf-8") as f:
+                logs = json.load(f)
+
+            for entry in logs:
+                if (entry.get("status") == "sent" and
+                    entry.get("to_email", "").lower().strip() == bounced_email):
+                    entry["status"] = "bounced"
+                    entry["error"] = error_reason
+                    entry["bounced_at"] = datetime.now().isoformat()
+                    updated = True
+
+            if updated:
+                with open(log_file, "w", encoding="utf-8") as f:
+                    json.dump(logs, f, indent=2, ensure_ascii=False, default=str)
+                return True
+        except Exception:
+            continue
+
+    return updated
+
+
+def _extract_bounced_email(body: str) -> Optional[str]:
+    """Extract the bounced recipient email address from a bounce notification body."""
+    if not body:
+        return None
+
+    # Pattern 1: "Final-Recipient: rfc822; user@domain.com"
+    match = re.search(r'Final-Recipient:\s*rfc822;\s*(\S+@\S+)', body)
+    if match:
+        return match.group(1).strip().rstrip(',').rstrip('>')
+
+    # Pattern 2: "user@domain.com, ERROR CODE" (Zoho format)
+    match = re.search(r'(\S+@\S+),\s*ERROR CODE', body)
+    if match:
+        return match.group(1).strip()
+
+    # Pattern 3: "Original-Recipient: rfc822; user@domain.com"
+    match = re.search(r'Original-Recipient:\s*rfc822;\s*(\S+@\S+)', body)
+    if match:
+        return match.group(1).strip().rstrip(',').rstrip('>')
+
+    # Pattern 4: "could not be delivered to" or "delivery to" followed by email
+    match = re.search(r'(?:delivered to|delivery to|deliver to)\s+<?(\S+@\S+?)>?[\s,.]', body, re.IGNORECASE)
+    if match:
+        return match.group(1).strip()
+
+    # Pattern 5: Generic email pattern after "550" or "5.4" error codes
+    match = re.search(r'<(\S+@\S+?)>\s*.*?(?:550|5\.\d\.\d)', body)
+    if match:
+        return match.group(1).strip()
+
+    return None
+
+
 def scan_inbox(days: int = None) -> Dict:
-    """Connect to IMAP, scan inbox for replies from CRM-sent recipients only."""
+    """Connect to IMAP, scan inbox for replies and bounce notifications."""
     if days is None:
         days = SCAN_DAYS
 
@@ -199,7 +263,17 @@ def scan_inbox(days: int = None) -> Dict:
                 }
 
     new_replies = []
+    new_bounces = []
     errors = []
+    # Track already-processed bounce message IDs to avoid duplicates
+    BOUNCES_FILE = DATA_DIR / "detected_bounces.json"
+    processed_bounce_ids = set()
+    if BOUNCES_FILE.exists():
+        try:
+            with open(BOUNCES_FILE, "r") as f:
+                processed_bounce_ids = set(json.load(f))
+        except Exception:
+            pass
 
     try:
         print(f"📬 Connecting to {IMAP_HOST}:{IMAP_PORT}...")
@@ -235,7 +309,47 @@ def scan_inbox(days: int = None) -> Dict:
                 from_header = _decode_header_value(header_msg.get("From", ""))
                 from_name, from_email_addr = parseaddr(from_header)
                 from_email_addr = from_email_addr.lower().strip()
+                subject = _decode_header_value(header_msg.get("Subject", ""))
 
+                # ─── BOUNCE DETECTION ───
+                is_bounce = (
+                    "mailer-daemon" in from_email_addr or
+                    "postmaster" in from_email_addr or
+                    "undelivered" in subject.lower() or
+                    "delivery status" in subject.lower() or
+                    "mail delivery failed" in subject.lower() or
+                    "returned to sender" in subject.lower() or
+                    "undeliverable" in subject.lower()
+                )
+
+                if is_bounce and message_id not in processed_bounce_ids:
+                    # Fetch full body to extract bounced email address
+                    try:
+                        status2, body_data = mail.fetch(msg_id, "(RFC822)")
+                        if status2 == "OK" and body_data[0][1]:
+                            full_msg = email.message_from_bytes(body_data[0][1])
+                            body = _extract_body(full_msg)
+                            bounced_email = _extract_bounced_email(body)
+
+                            if bounced_email and bounced_email.lower() in sent_recipients:
+                                # Extract error reason
+                                error_reason = "Bounced — delivery failed"
+                                error_match = re.search(r'(ERROR CODE[^\n]+|Diagnostic-Code:[^\n]+|Status:\s*\d[^\n]+)', body)
+                                if error_match:
+                                    error_reason = error_match.group(1).strip()
+
+                                # Update send log from "sent" to "bounced"
+                                was_updated = _update_send_log_to_bounced(bounced_email, error_reason)
+                                if was_updated:
+                                    new_bounces.append(bounced_email)
+                                    print(f"  📛 BOUNCE detected: {bounced_email} — {error_reason[:60]}")
+
+                                processed_bounce_ids.add(message_id)
+                    except Exception as e:
+                        errors.append(f"Error processing bounce: {str(e)}")
+                    continue
+
+                # ─── REPLY DETECTION (existing logic) ───
                 if from_email_addr == SENDER_EMAIL.lower():
                     continue
 
@@ -243,7 +357,6 @@ def scan_inbox(days: int = None) -> Dict:
                     continue
 
                 lead_info = email_to_lead[from_email_addr]
-                subject = _decode_header_value(header_msg.get("Subject", ""))
                 in_reply_to = header_msg.get("In-Reply-To", "")
                 references = header_msg.get("References", "")
                 
@@ -320,10 +433,28 @@ def scan_inbox(days: int = None) -> Dict:
         all_replies = new_replies + existing_replies
         _save_replies(all_replies)
 
+    # Save processed bounce IDs to avoid re-processing
+    if new_bounces:
+        try:
+            DATA_DIR.mkdir(parents=True, exist_ok=True)
+            with open(BOUNCES_FILE, "w") as f:
+                json.dump(list(processed_bounce_ids), f, indent=2)
+        except Exception:
+            pass
+
+        # Sync campaign stats to reflect new bounces
+        try:
+            from outbound_engine.campaign_tracker import sync_stats_from_logs
+            sync_stats_from_logs()
+        except Exception:
+            pass
+
     return {
         "new_replies": len(new_replies),
         "total_replies": len(existing_replies) + len(new_replies),
         "replies": new_replies,
+        "new_bounces": len(new_bounces),
+        "bounced_emails": new_bounces,
         "scanned_emails": len(msg_ids) if 'msg_ids' in dir() else 0,
         "errors": errors if errors else None,
     }

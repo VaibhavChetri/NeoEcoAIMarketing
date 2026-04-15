@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "id": "reply_20260415164003_0",
+    "message_id": "<PN0P287MB04454A46A4CB968BF9EB3E5DB0222@PN0P287MB0445.INDP287.PROD.OUTLOOK.COM>",
+    "from_email": "pratik@radlabs.tech",
+    "from_name": "Pratik Bhattacharjee",
+    "lead_id": "cd478122",
+    "company_name": "Radlabs Technologies",
+    "subject": "Re: Quick follow-up: Eco-friendly cleaning for Radlabs Technologies",
+    "body_preview": "Not required, dont text again",
+    "received_at": "2026-04-15T11:09:41+00:00",
+    "scanned_at": "2026-04-15T16:40:03.140531",
+    "read": true,
+    "sentiment": "neutral"
+  },
+  {
+    "id": "reply_20260415163503_0",
+    "message_id": "<MAZP287MB0440C2E1F75254A4FD2C6723B0262@MAZP287MB0440.INDP287.PROD.OUTLOOK.COM>",
+    "from_email": "pratik@radlabs.tech",
+    "from_name": "Pratik Bhattacharjee",
+    "lead_id": "cd478122",
+    "company_name": "Radlabs Technologies",
+    "subject": "Re: Eco-Friendly Cleaning for RadLabs in North London",
+    "body_preview": "Okay",
+    "received_at": "2026-04-11T05:24:56+00:00",
+    "scanned_at": "2026-04-15T16:35:03.983826",
+    "read": true,
+    "sentiment": "neutral"
+  },
+  {
+    "id": "reply_20260415163504_1",
+    "message_id": "<6d46f4ee34324ed98871d305902829b4@LO4P123MB5317.GBRP123.PROD.OUTLOOK.COM>",
+    "from_email": "arshi@grange.london",
+    "from_name": "Arshi Mohid",
+    "lead_id": "4fbf58fc",
+    "company_name": "Grange London Limited",
+    "subject": "Automatic reply: Grange London Limited — Eco-Friendly Block Cleaning for Your Properties",
+    "body_preview": "Thank you for your email. Please note that Arshi is no longer with Grange London. During this transition period, Deborah will be assisting with the management of this portfolio and will respond to your query as soon as possible. If your matter is urgent and out of hours, please contact Deborah on 07471 115472 or Deborah@grange.london For any maintenance queries, please log any non-emergency jobs via your property file.",
+    "received_at": "2026-04-15T10:41:47+00:00",
+    "scanned_at": "2026-04-15T16:35:04.340436",
+    "read": true,
+    "sentiment": "neutral"
+  },
+  {
+    "id": "reply_20260415162650_0",
+    "message_id": "<PN0P287MB0445C35D22D3DEF498A6B505B0222@PN0P287MB0445.INDP287.PROD.OUTLOOK.COM>",
+    "from_email": "pratik@radlabs.tech",
+    "from_name": "Pratik Bhattacharjee",
+    "lead_id": "cd478122",
+    "company_name": "Radlabs Technologies",
+    "subject": "Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+    "body_preview": "Testing Get Outlook for Android<https://aka.ms/AAb9ysg>",
+    "received_at": "2026-04-15T10:54:56+00:00",
+    "scanned_at": "2026-04-15T16:26:50.853150",
+    "read": true,
+    "sentiment": "neutral"
+  },
+  {
+    "id": "reply_20260415133017_0",
+    "message_id": "<PN0P287MB0445D6DB2182571CA37B1C8CB0222@PN0P287MB0445.INDP287.PROD.OUTLOOK.COM>",
+    "from_email": "pratik@radlabs.tech",
+    "from_name": "Pratik Bhattacharjee",
+    "lead_id": "cd478122",
+    "company_name": "Radlabs Technologies",
+    "subject": "Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+    "body_preview": "Great !",
+    "received_at": "2026-04-15T07:56:17+00:00",
+    "scanned_at": "2026-04-15T13:30:17.264818",
+    "read": true,
+    "sentiment": "positive"
+  },
+  {
+    "id": "reply_20260415132516_0",
+    "message_id": "<MAZP287MB044097AE64DF2697AD3E85F3B0252@MAZP287MB0440.INDP287.PROD.OUTLOOK.COM>",
+    "from_email": "pratik@radlabs.tech",
+    "from_name": "Pratik Bhattacharjee",
+    "lead_id": "cd478122",
+    "company_name": "Radlabs Technologies",
+    "subject": "Re: Eco-Friendly Cleaning for RadLabs' Innovative Space",
+    "body_preview": "Okay bro",
+    "received_at": "2026-04-14T12:47:24+00:00",
+    "scanned_at": "2026-04-15T13:25:16.008949",
+    "read": true,
+    "sentiment": "neutral"
+  }
+]

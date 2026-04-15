@@ -162,6 +162,9 @@ async def send_email_async(
     if dry_run is None:
         dry_run = DRY_RUN
 
+    # Sanitize email address — strip whitespace and trailing commas
+    to_email = to_email.strip().rstrip(",").strip()
+
     send_id = str(uuid.uuid4())[:12]
 
     # Check daily limit
@@ -206,73 +209,91 @@ async def send_email_async(
         _log_send(result)
         return result
 
-    # Actual SMTP send
-    try:
-        import aiosmtplib
-        from email.mime.multipart import MIMEMultipart
-        from email.mime.text import MIMEText
-        from email.mime.image import MIMEImage
+    # Actual SMTP send with retry for Zoho rate limiting
+    max_retries = 3
+    retry_delay = DELAY_SECONDS * 2  # Start with 2x the normal delay
 
-        msg_root = MIMEMultipart("related")
-        msg_root["From"] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
-        msg_root["To"] = to_email
-        msg_root["Subject"] = subject
-        msg_root["X-Send-ID"] = send_id
+    for attempt in range(max_retries + 1):
+        try:
+            import aiosmtplib
+            from email.mime.multipart import MIMEMultipart
+            from email.mime.text import MIMEText
+            from email.mime.image import MIMEImage
 
-        msg_alt = MIMEMultipart("alternative")
-        msg_root.attach(msg_alt)
+            msg_root = MIMEMultipart("related")
+            msg_root["From"] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
+            msg_root["To"] = to_email
+            msg_root["Subject"] = subject
+            msg_root["X-Send-ID"] = send_id
 
-        # Plain text fallback
-        msg_alt.attach(MIMEText(body, "plain", "utf-8"))
-        # HTML version
-        msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
+            msg_alt = MIMEMultipart("alternative")
+            msg_root.attach(msg_alt)
 
-        logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
-        if logo_path.exists():
-            with open(logo_path, "rb") as f:
-                img_part = MIMEImage(f.read(), _subtype='jpeg')
-                img_part.add_header('Content-ID', '<logo_image>')
-                img_part.add_header('Content-Disposition', 'inline')
-                msg_root.attach(img_part)
+            # Plain text fallback
+            msg_alt.attach(MIMEText(body, "plain", "utf-8"))
+            # HTML version
+            msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
 
-        await aiosmtplib.send(
-            msg_root,
-            hostname=SMTP_HOST,
-            port=SMTP_PORT,
-            username=SMTP_USERNAME,
-            password=SMTP_PASSWORD,
-            use_tls=(SMTP_PORT == 465),
-            start_tls=(SMTP_PORT != 465),
-        )
+            logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
+            if logo_path.exists():
+                with open(logo_path, "rb") as f:
+                    img_part = MIMEImage(f.read(), _subtype='jpeg')
+                    img_part.add_header('Content-ID', '<logo_image>')
+                    img_part.add_header('Content-Disposition', 'inline')
+                    msg_root.attach(img_part)
 
-        result = {
-            "status": "sent",
-            "to_email": to_email,
-            "subject": subject,
-            "body": body,
-            "send_id": send_id,
-            "lead_id": lead_id,
-            "campaign_id": campaign_id,
-            "is_bulk": is_bulk,
-            "timestamp": datetime.now().isoformat(),
-        }
-        _log_send(result)
-        return result
+            await aiosmtplib.send(
+                msg_root,
+                hostname=SMTP_HOST,
+                port=SMTP_PORT,
+                username=SMTP_USERNAME,
+                password=SMTP_PASSWORD,
+                use_tls=(SMTP_PORT == 465),
+                start_tls=(SMTP_PORT != 465),
+            )
 
-    except Exception as e:
-        result = {
-            "status": "error",
-            "to_email": to_email,
-            "subject": subject,
-            "body": body,
-            "error": str(e),
-            "send_id": send_id,
-            "lead_id": lead_id,
-            "campaign_id": campaign_id,
-            "timestamp": datetime.now().isoformat(),
-        }
-        _log_send(result)
-        return result
+            result = {
+                "status": "sent",
+                "to_email": to_email,
+                "subject": subject,
+                "body": body,
+                "send_id": send_id,
+                "lead_id": lead_id,
+                "campaign_id": campaign_id,
+                "is_bulk": is_bulk,
+                "timestamp": datetime.now().isoformat(),
+            }
+            if attempt > 0:
+                result["retries"] = attempt
+            _log_send(result)
+            return result
+
+        except Exception as e:
+            error_str = str(e)
+            is_rate_limit = "5.4.6" in error_str or "Unusual sending activity" in error_str
+
+            # Retry on Zoho rate limiting, but not on other errors
+            if is_rate_limit and attempt < max_retries:
+                wait_time = retry_delay * (2 ** attempt)  # Exponential backoff
+                print(f"    ⏳ Zoho rate limit hit for {to_email}, retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})...")
+                await asyncio.sleep(wait_time)
+                continue
+
+            result = {
+                "status": "error",
+                "to_email": to_email,
+                "subject": subject,
+                "body": body,
+                "error": error_str,
+                "send_id": send_id,
+                "lead_id": lead_id,
+                "campaign_id": campaign_id,
+                "timestamp": datetime.now().isoformat(),
+            }
+            if attempt > 0:
+                result["retries"] = attempt
+            _log_send(result)
+            return result
 
 
 def send_email_sync(

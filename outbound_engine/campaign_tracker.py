@@ -298,10 +298,8 @@ def sync_stats_from_logs() -> Dict:
             to_email = log.get("to_email", "").lower()
             if to_email and to_email in reply_emails:
                 total_replied += 1
-        elif status == "bounced":
+        elif status in ("bounced", "error"):
             total_bounced += 1
-        elif status == "error":
-            total_errors += 1
 
     # --- Update campaign stats if campaigns exist ---
     campaigns = _load_campaigns()
@@ -309,7 +307,7 @@ def sync_stats_from_logs() -> Dict:
         campaign_id = campaign.get("id", "")
         campaign_logs = [l for l in all_logs if l.get("campaign_id") == campaign_id]
         campaign_sent = sum(1 for l in campaign_logs if l.get("status") == "sent")
-        campaign_bounced = sum(1 for l in campaign_logs if l.get("status") == "bounced")
+        campaign_bounced = sum(1 for l in campaign_logs if l.get("status") in ("bounced", "error"))
 
         campaign_send_ids = {l.get("send_id") for l in campaign_logs if l.get("send_id")}
         campaign_opened = sum(1 for sid in campaign_send_ids if sid in opened_send_ids)

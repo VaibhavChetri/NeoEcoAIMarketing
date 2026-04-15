@@ -526,7 +526,7 @@ async def api_send_campaign(request: Request):
 @app.post("/api/emails/send-all")
 async def api_send_all_emails(request: Request):
     """Send all previously generated emails."""
-    from outbound_engine.email_sender import send_email_async, DRY_RUN
+    from outbound_engine.email_sender import send_email_async, DRY_RUN, DELAY_SECONDS
 
     try:
         body = await request.json()
@@ -573,6 +573,10 @@ async def api_send_all_emails(request: Request):
             "email": to_email,
             **result,
         })
+
+        # Rate limiting — wait between sends to avoid Zoho throttling
+        if i < len(emails) - 1 and not DRY_RUN:
+            await asyncio.sleep(DELAY_SECONDS)
 
     results["dry_run_mode"] = DRY_RUN
     results["total_processed"] = len(emails)
