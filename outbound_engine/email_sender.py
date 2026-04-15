@@ -209,49 +209,85 @@ async def send_email_async(
         _log_send(result)
         return result
 
-    # Actual SMTP send with retry for Zoho rate limiting
+    # Check if using Resend API or falling back to SMTP
+    api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
+    api_key = os.environ.get("EMAIL_API_KEY", "")
+
+    # Clean up CID images for REST APIs, use public URL instead if possible
+    html_body_api = html_body.replace(
+        "cid:logo_image", 
+        f"{TRACKING_BASE_URL}/static/logo.jpeg"
+    )
+
     max_retries = 3
-    retry_delay = DELAY_SECONDS * 2  # Start with 2x the normal delay
+    retry_delay = DELAY_SECONDS * 2  
 
     for attempt in range(max_retries + 1):
         try:
-            import aiosmtplib
-            from email.mime.multipart import MIMEMultipart
-            from email.mime.text import MIMEText
-            from email.mime.image import MIMEImage
+            if api_provider == "resend" and api_key:
+                import aiohttp
+                
+                payload = {
+                    "from": f"{SENDER_NAME} <{SENDER_EMAIL}>",
+                    "to": [to_email],
+                    "subject": subject,
+                    "html": html_body_api,
+                    "text": body,
+                    "headers": {
+                        "X-Send-ID": send_id
+                    }
+                }
 
-            msg_root = MIMEMultipart("related")
-            msg_root["From"] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
-            msg_root["To"] = to_email
-            msg_root["Subject"] = subject
-            msg_root["X-Send-ID"] = send_id
+                async with aiohttp.ClientSession() as session:
+                    async with session.post(
+                        "https://api.resend.com/emails",
+                        json=payload,
+                        headers={
+                            "Authorization": f"Bearer {api_key}",
+                            "Content-Type": "application/json"
+                        }
+                    ) as response:
+                        response_data = await response.text()
+                        if response.status >= 400:
+                            raise Exception(f"Resend API Error {response.status}: {response_data}")
+            else:
+                # Original SMTP Fallback
+                import aiosmtplib
+                from email.mime.multipart import MIMEMultipart
+                from email.mime.text import MIMEText
+                from email.mime.image import MIMEImage
 
-            msg_alt = MIMEMultipart("alternative")
-            msg_root.attach(msg_alt)
+                msg_root = MIMEMultipart("related")
+                msg_root["From"] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
+                msg_root["To"] = to_email
+                msg_root["Subject"] = subject
+                msg_root["X-Send-ID"] = send_id
 
-            # Plain text fallback
-            msg_alt.attach(MIMEText(body, "plain", "utf-8"))
-            # HTML version
-            msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
+                msg_alt = MIMEMultipart("alternative")
+                msg_root.attach(msg_alt)
 
-            logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
-            if logo_path.exists():
-                with open(logo_path, "rb") as f:
-                    img_part = MIMEImage(f.read(), _subtype='jpeg')
-                    img_part.add_header('Content-ID', '<logo_image>')
-                    img_part.add_header('Content-Disposition', 'inline')
-                    msg_root.attach(img_part)
+                msg_alt.attach(MIMEText(body, "plain", "utf-8"))
+                msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
 
-            await aiosmtplib.send(
-                msg_root,
-                hostname=SMTP_HOST,
-                port=SMTP_PORT,
-                username=SMTP_USERNAME,
-                password=SMTP_PASSWORD,
-                use_tls=(SMTP_PORT == 465),
-                start_tls=(SMTP_PORT != 465),
-            )
+                logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
+                if logo_path.exists():
+                    with open(logo_path, "rb") as f:
+                        img_part = MIMEImage(f.read(), _subtype='jpeg')
+                        img_part.add_header('Content-ID', '<logo_image>')
+                        img_part.add_header('Content-Disposition', 'inline')
+                        msg_root.attach(img_part)
 
+                await aiosmtplib.send(
+                    msg_root,
+                    hostname=SMTP_HOST,
+                    port=SMTP_PORT,
+                    username=SMTP_USERNAME,
+                    password=SMTP_PASSWORD,
+                    use_tls=(SMTP_PORT == 465),
+                    start_tls=(SMTP_PORT != 465),
+                )
+
+            # Success
             result = {
                 "status": "sent",
                 "to_email": to_email,
@@ -270,12 +306,11 @@ async def send_email_async(
 
         except Exception as e:
             error_str = str(e)
-            is_rate_limit = "5.4.6" in error_str or "Unusual sending activity" in error_str
+            is_rate_limit = "429" in error_str or "Too Many Requests" in error_str or "5.4.6" in error_str
 
-            # Retry on Zoho rate limiting, but not on other errors
             if is_rate_limit and attempt < max_retries:
-                wait_time = retry_delay * (2 ** attempt)  # Exponential backoff
-                print(f"    ⏳ Zoho rate limit hit for {to_email}, retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})...")
+                wait_time = retry_delay * (2 ** attempt)
+                print(f"    ⏳ Rate limit hit for {to_email}, retrying in {wait_time}s (attempt {attempt + 1}/{max_retries})...")
                 await asyncio.sleep(wait_time)
                 continue
 
