@@ -278,15 +278,28 @@ def sync_stats_from_logs() -> Dict:
 
     reply_emails = {r.get("from_email", "").lower() for r in replies}
 
-    # --- Compute global stats ---
+    # --- Deduplicate send logs by send_id ---
+    # Multiple retries or resends can create duplicate entries for the same email.
+    # We keep only the first occurrence of each send_id to avoid inflated counts.
+    seen_send_ids = set()
+    unique_logs = []
+    for log in all_logs:
+        send_id = log.get("send_id", "")
+        if send_id and send_id in seen_send_ids:
+            continue  # Skip duplicate
+        if send_id:
+            seen_send_ids.add(send_id)
+        unique_logs.append(log)
+
+    # --- Compute global stats from deduplicated logs ---
     total_sent = 0
     total_bulk_sent = 0
     total_bounced = 0
     total_errors = 0
     total_opened = 0
-    total_replied = 0
+    replied_to_emails = set()  # Track unique email addresses that replied
 
-    for log in all_logs:
+    for log in unique_logs:
         status = log.get("status", "")
         if status == "sent":
             total_sent += 1
@@ -297,15 +310,18 @@ def sync_stats_from_logs() -> Dict:
                 total_opened += 1
             to_email = log.get("to_email", "").lower()
             if to_email and to_email in reply_emails:
-                total_replied += 1
+                replied_to_emails.add(to_email)
         elif status in ("bounced", "error"):
             total_bounced += 1
+
+    # Use actual reply count from replies.json as source of truth
+    total_replied = len(replies)
 
     # --- Update campaign stats if campaigns exist ---
     campaigns = _load_campaigns()
     for campaign in campaigns:
         campaign_id = campaign.get("id", "")
-        campaign_logs = [l for l in all_logs if l.get("campaign_id") == campaign_id]
+        campaign_logs = [l for l in unique_logs if l.get("campaign_id") == campaign_id]
         campaign_sent = sum(1 for l in campaign_logs if l.get("status") == "sent")
         campaign_bounced = sum(1 for l in campaign_logs if l.get("status") in ("bounced", "error"))
 
@@ -327,7 +343,7 @@ def sync_stats_from_logs() -> Dict:
 
     return {
         "synced": True,
-        "total_logs": len(all_logs),
+        "total_logs": len(unique_logs),
         "total_sent": total_sent,
         "total_bulk_sent": total_bulk_sent,
         "total_bounced": total_bounced,

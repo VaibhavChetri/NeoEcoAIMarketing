@@ -241,11 +241,21 @@ async def api_sent_mails():
                     all_logs.extend(day_logs)
             except Exception:
                 pass
+    # Deduplicate by send_id (retries/resends create duplicate entries)
+    seen_send_ids = set()
+    unique_logs = []
+    for log in all_logs:
+        send_id = log.get("send_id", "")
+        if send_id and send_id in seen_send_ids:
+            continue
+        if send_id:
+            seen_send_ids.add(send_id)
+        unique_logs.append(log)
     # Sort by timestamp descending (newest first)
-    all_logs.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+    unique_logs.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
     return {
-        "sent_mails": all_logs,
-        "total": len(all_logs),
+        "sent_mails": unique_logs,
+        "total": len(unique_logs),
     }
 
 
