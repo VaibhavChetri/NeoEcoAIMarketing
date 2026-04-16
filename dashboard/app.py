@@ -9,6 +9,7 @@ import sys
 import json
 import csv
 import io
+import os
 from pathlib import Path
 from datetime import datetime
 from typing import Optional
@@ -250,39 +251,38 @@ async def api_sent_mails():
     
     if api_provider == "resend" and api_key:
         try:
-            import aiohttp
-            async with aiohttp.ClientSession() as session:
-                async with session.get(
+            async with httpx.AsyncClient() as client:
+                response = await client.get(
                     "https://api.resend.com/emails",
                     headers={
                         "Authorization": f"Bearer {api_key}",
                         "Content-Type": "application/json"
                     }
-                ) as response:
-                    if response.status == 200:
-                        resend_data = await response.json()
-                        for email in resend_data.get("data", []):
-                            # Resend structure -> Dashboard structure
-                            # A resend email has id, to (list), subject, created_at, last_event
-                            resend_id = email.get("id")
-                            status = email.get("last_event", "sent")
-                            if status in ["delivered", "sent"]:
-                                status = "sent"
-                            elif status in ["bounced"]:
-                                status = "bounced"
-                                
-                            to_list = email.get("to", [])
-                            to_email = to_list[0] if to_list else ""
+                )
+                if response.status_code == 200:
+                    resend_data = response.json()
+                    for email in resend_data.get("data", []):
+                        # Resend structure -> Dashboard structure
+                        # A resend email has id, to (list), subject, created_at, last_event
+                        resend_id = email.get("id")
+                        status = email.get("last_event", "sent")
+                        if status in ["delivered", "sent"]:
+                            status = "sent"
+                        elif status in ["bounced"]:
+                            status = "bounced"
                             
-                            all_logs.append({
-                                "status": status,
-                                "to_email": to_email,
-                                "subject": email.get("subject", ""),
-                                "body": "Body fetched from Resend. Cannot view full body via Resend List API.",
-                                "send_id": resend_id,
-                                "is_bulk": False, # Fallback
-                                "timestamp": email.get("created_at", "")
-                            })
+                        to_list = email.get("to", [])
+                        to_email = to_list[0] if to_list else ""
+                        
+                        all_logs.append({
+                            "status": status,
+                            "to_email": to_email,
+                            "subject": email.get("subject", ""),
+                            "body": "Body fetched from Resend. Cannot view full body via Resend List API.",
+                            "send_id": resend_id,
+                            "is_bulk": False, # Fallback
+                            "timestamp": email.get("created_at", "")
+                        })
         except Exception as e:
             print(f"Error fetching from Resend API: {e}")
 
