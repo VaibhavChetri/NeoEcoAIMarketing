@@ -232,17 +232,9 @@ def scan_inbox(days: int = None) -> Dict:
             "replies": [],
         }
 
-    # Only track replies from people we've actually emailed via the CRM
-    sent_recipients = _get_sent_recipients()
-    if not sent_recipients:
-        return {
-            "new_replies": 0,
-            "total_replies": len(_load_replies()),
-            "replies": [],
-            "scanned_emails": 0,
-            "info": "No sent emails found in CRM logs. Send emails first to start tracking replies.",
-        }
-
+    # We previously only checked `sent_recipients` from local log files.
+    # Because Render wipes local files, we'll now accept replies from anyone 
+    # who is listed as a contact in the CRM.
     existing_replies = _load_replies()
     existing_msg_ids = {r.get("message_id") for r in existing_replies if r.get("message_id")}
 
@@ -253,8 +245,8 @@ def scan_inbox(days: int = None) -> Dict:
     for lead in all_leads:
         for contact in lead.get("contacts", []):
             email_addr = contact.get("email", "").lower().strip()
-            # Only include contacts we've actually sent emails to
-            if email_addr and email_addr in sent_recipients:
+            # If the sender is in our CRM as a contact, we should track their replies.
+            if email_addr:
                 email_to_lead[email_addr] = {
                     "lead_id": lead["id"],
                     "company_name": lead["company_name"],
@@ -290,7 +282,7 @@ def scan_inbox(days: int = None) -> Dict:
 
         msg_ids = messages[0].split()
         print(f"📧 Found {len(msg_ids)} emails in the last {days} days")
-        print(f"🎯 Filtering for replies from {len(sent_recipients)} CRM-sent recipient(s)")
+        print(f"🎯 Filtering for replies from {len(email_to_lead)} CRM contact(s)")
 
         scanned = 0
         for msg_id in msg_ids:
@@ -331,7 +323,7 @@ def scan_inbox(days: int = None) -> Dict:
                             body = _extract_body(full_msg)
                             bounced_email = _extract_bounced_email(body)
 
-                            if bounced_email and bounced_email.lower() in sent_recipients:
+                            if bounced_email and bounced_email.lower() in email_to_lead:
                                 # Extract error reason
                                 error_reason = "Bounced — delivery failed"
                                 error_match = re.search(r'(ERROR CODE[^\n]+|Diagnostic-Code:[^\n]+|Status:\s*\d[^\n]+)', body)
