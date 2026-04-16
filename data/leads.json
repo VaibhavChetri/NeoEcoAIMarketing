@@ -913,6 +913,22 @@
         "phone": "",
         "linkedin": "",
         "is_primary": true
+      },
+      {
+        "name": "Vaibhav",
+        "email": "vaibhav@radlabs.tech",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": false
+      },
+      {
+        "name": "Vaibhav",
+        "email": "vaibhav@radlabs.tech",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": false
       }
     ],
     "stage": "replied",
@@ -957,6 +973,42 @@
     ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303517",
-    "updated_at": "2026-04-16T10:35:43.155587"
+    "updated_at": "2026-04-16T12:27:32.912026"
+  },
+  {
+    "id": "b6fa7478",
+    "company_name": "Google",
+    "website": "https://radlabs.tech/",
+    "about": "",
+    "country": "Inda",
+    "industry": "IT",
+    "employees": "nan",
+    "revenue": "nan",
+    "founded": "nan",
+    "company_phone": "nan",
+    "company_linkedin": "nan",
+    "contacts": [
+      {
+        "name": "Vaibhav",
+        "email": "vaibhavchetri04@gmail.com",
+        "title": "nan",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email sent",
+        "timestamp": "2026-04-16T12:29:18.981103",
+        "stage_change": "contacted"
+      }
+    ],
+    "campaigns": [],
+    "created_at": "2026-04-16T12:28:53.001043",
+    "updated_at": "2026-04-16T12:29:18.981093"
   }
 ]

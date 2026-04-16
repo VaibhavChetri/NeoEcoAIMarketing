@@ -1,10 +1,10 @@
 [
   {
-    "subject": "Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
-    "body": "Hi pratik,\n\nMany property managers face challenges with unreliable cleaning contractors, inconsistent standards, and the use of harsh chemicals in shared residential spaces. At Neo Eco Cleaning, we solve all three:\n\n• 100% eco-friendly cleaning products — no toxic chemicals in shared spaces\n\n• Ex-Hilton Hotel trained staff — hospitality-grade cleaning standards\n\n• Quality Guarantee — all complaints resolved at no additional cost\n\n• Trusted by Rendall & Rittner (Property Manager of the Year 2024), MVN Block Management and many estate agents.\n\nBased on your portfolio, we think these services could be particularly relevant:\n\nBlock & Communal Cleaning — weekly scheduled cleans from £150/month, includes stairwells, lobbies, and bin rooms.\n\nEnd of Tenancy Cleaning — from £180/property, 24-hour turnaround, meets letting agent standards\n\nProfessional Carpet Cleaning - from £200 onwards\n\nJetwashing/ Pressure Washing - from £100 onwards\n\nGutter Cleaning - from £200 onwards\n\nWe work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.\n\nWould a free, no-obligation site survey work this week? We can assess your requirements and provide a tailored quote — completely free.",
-    "email_type": "cold_outreach",
+    "subject": "How Rendall & Rittner reduced tenant complaints by 90% — could we help Radlabs Technologies?",
+    "body": "Hi pratik,\n\nFollowing up on my previous note. I wanted to share a quick result:\n\nRendall & Rittner (Property Manager of the Year 2024) came to us after their previous cleaning contractor was inconsistent and generating tenant complaints. Since switching to Neo Eco Cleaning, they've seen a 90% reduction in cleaning-related complaints and zero missed scheduled cleans in 12 months.\n\nWould love to discuss how we could achieve similar results for Radlabs Technologies. Shall I arrange a free site survey?",
+    "email_type": "follow_up_case_study",
     "model": "template",
-    "generated_at": "2026-04-16T11:58:26.587750",
+    "generated_at": "2026-04-16T12:19:58.774805",
     "company_name": "Radlabs Technologies",
     "contact_name": "pratik",
     "ai_generated": false,
@@ -14,10 +14,10 @@
     "to_name": "pratik",
     "quality_score": {
       "length": 80,
-      "personalization": 60,
+      "personalization": 100,
       "cta_clarity": 100,
-      "subject_line": 70,
-      "overall": 75.0
+      "subject_line": 40,
+      "overall": 83.0
     }
   }
 ]
