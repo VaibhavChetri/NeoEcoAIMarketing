@@ -230,9 +230,11 @@ async def api_apollo_download():
 
 @app.get("/api/sent-mails")
 async def api_sent_mails():
-    """Return all sent email logs across all dates, sorted newest first."""
+    """Return all sent email logs across all dates, sorted newest first, pulling from Resend if configured."""
     log_dir = BASE_DIR / "output" / "send_logs"
     all_logs = []
+    
+    # 1. Fetch local logs
     if log_dir.exists():
         for log_file in sorted(log_dir.glob("*.json"), reverse=True):
             try:
@@ -241,18 +243,71 @@ async def api_sent_mails():
                     all_logs.extend(day_logs)
             except Exception:
                 pass
+
+    # 2. Fetch from Resend API to survive Render's ephemeral filesystem resets
+    api_provider = os.getenv("EMAIL_API_PROVIDER", "").lower()
+    api_key = os.getenv("EMAIL_API_KEY", "")
+    
+    if api_provider == "resend" and api_key:
+        try:
+            import aiohttp
+            async with aiohttp.ClientSession() as session:
+                async with session.get(
+                    "https://api.resend.com/emails",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json"
+                    }
+                ) as response:
+                    if response.status == 200:
+                        resend_data = await response.json()
+                        for email in resend_data.get("data", []):
+                            # Resend structure -> Dashboard structure
+                            # A resend email has id, to (list), subject, created_at, last_event
+                            resend_id = email.get("id")
+                            status = email.get("last_event", "sent")
+                            if status in ["delivered", "sent"]:
+                                status = "sent"
+                            elif status in ["bounced"]:
+                                status = "bounced"
+                                
+                            to_list = email.get("to", [])
+                            to_email = to_list[0] if to_list else ""
+                            
+                            all_logs.append({
+                                "status": status,
+                                "to_email": to_email,
+                                "subject": email.get("subject", ""),
+                                "body": "Body fetched from Resend. Cannot view full body via Resend List API.",
+                                "send_id": resend_id,
+                                "is_bulk": False, # Fallback
+                                "timestamp": email.get("created_at", "")
+                            })
+        except Exception as e:
+            print(f"Error fetching from Resend API: {e}")
+
     # Deduplicate by send_id (retries/resends create duplicate entries)
-    seen_send_ids = set()
+    # Note: local logs use our generated uuid, Resend emails use Resend's uuid. 
+    # But Resend injects X-Send-ID? Actually we can't get X-Send-ID from GET /emails easily.
+    # We will deduplicate by timestamp and to_email to avoid duplicates if Resend + local logs overlap.
+    seen_keys = set()
     unique_logs = []
+    
+    # First sort by timestamp descending to process newest first
+    all_logs.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+    
     for log in all_logs:
-        send_id = log.get("send_id", "")
-        if send_id and send_id in seen_send_ids:
+        to_email = log.get("to_email", "").strip().lower()
+        # Truncate timestamp to minutes to catch identical emails logged slightly apart
+        ts = log.get("timestamp", "")[:16] 
+        key = f"{to_email}_{ts}"
+        
+        if key in seen_keys:
             continue
-        if send_id:
-            seen_send_ids.add(send_id)
+            
+        seen_keys.add(key)
         unique_logs.append(log)
-    # Sort by timestamp descending (newest first)
-    unique_logs.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+
     return {
         "sent_mails": unique_logs,
         "total": len(unique_logs),
