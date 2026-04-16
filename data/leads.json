@@ -21,10 +21,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303157",
     "updated_at": "2026-04-15T13:22:01.303164"
@@ -87,10 +93,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303200",
     "updated_at": "2026-04-15T13:22:01.303202"
@@ -117,10 +129,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303215",
     "updated_at": "2026-04-15T13:22:01.303216"
@@ -147,10 +165,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303229",
     "updated_at": "2026-04-15T13:22:01.303231"
@@ -207,10 +231,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303257",
     "updated_at": "2026-04-15T13:22:01.303259"
@@ -237,10 +267,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303271",
     "updated_at": "2026-04-15T13:22:01.303272"
@@ -267,10 +303,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303285",
     "updated_at": "2026-04-15T13:22:01.303286"
@@ -297,10 +339,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303299",
     "updated_at": "2026-04-15T13:22:01.303300"
@@ -327,10 +375,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303312",
     "updated_at": "2026-04-15T13:22:01.303314"
@@ -357,10 +411,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303329",
     "updated_at": "2026-04-15T13:22:01.303331"
@@ -387,10 +447,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303343",
     "updated_at": "2026-04-15T13:22:01.303344"
@@ -417,10 +483,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303356",
     "updated_at": "2026-04-15T13:22:01.303357"
@@ -447,10 +519,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303370",
     "updated_at": "2026-04-15T13:22:01.303371"
@@ -477,10 +555,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303383",
     "updated_at": "2026-04-15T13:22:01.303384"
@@ -507,10 +591,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303396",
     "updated_at": "2026-04-15T13:22:01.303398"
@@ -537,10 +627,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303410",
     "updated_at": "2026-04-15T13:22:01.303411"
@@ -567,10 +663,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303423",
     "updated_at": "2026-04-15T13:22:01.303424"
@@ -597,10 +699,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303436",
     "updated_at": "2026-04-15T13:22:01.303438"
@@ -627,10 +735,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303450",
     "updated_at": "2026-04-15T13:22:01.303451"
@@ -657,10 +771,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303463",
     "updated_at": "2026-04-15T13:22:01.303465"
@@ -687,10 +807,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303477",
     "updated_at": "2026-04-15T13:22:01.303478"
@@ -717,10 +843,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303490",
     "updated_at": "2026-04-15T13:22:01.303492"
@@ -747,10 +879,16 @@
         "is_primary": true
       }
     ],
-    "stage": "new",
+    "stage": "contacted",
     "score": 0,
     "tags": [],
-    "notes": [],
+    "notes": [
+      {
+        "text": "Auto-updated: outreach email was previously sent",
+        "timestamp": "2026-04-16T10:44:00",
+        "stage_change": "contacted"
+      }
+    ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303503",
     "updated_at": "2026-04-15T13:22:01.303505"
@@ -810,10 +948,15 @@
         "text": "Auto-detected reply from pratik@radlabs.tech: Re: Eco-Friendly Cleaning for Your North London Properties",
         "timestamp": "2026-04-15T17:46:08.307926",
         "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Eco-Friendly Cleaning for Your North London Properties",
+        "timestamp": "2026-04-16T10:35:43.155603",
+        "stage_change": "replied"
       }
     ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303517",
-    "updated_at": "2026-04-15T17:46:08.307913"
+    "updated_at": "2026-04-16T10:35:43.155587"
   }
 ]

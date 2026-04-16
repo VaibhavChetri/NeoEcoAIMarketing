@@ -519,7 +519,17 @@ async def api_send_campaign(request: Request):
     schedule = body.get("schedule", "immediate")
 
     from outbound_engine.email_sender import send_campaign_emails
+    from outbound_engine.lead_manager import update_lead_stage, get_lead
     result = await send_campaign_emails(emails)
+
+    # Auto-update lead stage to "contacted" for successfully sent emails
+    for detail in result.get("details", []):
+        lead_id = detail.get("lead_id", "")
+        if lead_id and detail.get("status") in ("sent", "dry_run"):
+            lead = get_lead(lead_id)
+            if lead and lead.get("stage") == "new":
+                update_lead_stage(lead_id, "contacted", note="Auto-updated: outreach email sent")
+
     return result
 
 
@@ -566,6 +576,14 @@ async def api_send_all_emails(request: Request):
             is_bulk=True,
         )
 
+        # Auto-update lead stage to "contacted" after successful send
+        lid = email_data.get("lead_id", "")
+        if lid and result.get("status") in ("sent", "dry_run"):
+            from outbound_engine.lead_manager import update_lead_stage, get_lead
+            lead = get_lead(lid)
+            if lead and lead.get("stage") == "new":
+                update_lead_stage(lid, "contacted", note="Auto-updated: outreach email sent")
+
         status = result.get("status", "error")
         results[status] = results.get(status, 0) + 1
         results["details"].append({
@@ -600,6 +618,7 @@ async def api_send_single_email(request: Request):
         })
 
     from outbound_engine.email_sender import send_email_async
+    from outbound_engine.lead_manager import update_lead_stage, get_lead
 
     result = await send_email_async(
         to_email=to_email,
@@ -608,6 +627,12 @@ async def api_send_single_email(request: Request):
         lead_id=lead_id,
         is_bulk=False,
     )
+
+    # Auto-update lead stage to "contacted" after successful send
+    if lead_id and result.get("status") in ("sent", "dry_run"):
+        lead = get_lead(lead_id)
+        if lead and lead.get("stage") == "new":
+            update_lead_stage(lead_id, "contacted", note="Auto-updated: outreach email sent")
 
     return result
 
