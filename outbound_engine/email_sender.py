@@ -219,7 +219,7 @@ async def send_email_async(
     for attempt in range(max_retries + 1):
         try:
             if api_provider == "resend" and api_key:
-                import aiohttp
+                import httpx
 
                 # For Resend API: replace CID reference with public URL
                 # (CID attachments show as separate images in many clients)
@@ -239,18 +239,18 @@ async def send_email_async(
                     },
                 }
 
-                async with aiohttp.ClientSession() as session:
-                    async with session.post(
+                async with httpx.AsyncClient() as client:
+                    response = await client.post(
                         "https://api.resend.com/emails",
                         json=payload,
                         headers={
                             "Authorization": f"Bearer {api_key}",
                             "Content-Type": "application/json"
                         }
-                    ) as response:
-                        response_data = await response.text()
-                        if response.status >= 400:
-                            raise Exception(f"Resend API Error {response.status}: {response_data}")
+                    )
+                    
+                    if response.status_code >= 400:
+                        raise Exception(f"Resend API Error {response.status_code}: {response.text}")
             else:
                 # Original SMTP Fallback
                 import aiosmtplib
