@@ -220,30 +220,23 @@ async def send_email_async(
         try:
             if api_provider == "resend" and api_key:
                 import aiohttp
-                import base64
 
-                # Build Resend payload with inline logo attachment (CID)
-                logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
-                attachments = []
-                if logo_path.exists():
-                    with open(logo_path, "rb") as lf:
-                        logo_b64 = base64.b64encode(lf.read()).decode("utf-8")
-                    attachments.append({
-                        "filename": "logo.jpeg",
-                        "content": logo_b64,
-                        "contentId": "logo_image",
-                    })
+                # For Resend API: replace CID reference with public URL
+                # (CID attachments show as separate images in many clients)
+                html_body_api = html_body.replace(
+                    "cid:logo_image",
+                    f"{TRACKING_BASE_URL}/static/logo.jpeg"
+                )
 
                 payload = {
                     "from": f"{SENDER_NAME} <{SENDER_EMAIL}>",
                     "to": [to_email],
                     "subject": subject,
-                    "html": html_body,
+                    "html": html_body_api,
                     "text": body,
                     "headers": {
                         "X-Send-ID": send_id
                     },
-                    "attachments": attachments,
                 }
 
                 async with aiohttp.ClientSession() as session:
