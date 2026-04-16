@@ -308,10 +308,77 @@ async def api_sent_mails():
         seen_keys.add(key)
         unique_logs.append(log)
 
+    from outbound_engine.lead_manager import get_all_leads
+    all_leads = get_all_leads()
+    email_to_lead = {}
+    for lead in all_leads:
+        for contact in lead.get("contacts", []):
+            if contact.get("email"):
+                email_to_lead[contact["email"].lower()] = {
+                    "company": lead.get("company_name", ""),
+                    "to_name": contact.get("name", ""),
+                    "lead_id": lead.get("id", "")
+                }
+                
+    for log in unique_logs:
+        to_email = log.get("to_email", "").lower()
+        if to_email in email_to_lead:
+            if not log.get("company") or log.get("company") == "-":
+                log["company"] = email_to_lead[to_email]["company"]
+            if not log.get("to_name") or log.get("to_name") == "-":
+                log["to_name"] = email_to_lead[to_email]["to_name"]
+            if not log.get("lead_id"):
+                log["lead_id"] = email_to_lead[to_email]["lead_id"]
+
     return {
         "sent_mails": unique_logs,
         "total": len(unique_logs),
     }
+
+@app.get("/api/leads/{lead_id}/emails")
+async def api_get_lead_emails(lead_id: str):
+    data = await api_sent_mails()
+    logs = data.get("sent_mails", [])
+    lead_logs = [log for log in logs if log.get("lead_id") == lead_id]
+    return {"emails": lead_logs}
+
+@app.post("/api/webhooks/resend")
+async def api_webhook_resend(request: Request):
+    payload = await request.json()
+    event_type = payload.get("type")
+    data = payload.get("data", {})
+    resend_email_id = data.get("email_id")
+    if not resend_email_id:
+        return {"status": "ignored"}
+        
+    status_map = {
+        "email.delivered": "delivered",
+        "email.opened": "opened",
+        "email.clicked": "clicked",
+        "email.bounced": "bounced"
+    }
+    new_status = status_map.get(event_type)
+    if not new_status:
+        return {"status": "ignored"}
+
+    log_dir = BASE_DIR / "output" / "send_logs"
+    if log_dir.exists():
+        for log_file in log_dir.glob("*.json"):
+            updated = False
+            try:
+                with open(log_file, "r") as f:
+                    logs = json.load(f)
+                for log in logs:
+                    if log.get("resend_email_id") == resend_email_id:
+                        log["status"] = new_status
+                        updated = True
+                if updated:
+                    with open(log_file, "w") as f:
+                        json.dump(logs, f, indent=2, default=str)
+                    break
+            except Exception:
+                pass
+    return {"status": "success"}
 
 
 # ═══════════════════════════════════════════════════════════════

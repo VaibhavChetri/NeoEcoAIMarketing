@@ -1194,12 +1194,66 @@ function viewLeadDetail(leadId) {
   ).join('')}
       </select>
     </div>
+    <div class="mt-2">
+      <div class="form-label" style="margin-bottom:8px;">Sent Emails (History)</div>
+      <div id="lead-email-history">
+         <span class="loading-spinner"></span> Loading emails...
+      </div>
+    </div>
     <div class="mt-2 btn-group">
       <button class="btn btn-primary" onclick="generateEmailForLead('${lead.id}')">✨ Generate Email</button>
       <button class="btn btn-danger" onclick="confirmDeleteLead('${lead.id}', '${escHtml(lead.company_name).replace(/'/g, "\\'")}'); closeModal();">🗑️ Move to Bin</button>
     </div>
   `;
   document.getElementById('modal-overlay').classList.add('active');
+
+  fetch(`${API}/api/leads/${leadId}/emails`)
+    .then(r => r.json())
+    .then(data => {
+        const container = document.getElementById('lead-email-history');
+        if (!data.emails || data.emails.length === 0) {
+            container.innerHTML = `<p style="font-size:0.85rem;color:var(--text-muted);">No emails sent to this lead yet.</p>`;
+            return;
+        }
+        let html = `<div style="max-height: 250px; overflow-y: auto;"><table style="width:100%; font-size:0.85rem; border-collapse:collapse;">
+            <thead>
+                <tr style="border-bottom:1px solid var(--border-color); text-align:left;">
+                    <th style="padding:4px;">Date</th>
+                    <th style="padding:4px;">Subject</th>
+                    <th style="padding:4px;">Type</th>
+                    <th style="padding:4px;">Status</th>
+                    <th style="padding:4px;"></th>
+                </tr>
+            </thead>
+            <tbody>`;
+        data.emails.forEach((mail, idx) => {
+            const dt = new Date(mail.timestamp).toLocaleString([], {year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+            let statusBadge = '';
+            if (mail.status === 'sent' || mail.status === 'delivered') statusBadge = 'badge-replied';
+            else if (mail.status === 'error' || mail.status === 'bounced') statusBadge = 'badge-lost';
+            else if (mail.status === 'dry_run') statusBadge = 'badge-contacted';
+            else statusBadge = 'badge-new';
+            
+            html += `
+                <tr style="border-bottom:1px solid var(--border-color);">
+                    <td style="padding:4px;">${dt}</td>
+                    <td style="padding:4px; max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${escHtml(mail.subject || '-')}">${escHtml(mail.subject || '-')}</td>
+                    <td style="padding:4px;">${mail.is_bulk ? 'Bulk' : 'Single'}</td>
+                    <td style="padding:4px;"><span class="badge ${statusBadge}">${mail.status}</span></td>
+                    <td style="padding:4px;">
+                        <button class="btn btn-sm btn-secondary" style="padding:2px 6px; font-size:0.75rem;" onclick="document.getElementById('lead-mail-body-${idx}').style.display = document.getElementById('lead-mail-body-${idx}').style.display === 'none' ? 'table-row' : 'none'">View</button>
+                    </td>
+                </tr>
+                <tr id="lead-mail-body-${idx}" style="display:none; background:var(--bg-default);">
+                    <td colspan="5" style="padding:12px; font-size:0.85rem; white-space:pre-wrap; border-bottom:1px solid var(--border-color);">${escHtml(mail.body || 'No text content available.')}</td>
+                </tr>`;
+        });
+        html += `</tbody></table></div>`;
+        container.innerHTML = html;
+    })
+    .catch(err => {
+        document.getElementById('lead-email-history').innerHTML = `<p style="font-size:0.85rem;color:var(--accent-rose);">Failed to load emails.</p>`;
+    });
 }
 
 async function updateLeadStage(leadId, stage) {

@@ -10,7 +10,7 @@
     "body_preview": "Hi i am interested Sent from my iPhone",
     "received_at": "2026-04-16T14:30:35+05:30",
     "scanned_at": "2026-04-16T14:33:18.678933",
-    "read": false,
+    "read": true,
     "sentiment": "negative"
   },
   {
@@ -24,7 +24,7 @@
     "body_preview": "okay",
     "received_at": "2026-04-16T05:03:31+00:00",
     "scanned_at": "2026-04-16T10:35:43.154915",
-    "read": false,
+    "read": true,
     "sentiment": "neutral"
   },
   {
@@ -38,7 +38,7 @@
     "body_preview": "Hi",
     "received_at": "2026-04-15T12:11:56+00:00",
     "scanned_at": "2026-04-15T17:46:08.306240",
-    "read": false,
+    "read": true,
     "sentiment": "neutral"
   },
   {

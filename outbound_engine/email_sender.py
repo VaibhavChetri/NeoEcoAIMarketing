@@ -167,12 +167,27 @@ async def send_email_async(
 
     send_id = str(uuid.uuid4())[:12]
 
+    # Resolve company and to_name for logging
+    company = ""
+    to_name = ""
+    if lead_id:
+        from outbound_engine.lead_manager import get_lead
+        lead = get_lead(lead_id)
+        if lead:
+            company = lead.get("company_name", "")
+            for c in lead.get("contacts", []):
+                if c.get("email", "").strip().lower() == to_email.lower():
+                    to_name = c.get("name", "")
+                    break
+
     # Check daily limit
     if _get_daily_send_count() >= MAX_PER_DAY and not dry_run:
         result = {
             "status": "skipped",
             "reason": f"Daily limit reached ({MAX_PER_DAY})",
             "to_email": to_email,
+            "to_name": to_name,
+            "company": company,
             "send_id": send_id,
             "timestamp": datetime.now().isoformat(),
         }
@@ -186,6 +201,8 @@ async def send_email_async(
             "status": "skipped",
             "reason": "Opted out",
             "to_email": to_email,
+            "to_name": to_name,
+            "company": company,
             "send_id": send_id,
             "timestamp": datetime.now().isoformat(),
         }
@@ -198,6 +215,8 @@ async def send_email_async(
         result = {
             "status": "dry_run",
             "to_email": to_email,
+            "to_name": to_name,
+            "company": company,
             "subject": subject,
             "body": body,
             "send_id": send_id,
@@ -209,12 +228,12 @@ async def send_email_async(
         _log_send(result)
         return result
 
-    # Check if using Resend API or falling back to SMTP
     api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
     api_key = os.environ.get("EMAIL_API_KEY", "")
 
     max_retries = 3
     retry_delay = DELAY_SECONDS * 2  
+    resend_email_id = ""
 
     for attempt in range(max_retries + 1):
         try:
@@ -251,6 +270,9 @@ async def send_email_async(
                     
                     if response.status_code >= 400:
                         raise Exception(f"Resend API Error {response.status_code}: {response.text}")
+                    else:
+                        resp_data = response.json()
+                        resend_email_id = resp_data.get("id", "")
             else:
                 # Original SMTP Fallback
                 import aiosmtplib
@@ -292,9 +314,12 @@ async def send_email_async(
             result = {
                 "status": "sent",
                 "to_email": to_email,
+                "to_name": to_name,
+                "company": company,
                 "subject": subject,
                 "body": body,
                 "send_id": send_id,
+                "resend_email_id": resend_email_id,
                 "lead_id": lead_id,
                 "campaign_id": campaign_id,
                 "is_bulk": is_bulk,
@@ -318,6 +343,8 @@ async def send_email_async(
             result = {
                 "status": "error",
                 "to_email": to_email,
+                "to_name": to_name,
+                "company": company,
                 "subject": subject,
                 "body": body,
                 "error": error_str,
