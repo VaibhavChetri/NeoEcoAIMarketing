@@ -997,7 +997,7 @@
         "is_primary": true
       }
     ],
-    "stage": "contacted",
+    "stage": "replied",
     "score": 0,
     "tags": [],
     "notes": [
@@ -1005,10 +1005,15 @@
         "text": "Auto-updated: outreach email sent",
         "timestamp": "2026-04-16T12:29:18.981103",
         "stage_change": "contacted"
+      },
+      {
+        "text": "Auto-detected reply from vaibhavchetri04@gmail.com: Re: Google — Eco-Friendly Block Cleaning for Your Properties",
+        "timestamp": "2026-04-16T14:33:18.680793",
+        "stage_change": "replied"
       }
     ],
     "campaigns": [],
     "created_at": "2026-04-16T12:28:53.001043",
-    "updated_at": "2026-04-16T12:29:18.981093"
+    "updated_at": "2026-04-16T14:33:18.680183"
   }
 ]
