@@ -33,7 +33,7 @@ DELAY_SECONDS = int(os.environ.get("EMAIL_DELAY_SECONDS", "60"))
 DRY_RUN = os.environ.get("DRY_RUN", "true").lower() == "true"
 
 SEND_LOG_DIR = BASE_DIR / "output" / "send_logs"
-TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "http://127.0.0.1:8001")
+TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "https://neoecoaimarketing.onrender.com")
 
 
 def _get_daily_send_count() -> int:
@@ -130,7 +130,7 @@ def _build_html_email(
   </td></tr>
   <!-- Signature -->
   <tr><td style="padding:0 36px 24px 36px;border-top:1px solid #e5e7eb;">
-    <img src="cid:logo_image" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
+    <img src="{TRACKING_BASE_URL}/static/logo.jpeg" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
     <p style="margin:0 0 4px 0;font-size:13px;color:#374151;font-weight:600;">Neo Eco Cleaning Team</p>
     <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;">
       Professional Eco-Friendly Cleaning · North London<br/>
@@ -242,18 +242,11 @@ async def send_email_async(
             if api_provider == "resend" and api_key:
                 import httpx
 
-                # For Resend API: replace CID reference with public URL
-                # (CID attachments show as separate images in many clients)
-                html_body_api = html_body.replace(
-                    "cid:logo_image",
-                    f"{TRACKING_BASE_URL}/static/logo.jpeg"
-                )
-
                 payload = {
                     "from": f"{SENDER_NAME} <{SENDER_EMAIL}>",
                     "to": [to_email],
                     "subject": subject,
-                    "html": html_body_api,
+                    "html": html_body,
                     "text": body,
                     "headers": {
                         "X-Send-ID": send_id
@@ -294,13 +287,7 @@ async def send_email_async(
                 msg_alt.attach(MIMEText(body, "plain", "utf-8"))
                 msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
 
-                logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
-                if logo_path.exists():
-                    with open(logo_path, "rb") as f:
-                        img_part = MIMEImage(f.read(), _subtype='jpeg')
-                        img_part.add_header('Content-ID', '<logo_image>')
-                        img_part.add_header('Content-Disposition', 'inline')
-                        msg_root.attach(img_part)
+                # Logo is now a direct absolute URL in the HTML template, no need to attach as CID
 
                 await aiosmtplib.send(
                     msg_root,
