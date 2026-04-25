@@ -130,7 +130,7 @@ def _build_html_email(
   </td></tr>
   <!-- Signature -->
   <tr><td style="padding:0 36px 24px 36px;border-top:1px solid #e5e7eb;">
-    <img src="cid:company_logo" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
+    <img src="https://files.catbox.moe/3ycvuj.jpeg" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
     <p style="margin:0 0 4px 0;font-size:13px;color:#374151;font-weight:600;">Neo Eco Cleaning Team</p>
     <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;">
       Professional Eco-Friendly Cleaning · North London<br/>
@@ -233,18 +233,6 @@ async def send_email_async(
     api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
     api_key = os.environ.get("EMAIL_API_KEY", "")
 
-    # Load logo for inline embedding (same approach as AI_Marketing/Bassi project)
-    import base64 as b64
-    logo_path = BASE_DIR / "NeoEcoLogo.jpeg"
-    if not logo_path.exists():
-        logo_path = BASE_DIR / "dashboard" / "static" / "logo.jpeg"
-    logo_b64 = ""
-    logo_bytes = b""
-    if logo_path.exists():
-        with open(logo_path, "rb") as f:
-            logo_bytes = f.read()
-            logo_b64 = b64.b64encode(logo_bytes).decode("utf-8")
-
     max_retries = 3
     retry_delay = DELAY_SECONDS * 2  
     resend_email_id = ""
@@ -264,15 +252,6 @@ async def send_email_async(
                         "X-Send-ID": send_id
                     },
                 }
-
-                # Attach logo as inline image (referenced via cid:company_logo in HTML)
-                if logo_b64:
-                    payload["attachments"] = [
-                        {
-                            "filename": "company_logo",
-                            "content": logo_b64,
-                        }
-                    ]
 
                 async with httpx.AsyncClient() as client:
                     response = await client.post(
@@ -307,13 +286,6 @@ async def send_email_async(
 
                 msg_alt.attach(MIMEText(body, "plain", "utf-8"))
                 msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
-
-                # Attach inline logo (same as AI_Marketing/Bassi project)
-                if logo_bytes:
-                    img_part = MIMEImage(logo_bytes, _subtype='jpeg')
-                    img_part.add_header('Content-ID', '<company_logo>')
-                    img_part.add_header('Content-Disposition', 'inline', filename='NeoEcoLogo.jpeg')
-                    msg_root.attach(img_part)
 
                 await aiosmtplib.send(
                     msg_root,
