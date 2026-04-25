@@ -15,6 +15,8 @@ from datetime import datetime, timedelta
 from email.header import decode_header
 from email.utils import parseaddr, parsedate_to_datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 from dotenv import load_dotenv
@@ -174,7 +176,7 @@ def _update_send_log_to_bounced(bounced_email: str, error_reason: str):
                     entry.get("to_email", "").lower().strip() == bounced_email):
                     entry["status"] = "bounced"
                     entry["error"] = error_reason
-                    entry["bounced_at"] = datetime.now().isoformat()
+                    entry["bounced_at"] = now_ist().isoformat()
                     updated = True
 
             if updated:
@@ -273,7 +275,7 @@ def scan_inbox(days: int = None) -> Dict:
         mail.login(IMAP_USERNAME, IMAP_PASSWORD)
         mail.select("INBOX")
 
-        since_date = (datetime.now() - timedelta(days=days)).strftime("%d-%b-%Y")
+        since_date = (now_ist() - timedelta(days=days)).strftime("%d-%b-%Y")
         status, messages = mail.search(None, f'(SINCE "{since_date}")')
 
         if status != "OK":
@@ -371,10 +373,10 @@ def scan_inbox(days: int = None) -> Dict:
                 try:
                     received_at = parsedate_to_datetime(date_str).isoformat()
                 except Exception:
-                    received_at = datetime.now().isoformat()
+                    received_at = now_ist().isoformat()
 
                 reply_record = {
-                    "id": f"reply_{datetime.now().strftime('%Y%m%d%H%M%S')}_{scanned}",
+                    "id": f"reply_{now_ist().strftime('%Y%m%d%H%M%S')}_{scanned}",
                     "message_id": message_id,
                     "from_email": from_email_addr,
                     "from_name": from_name or lead_info["contact_name"],
@@ -383,7 +385,7 @@ def scan_inbox(days: int = None) -> Dict:
                     "subject": subject,
                     "body_preview": _strip_quoted_reply(body)[:500] if body else "",
                     "received_at": received_at,
-                    "scanned_at": datetime.now().isoformat(),
+                    "scanned_at": now_ist().isoformat(),
                     "read": False,
                     "sentiment": _quick_sentiment(body),
                 }

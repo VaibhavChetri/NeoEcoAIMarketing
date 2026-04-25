@@ -7,6 +7,8 @@ Deal stages, pipeline analytics, revenue forecasting, and deal aging alerts.
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,7 +53,7 @@ def create_deal(
     pipeline = _load_pipeline()
 
     deal = {
-        "id": f"deal_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{lead_id[:4]}",
+        "id": f"deal_{now_ist().strftime('%Y%m%d_%H%M%S')}_{lead_id[:4]}",
         "lead_id": lead_id,
         "company_name": company_name,
         "contact_name": contact_name,
@@ -60,12 +62,12 @@ def create_deal(
         "estimated_units": estimated_units,
         "product_category": product_category,
         "probability": 10,
-        "notes": [{"text": notes, "timestamp": datetime.now().isoformat()}] if notes else [],
-        "activities": [{"action": "Deal created", "timestamp": datetime.now().isoformat()}],
-        "created_at": datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat(),
-        "last_activity_at": datetime.now().isoformat(),
-        "expected_close_date": (datetime.now() + timedelta(days=90)).isoformat(),
+        "notes": [{"text": notes, "timestamp": now_ist().isoformat()}] if notes else [],
+        "activities": [{"action": "Deal created", "timestamp": now_ist().isoformat()}],
+        "created_at": now_ist().isoformat(),
+        "updated_at": now_ist().isoformat(),
+        "last_activity_at": now_ist().isoformat(),
+        "expected_close_date": (now_ist() + timedelta(days=90)).isoformat(),
     }
 
     pipeline.append(deal)
@@ -89,16 +91,16 @@ def update_deal_stage(deal_id: str, new_stage: str, note: str = "") -> bool:
             old_stage = deal["stage"]
             deal["stage"] = new_stage
             deal["probability"] = probability_map.get(new_stage, 10)
-            deal["updated_at"] = datetime.now().isoformat()
-            deal["last_activity_at"] = datetime.now().isoformat()
+            deal["updated_at"] = now_ist().isoformat()
+            deal["last_activity_at"] = now_ist().isoformat()
 
             deal["activities"].append({
                 "action": f"Stage changed: {old_stage} → {new_stage}",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": now_ist().isoformat(),
             })
 
             if note:
-                deal["notes"].append({"text": note, "timestamp": datetime.now().isoformat()})
+                deal["notes"].append({"text": note, "timestamp": now_ist().isoformat()})
 
             _save_pipeline(pipeline)
             return True
@@ -162,7 +164,7 @@ def get_pipeline_analytics() -> Dict:
     stale_deals = []
     for d in active_deals:
         last_activity = datetime.fromisoformat(d.get("last_activity_at", d["created_at"]))
-        days_since = (datetime.now() - last_activity).days
+        days_since = (now_ist() - last_activity).days
         if days_since > 14:
             stale_deals.append({
                 "deal_id": d["id"],

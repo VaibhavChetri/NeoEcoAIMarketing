@@ -8,6 +8,8 @@ import json
 import os
 from datetime import datetime, timedelta
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import Dict, List
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,16 +95,16 @@ CONTENT_IDEAS = {
 def generate_monthly_calendar(month: str = None, year: int = None) -> Dict:
     """Generate a content calendar for a specific month."""
     if not month:
-        month = datetime.now().strftime("%B")
+        month = now_ist().strftime("%B")
     if not year:
-        year = datetime.now().year
+        year = now_ist().year
 
     ideas = CONTENT_IDEAS.get(month, CONTENT_IDEAS.get("January"))
 
     calendar = {
         "month": month,
         "year": year,
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": now_ist().isoformat(),
         "content_items": [],
     }
 
@@ -125,7 +127,7 @@ def generate_monthly_calendar(month: str = None, year: int = None) -> Dict:
 def generate_quarterly_calendar(quarter: int = None) -> Dict:
     """Generate a 3-month content calendar."""
     if quarter is None:
-        quarter = (datetime.now().month - 1) // 3 + 1
+        quarter = (now_ist().month - 1) // 3 + 1
 
     months_map = {
         1: ["January", "February", "March"],
@@ -135,7 +137,7 @@ def generate_quarterly_calendar(quarter: int = None) -> Dict:
     }
 
     months = months_map.get(quarter, months_map[1])
-    year = datetime.now().year
+    year = now_ist().year
 
     return {
         "quarter": f"Q{quarter} {year}",
@@ -152,7 +154,7 @@ def export_calendar_markdown(calendar: Dict) -> str:
     lines = [
         f"# Content Calendar — {calendar.get('month', calendar.get('quarter', ''))} {calendar.get('year', '')}",
         "",
-        f"*Generated: {datetime.now().strftime('%d %B %Y')}*",
+        f"*Generated: {now_ist().strftime('%d %B %Y')}*",
         "",
     ]
 

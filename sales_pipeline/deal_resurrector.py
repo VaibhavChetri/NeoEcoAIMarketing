@@ -7,6 +7,8 @@ Identify cold/stale deals and generate re-engagement strategies.
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +26,7 @@ def find_cold_deals(days_inactive: int = 30) -> List[Dict]:
             continue
 
         last_activity = datetime.fromisoformat(deal.get("last_activity_at", deal["created_at"]))
-        inactive_days = (datetime.now() - last_activity).days
+        inactive_days = (now_ist() - last_activity).days
 
         if inactive_days >= days_inactive:
             cold_deals.append({
@@ -112,7 +114,7 @@ def get_resurrection_report() -> Dict:
     cold_deals = find_cold_deals(days_inactive=14)
 
     report = {
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": now_ist().isoformat(),
         "total_cold_deals": len(cold_deals),
         "by_urgency": {
             "critical": [d for d in cold_deals if d.get("urgency") == "critical"],

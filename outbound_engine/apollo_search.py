@@ -9,6 +9,8 @@ import os
 import requests
 from datetime import datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 from dotenv import load_dotenv
@@ -187,7 +189,7 @@ def export_to_excel(results: List[Dict], filename: str = "") -> str:
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     if not filename:
-        filename = f"apollo_search_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+        filename = f"apollo_search_{now_ist().strftime('%Y%m%d_%H%M%S')}.xlsx"
 
     filepath = OUTPUT_DIR / filename
     df = pd.DataFrame(results)

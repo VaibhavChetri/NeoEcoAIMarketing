@@ -9,6 +9,8 @@ import csv
 import uuid
 from datetime import datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,8 +98,8 @@ def import_leads_file(file_path: str, selected_indices: Optional[List[int]] = No
             "tags": [],
             "notes": [],
             "campaigns": [],
-            "created_at": datetime.now().isoformat(),
-            "updated_at": datetime.now().isoformat(),
+            "created_at": now_ist().isoformat(),
+            "updated_at": now_ist().isoformat(),
         }
 
         # Primary contact
@@ -202,11 +204,11 @@ def update_lead_stage(lead_id: str, new_stage: str, note: str = "") -> bool:
     for lead in leads:
         if lead["id"] == lead_id:
             lead["stage"] = new_stage
-            lead["updated_at"] = datetime.now().isoformat()
+            lead["updated_at"] = now_ist().isoformat()
             if note:
                 lead["notes"].append({
                     "text": note,
-                    "timestamp": datetime.now().isoformat(),
+                    "timestamp": now_ist().isoformat(),
                     "stage_change": new_stage,
                 })
             _save_leads(leads)
@@ -218,8 +220,8 @@ def add_note(lead_id: str, note: str) -> bool:
     leads = _load_leads()
     for lead in leads:
         if lead["id"] == lead_id:
-            lead["notes"].append({"text": note, "timestamp": datetime.now().isoformat()})
-            lead["updated_at"] = datetime.now().isoformat()
+            lead["notes"].append({"text": note, "timestamp": now_ist().isoformat()})
+            lead["updated_at"] = now_ist().isoformat()
             _save_leads(leads)
             return True
     return False
@@ -231,7 +233,7 @@ def add_tag(lead_id: str, tag: str) -> bool:
         if lead["id"] == lead_id:
             if tag not in lead.get("tags", []):
                 lead.setdefault("tags", []).append(tag)
-                lead["updated_at"] = datetime.now().isoformat()
+                lead["updated_at"] = now_ist().isoformat()
                 _save_leads(leads)
             return True
     return False
@@ -244,11 +246,11 @@ def record_campaign(lead_id: str, campaign_id: str, email_type: str) -> bool:
             lead.setdefault("campaigns", []).append({
                 "campaign_id": campaign_id,
                 "email_type": email_type,
-                "sent_at": datetime.now().isoformat(),
+                "sent_at": now_ist().isoformat(),
             })
             if lead["stage"] == "new":
                 lead["stage"] = "contacted"
-            lead["updated_at"] = datetime.now().isoformat()
+            lead["updated_at"] = now_ist().isoformat()
             _save_leads(leads)
             return True
     return False
@@ -297,7 +299,7 @@ def move_to_bin(lead_id: str) -> bool:
             remaining.append(lead)
     if not target:
         return False
-    target["deleted_at"] = datetime.now().isoformat()
+    target["deleted_at"] = now_ist().isoformat()
     bin_leads.insert(0, target)
     _save_leads(remaining)
     _save_bin(bin_leads)
@@ -323,7 +325,7 @@ def restore_from_bin(lead_id: str) -> bool:
     if not target:
         return False
     target.pop("deleted_at", None)
-    target["updated_at"] = datetime.now().isoformat()
+    target["updated_at"] = now_ist().isoformat()
     leads.insert(0, target)
     _save_leads(leads)
     _save_bin(remaining)

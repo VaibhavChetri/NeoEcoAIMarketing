@@ -10,6 +10,8 @@ import os
 import uuid
 from datetime import datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 import asyncio
 
@@ -35,7 +37,7 @@ TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "http://127.0.0.1:8001")
 
 
 def _get_daily_send_count() -> int:
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = now_ist().strftime("%Y-%m-%d")
     log_file = SEND_LOG_DIR / f"{today}.json"
     if log_file.exists():
         with open(log_file, "r") as f:
@@ -46,7 +48,7 @@ def _get_daily_send_count() -> int:
 
 def _log_send(entry: Dict):
     SEND_LOG_DIR.mkdir(parents=True, exist_ok=True)
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = now_ist().strftime("%Y-%m-%d")
     log_file = SEND_LOG_DIR / f"{today}.json"
 
     logs = []
@@ -189,7 +191,7 @@ async def send_email_async(
             "to_name": to_name,
             "company": company,
             "send_id": send_id,
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": now_ist().isoformat(),
         }
         _log_send(result)
         return result
@@ -204,7 +206,7 @@ async def send_email_async(
             "to_name": to_name,
             "company": company,
             "send_id": send_id,
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": now_ist().isoformat(),
         }
         _log_send(result)
         return result
@@ -223,7 +225,7 @@ async def send_email_async(
             "lead_id": lead_id,
             "campaign_id": campaign_id,
             "is_bulk": is_bulk,
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": now_ist().isoformat(),
         }
         _log_send(result)
         return result
@@ -323,7 +325,7 @@ async def send_email_async(
                 "lead_id": lead_id,
                 "campaign_id": campaign_id,
                 "is_bulk": is_bulk,
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": now_ist().isoformat(),
             }
             if attempt > 0:
                 result["retries"] = attempt
@@ -351,7 +353,7 @@ async def send_email_async(
                 "send_id": send_id,
                 "lead_id": lead_id,
                 "campaign_id": campaign_id,
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": now_ist().isoformat(),
             }
             if attempt > 0:
                 result["retries"] = attempt
@@ -426,7 +428,7 @@ def get_send_history(days: int = 7) -> List[Dict]:
     from datetime import timedelta
     history = []
     for i in range(days):
-        day = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+        day = (now_ist() - timedelta(days=i)).strftime("%Y-%m-%d")
         log_file = SEND_LOG_DIR / f"{day}.json"
         if log_file.exists():
             with open(log_file, "r") as f:

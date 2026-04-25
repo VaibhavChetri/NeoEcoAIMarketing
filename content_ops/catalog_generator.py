@@ -9,6 +9,8 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,7 +52,7 @@ def generate_catalog_markdown(
     lines = [
         f"# {title}",
         "",
-        f"*Generated: {datetime.now().strftime('%B %Y')}*",
+        f"*Generated: {now_ist().strftime('%B %Y')}*",
         "",
         "---",
         "",
@@ -161,7 +163,7 @@ def generate_catalog_html(title: str = "Neo Eco Cleaning — Service Catalog 202
 def save_catalog(format: str = "markdown") -> str:
     """Generate and save catalog to output directory."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d")
+    timestamp = now_ist().strftime("%Y%m%d")
 
     if format == "html":
         content = generate_catalog_html()

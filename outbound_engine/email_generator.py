@@ -12,6 +12,8 @@ import yaml
 import re
 from datetime import datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,7 +70,7 @@ def _get_gemini_client() -> Optional[object]:
 
 
 def _get_season() -> str:
-    month = datetime.now().month
+    month = now_ist().month
     if month in [3, 4, 5]:
         return "Spring"
     elif month in [6, 7, 8]:
@@ -522,7 +524,7 @@ Use escaped newlines (\\n) inside string values. Example format:
             "body": result.get("body", ""),
             "email_type": email_type,
             "model": model,
-            "generated_at": datetime.now().isoformat(),
+            "generated_at": now_ist().isoformat(),
             "company_name": context["company_name"],
             "contact_name": context["contact_name"],
             "ai_generated": True,
@@ -619,7 +621,7 @@ Wishing {context['company_name']} continued success.""",
         "body": template["body"],
         "email_type": email_type,
         "model": "template",
-        "generated_at": datetime.now().isoformat(),
+        "generated_at": now_ist().isoformat(),
         "company_name": context["company_name"],
         "contact_name": context["contact_name"],
         "ai_generated": False,
@@ -634,7 +636,7 @@ def generate_campaign_emails(
 ) -> List[Dict]:
     """Generate emails for a list of leads."""
     if not campaign_id:
-        campaign_id = f"campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        campaign_id = f"campaign_{now_ist().strftime('%Y%m%d_%H%M%S')}"
 
     emails = []
     for i, lead in enumerate(leads):

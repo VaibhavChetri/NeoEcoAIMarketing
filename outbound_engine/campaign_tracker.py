@@ -8,6 +8,8 @@ Generate performance reports and learning insights.
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import List, Dict, Optional
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,14 +41,14 @@ def create_campaign(
     campaigns = _load_campaigns()
 
     campaign = {
-        "id": f"campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+        "id": f"campaign_{now_ist().strftime('%Y%m%d_%H%M%S')}",
         "name": name,
         "email_type": email_type,
         "description": description,
         "target_countries": target_countries or [],
         "target_industries": target_industries or [],
         "status": "draft",
-        "created_at": datetime.now().isoformat(),
+        "created_at": now_ist().isoformat(),
         "started_at": None,
         "completed_at": None,
         "stats": {
@@ -83,9 +85,9 @@ def update_campaign_status(campaign_id: str, status: str) -> bool:
         if c["id"] == campaign_id:
             c["status"] = status
             if status == "running":
-                c["started_at"] = datetime.now().isoformat()
+                c["started_at"] = now_ist().isoformat()
             elif status in ("completed", "paused"):
-                c["completed_at"] = datetime.now().isoformat()
+                c["completed_at"] = now_ist().isoformat()
             _save_campaigns(campaigns)
             return True
     return False
@@ -113,7 +115,7 @@ def record_reply(campaign_id: str, lead_id: str, reply_type: str = "positive") -
             c.setdefault("replies_log", []).append({
                 "lead_id": lead_id,
                 "reply_type": reply_type,
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": now_ist().isoformat(),
             })
             _save_campaigns(campaigns)
             return True
@@ -128,7 +130,7 @@ def record_meeting(campaign_id: str, lead_id: str) -> bool:
             c["stats"]["meetings_booked"] = c["stats"].get("meetings_booked", 0) + 1
             c.setdefault("meetings_log", []).append({
                 "lead_id": lead_id,
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": now_ist().isoformat(),
             })
             _save_campaigns(campaigns)
             return True
@@ -217,7 +219,7 @@ def get_send_log_summary(days: int = 7) -> Dict:
     daily_stats = {}
 
     for i in range(days):
-        day = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+        day = (now_ist() - timedelta(days=i)).strftime("%Y-%m-%d")
         log_file = SEND_LOG_DIR / f"{day}.json"
 
         day_stats = {"sent": 0, "dry_run": 0, "skipped": 0, "errors": 0, "bounced": 0}

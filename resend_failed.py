@@ -15,6 +15,8 @@ from datetime import datetime
 BASE_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BASE_DIR))
 
+from tz_utils import now_ist
+
 from dotenv import load_dotenv
 load_dotenv(BASE_DIR / ".env")
 
@@ -163,7 +165,7 @@ async def resend_failed():
     print(f"  Total: {total} | Already done: {start_from} | Remaining: {len(remaining)}")
     print(f"  Delay between emails: {delay}s")
     print(f"  DRY_RUN: {DRY_RUN}")
-    print(f"  Time: {datetime.now().strftime('%H:%M:%S')}")
+    print(f"  Time: {now_ist().strftime('%H:%M:%S')}")
     print(f"{'='*60}\n")
 
     if not remaining:
@@ -204,7 +206,7 @@ async def resend_failed():
         else:
             consecutive_errors += 1
             error_msg = result.get('error', 'Unknown')
-            progress["errors"].append({"email": to, "error": error_msg, "time": datetime.now().isoformat()})
+            progress["errors"].append({"email": to, "error": error_msg, "time": now_ist().isoformat()})
             save_progress(progress)
             print(f"❌ ERROR: {error_msg}")
 

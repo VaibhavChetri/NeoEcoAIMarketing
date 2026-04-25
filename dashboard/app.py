@@ -12,6 +12,7 @@ import io
 import os
 from pathlib import Path
 from datetime import datetime
+
 from typing import Optional
 from contextlib import asynccontextmanager
 
@@ -25,6 +26,8 @@ import asyncio
 # Add parent to path
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
+
+from tz_utils import now_ist
 
 load_dotenv(BASE_DIR / ".env", override=True)
 
@@ -461,11 +464,11 @@ async def api_upload_emails(file: UploadFile = File(...)):
                             "linkedin": "",
                             "is_primary": len(lead.get("contacts", [])) == 0,
                         })
-                    lead["updated_at"] = datetime.now().isoformat()
+                    lead["updated_at"] = now_ist().isoformat()
                     updated_count += 1
                 else:
                     # Still consider it updated if we enriched company details
-                    lead["updated_at"] = datetime.now().isoformat()
+                    lead["updated_at"] = now_ist().isoformat()
                     updated_count += 1
             else:
                 # New lead from upload
@@ -488,8 +491,8 @@ async def api_upload_emails(file: UploadFile = File(...)):
                     "tags": [],
                     "notes": [],
                     "campaigns": [],
-                    "created_at": datetime.now().isoformat(),
-                    "updated_at": datetime.now().isoformat(),
+                    "created_at": now_ist().isoformat(),
+                    "updated_at": now_ist().isoformat(),
                 }
                 if email:
                     new_lead["contacts"].append({
@@ -845,7 +848,7 @@ async def track_open(send_id: str, request: Request):
         if send_id not in existing_ids:
             opens.append({
                 "send_id": send_id,
-                "opened_at": datetime.now().isoformat(),
+                "opened_at": now_ist().isoformat(),
                 "user_agent": request.headers.get("user-agent", ""),
                 "ip_address": request.client.host if request.client else "",
             })
@@ -1229,7 +1232,7 @@ async def health():
         "status": "healthy",
         "service": "Neo Eco Cleaning AI Marketing Dashboard",
         "version": "2.0.0",
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": now_ist().isoformat(),
         "llm": "Gemini Pro" if os.environ.get("GEMINI_API_KEY") else "Template (no API key)",
         "apollo": "Connected" if os.environ.get("APOLLO_API_KEY") else "Not configured",
         "dry_run": os.environ.get("DRY_RUN", "true"),

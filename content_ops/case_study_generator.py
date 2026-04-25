@@ -8,6 +8,8 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
+
+from tz_utils import now_ist
 from typing import Dict, Optional
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +44,7 @@ def create_case_study(
 ) -> Dict:
     """Create a new case study and save it."""
     case_study = {
-        "id": f"cs-{datetime.now().strftime('%Y%m%d%H%M')}",
+        "id": f"cs-{now_ist().strftime('%Y%m%d%H%M')}",
         "title": title or f"{country} {industry} — {client_name}",
         "client": client_name,
         "industry": industry,
@@ -51,7 +53,7 @@ def create_case_study(
         "solution": solution,
         "results": results,
         "testimonial": testimonial,
-        "created_at": datetime.now().strftime("%Y-%m-%d"),
+        "created_at": now_ist().strftime("%Y-%m-%d"),
     }
 
     _save_case_study(case_study)
