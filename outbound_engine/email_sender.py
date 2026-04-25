@@ -130,7 +130,7 @@ def _build_html_email(
   </td></tr>
   <!-- Signature -->
   <tr><td style="padding:0 36px 24px 36px;border-top:1px solid #e5e7eb;">
-    <img src="https://neoecoaimarketing.onrender.com/static/logo.jpeg" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
+    <img src="https://raw.githubusercontent.com/VaibhavChetri/NeoEcoAIMarketing/main/NeoEcoLogo.jpeg" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
     <p style="margin:0 0 4px 0;font-size:13px;color:#374151;font-weight:600;">Neo Eco Cleaning Team</p>
     <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;">
       Professional Eco-Friendly Cleaning · North London<br/>
