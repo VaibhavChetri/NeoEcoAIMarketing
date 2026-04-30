@@ -86,5 +86,19 @@
     "campaign_id": "",
     "is_bulk": false,
     "timestamp": "2026-04-16T16:44:11.012586"
+  },
+  {
+    "status": "sent",
+    "to_email": "pratik@radlabs.tech",
+    "to_name": "pratik",
+    "company": "Radlabs Technologies",
+    "subject": "How Rendall & Rittner reduced tenant complaints by 90% \u2014 could we help Radlabs Technologies?",
+    "body": "Hi pratik,\n\nFollowing up on my previous note. I wanted to share a quick result:\n\nRendall & Rittner (Property Manager of the Year 2024) came to us after their previous cleaning contractor was inconsistent and generating tenant complaints. Since switching to Neo Eco Cleaning, they've seen a 90% reduction in cleaning-related complaints and zero missed scheduled cleans in 12 months.\n\nWould love to discuss how we could achieve similar results for Radlabs Technologies. Shall I arrange a free site survey?",
+    "send_id": "01e16e41-5e4",
+    "resend_email_id": "71ad8605-3cb1-4e88-977a-a97ad534460d",
+    "lead_id": "cd478122",
+    "campaign_id": "campaign_20260415_132430",
+    "is_bulk": true,
+    "timestamp": "2026-04-16T17:29:34.533213"
   }
 ]

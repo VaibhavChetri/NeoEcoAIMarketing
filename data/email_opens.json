@@ -4,5 +4,53 @@
     "opened_at": "2026-04-16T12:44:33.932128",
     "user_agent": "Mozilla/5.0",
     "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "56022db1-ced",
+    "opened_at": "2026-04-18T12:05:12.219103",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "5c438462-278",
+    "opened_at": "2026-04-18T12:05:14.730800",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "e68a6437-d86",
+    "opened_at": "2026-04-18T12:05:16.818725",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "e0b9ec27-a5a",
+    "opened_at": "2026-04-18T12:05:17.325133",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "3fcedcaf-8d6",
+    "opened_at": "2026-04-25T15:11:25.187177+05:30",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "e73eeaab-100",
+    "opened_at": "2026-04-30T10:57:57.889925+05:30",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "aab3dc87-7bc",
+    "opened_at": "2026-04-30T10:57:57.937482+05:30",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
+  },
+  {
+    "send_id": "cc1f1314-995",
+    "opened_at": "2026-04-30T10:57:57.939298+05:30",
+    "user_agent": "Mozilla/5.0",
+    "ip_address": "127.0.0.1"
   }
 ]

@@ -969,11 +969,21 @@
         "text": "Auto-detected reply from pratik@radlabs.tech: Re: Eco-Friendly Cleaning for Your North London Properties",
         "timestamp": "2026-04-16T10:35:43.155603",
         "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+        "timestamp": "2026-04-25T13:44:20.422394",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Quick follow-up: Eco-friendly cleaning for your properties",
+        "timestamp": "2026-04-25T14:12:38.347173+05:30",
+        "stage_change": "replied"
       }
     ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303517",
-    "updated_at": "2026-04-16T12:27:32.912026"
+    "updated_at": "2026-04-25T14:12:38.347137+05:30"
   },
   {
     "id": "b6fa7478",

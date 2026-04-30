@@ -904,6 +904,14 @@ async def api_mark_reply_read(reply_id: str):
     return {"success": success}
 
 
+@app.post("/api/replies/read-all")
+async def api_mark_all_replies_read():
+    """Mark every reply as read."""
+    from outbound_engine.reply_tracker import mark_all_read
+    count = mark_all_read()
+    return {"success": True, "marked": count}
+
+
 @app.get("/api/replies/stats")
 async def api_reply_stats():
     """Get reply statistics."""

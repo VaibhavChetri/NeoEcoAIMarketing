@@ -1853,6 +1853,17 @@ async function loadReplies() {
       }).join('')}
     </div>`;
 
+    // Mark all replies as read on visit so unread count clears in this and future sessions
+    if ((stats.unread || 0) > 0) {
+      try {
+        await fetch(`${API}/api/replies/read-all`, { method: 'POST' });
+        if (el('reply-stat-unread')) el('reply-stat-unread').textContent = 0;
+        if (badge) badge.style.display = 'none';
+      } catch (err) {
+        console.error('Mark-all-read failed:', err);
+      }
+    }
+
   } catch (e) {
     console.error('Replies error:', e);
   }
