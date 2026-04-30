@@ -10,7 +10,7 @@
     "body_preview": "okay",
     "received_at": "2026-04-25T08:42:15+00:00",
     "scanned_at": "2026-04-25T14:12:38.346108+05:30",
-    "read": false,
+    "read": true,
     "sentiment": "neutral"
   },
   {
@@ -24,7 +24,7 @@
     "body_preview": "Not required Get Outlook for Android<https://aka.ms/AAb9ysg>",
     "received_at": "2026-04-23T07:08:48+00:00",
     "scanned_at": "2026-04-25T13:44:20.421502",
-    "read": false,
+    "read": true,
     "sentiment": "neutral"
   },
   {

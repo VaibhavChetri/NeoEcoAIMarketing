@@ -66,17 +66,6 @@
     "timestamp": "2026-04-16T14:34:52.417779"
   },
   {
-    "status": "error",
-    "to_email": "pratik@radlabs.tech",
-    "subject": "Test from Antigravity",
-    "body": "This is an automated test to verify that sent emails appear in the CRM via Resend API.",
-    "error": "No module named 'aiohttp'",
-    "send_id": "0e9022ab-cdd",
-    "lead_id": "test_lead_001",
-    "campaign_id": "",
-    "timestamp": "2026-04-16T16:42:14.118731"
-  },
-  {
     "status": "sent",
     "to_email": "hello@radlabs.tech",
     "subject": "Test CRM Send Logging",

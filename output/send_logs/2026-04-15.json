@@ -286,17 +286,6 @@
     "timestamp": "2026-04-15T16:39:19.639046"
   },
   {
-    "status": "error",
-    "to_email": "pratik@radlabs.tech",
-    "subject": "Resend API Test",
-    "body": "This is a test from the new Resend API integration.",
-    "error": "No module named 'aiohttp'",
-    "send_id": "cbed9ce7-a0c",
-    "lead_id": "",
-    "campaign_id": "",
-    "timestamp": "2026-04-15T17:15:24.290345"
-  },
-  {
     "status": "sent",
     "to_email": "vaibhav@radlabs.tech",
     "subject": "Resend API Test",

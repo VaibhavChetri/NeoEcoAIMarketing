@@ -62,7 +62,7 @@
           </a>
           <a class="nav-item" data-page="replies" onclick="showPage('replies')">
             <span class="icon">📬</span><span>Replies</span>
-            <span class="badge" id="replies-unread-badge" style="background:var(--accent-emerald);">0</span>
+            <span class="badge" id="replies-unread-badge" style="background:var(--accent-emerald); display:none;">0</span>
           </a>
         </div>
 
@@ -692,6 +692,22 @@
               <h3>No campaigns yet</h3>
               <p>Create your first campaign to start outreach</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Email Opens Section -->
+        <div class="card mt-2">
+          <div class="card-header" style="flex-wrap:wrap; gap:12px;">
+            <div class="card-title">👁️ Who Opened Your Emails</div>
+            <div class="btn-group">
+              <button class="btn btn-secondary" onclick="loadCampaignOpens()">🔄 Refresh</button>
+            </div>
+          </div>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:12px; padding: 0 16px;">
+            Recipients whose tracking pixel fired, most recent first.
+          </p>
+          <div id="campaign-opens-list">
+            <div class="empty-state"><p>Loading…</p></div>
           </div>
         </div>
 

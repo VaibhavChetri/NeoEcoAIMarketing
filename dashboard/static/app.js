@@ -18,7 +18,23 @@ let lastApolloExcelPath = null;
 document.addEventListener('DOMContentLoaded', () => {
   loadDashboard();
   setupUploadDropzone();
+  refreshRepliesUnreadBadge();
+  setInterval(refreshRepliesUnreadBadge, 60000);
 });
+
+async function refreshRepliesUnreadBadge() {
+  try {
+    const res = await fetch(`${API}/api/replies/stats`);
+    const stats = await res.json();
+    const badge = document.getElementById('replies-unread-badge');
+    if (!badge) return;
+    const unread = stats.unread || 0;
+    badge.textContent = unread;
+    badge.style.display = unread > 0 ? '' : 'none';
+  } catch (e) {
+    /* network blip — ignore */
+  }
+}
 
 // ═══════════════════════════════════════════════════════════════
 //  NAVIGATION
@@ -876,20 +892,78 @@ async function sendSelectedEmails() {
 
   showToast(`📨 Sending ${emailsToSend.length} emails...`, 'info');
 
+  // Show send-results panel with a live progress bar before any results arrive
+  const resultsDiv = document.getElementById('send-results');
+  const resultsContent = document.getElementById('send-results-content');
+  resultsDiv.style.display = 'block';
+  resultsContent.innerHTML = `
+    <div id="send-progress-wrap" style="padding:8px 4px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <strong id="send-progress-label">Preparing to send…</strong>
+        <span id="send-progress-count" style="color:var(--text-muted);font-size:0.9rem;">0 / ${emailsToSend.length}</span>
+      </div>
+      <div style="background:rgba(255,255,255,0.08);height:10px;border-radius:6px;overflow:hidden;">
+        <div id="send-progress-bar" style="height:100%;width:0%;background:var(--accent-emerald);transition:width 200ms ease;"></div>
+      </div>
+      <div id="send-progress-current" style="margin-top:10px;color:var(--text-muted);font-size:0.85rem;"></div>
+    </div>`;
+  resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
   try {
-    const res = await fetch(`${API}/api/emails/send-all`, {
+    const res = await fetch(`${API}/api/emails/send-all/stream`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ emails: emailsToSend }),
     });
-    const data = await res.json();
 
-    if (data.error) {
-      showToast(`❌ ${data.error}`, 'error');
-    } else {
-      const resultsDiv = document.getElementById('send-results');
-      resultsDiv.style.display = 'block';
+    if (!res.ok || !res.body) {
+      throw new Error(`HTTP ${res.status}`);
+    }
 
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let data = null;
+    let total = emailsToSend.length;
+
+    const bar = () => document.getElementById('send-progress-bar');
+    const label = () => document.getElementById('send-progress-label');
+    const countEl = () => document.getElementById('send-progress-count');
+    const currentEl = () => document.getElementById('send-progress-current');
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        let evt;
+        try { evt = JSON.parse(line); } catch { continue; }
+        if (evt.type === 'start') {
+          total = evt.total;
+          if (label()) label().textContent = `Sending ${total} email(s)…`;
+          if (countEl()) countEl().textContent = `0 / ${total}`;
+        } else if (evt.type === 'progress') {
+          const pct = Math.round((evt.index / evt.total) * 100);
+          if (bar()) bar().style.width = pct + '%';
+          if (countEl()) countEl().textContent = `${evt.index} / ${evt.total}`;
+          if (currentEl()) {
+            const d = evt.detail || {};
+            currentEl().textContent = `Last: ${d.company || ''} ${d.email ? '— ' + d.email : ''} · ${d.status || ''}`;
+          }
+        } else if (evt.type === 'done') {
+          data = evt.results;
+        } else if (evt.type === 'error') {
+          throw new Error(evt.message);
+        }
+      }
+    }
+
+    if (!data) throw new Error('Stream ended without final results');
+
+    {
       const isDryRun = data.dry_run_mode;
       document.getElementById('send-results-content').innerHTML = `
         ${isDryRun ? '<div style="padding:12px;background:rgba(245,158,11,0.1);border-radius:8px;margin-bottom:16px;"><p style="color:var(--accent-amber);font-size:0.85rem;">🔍 <strong>DRY RUN MODE</strong> — Emails were logged but not actually sent. Set DRY_RUN=false in .env to send for real.</p></div>' : ''}
@@ -1631,8 +1705,47 @@ async function loadCampaigns() {
     console.error('Campaigns error:', e);
   }
 
-  // Also load bounced leads section
+  // Also load bounced leads + opens-by-recipient section
   loadBouncedLeads();
+  loadCampaignOpens();
+}
+
+async function loadCampaignOpens() {
+  const container = document.getElementById('campaign-opens-list');
+  if (!container) return;
+  try {
+    const res = await fetch(`${API}/api/opens/detailed`);
+    const data = await res.json();
+    const opens = data.opens || [];
+    if (!opens.length) {
+      container.innerHTML = `<div class="empty-state">
+        <div class="empty-icon">👁️</div>
+        <h3>No opens yet</h3>
+        <p>Once a recipient opens an email, they'll show up here.</p>
+      </div>`;
+      return;
+    }
+    container.innerHTML = `
+      <div class="table-container">
+        <table>
+          <thead><tr><th>Person</th><th>Email</th><th>Company</th><th>Subject</th><th>Opened At</th></tr></thead>
+          <tbody>
+            ${opens.map(o => `
+              <tr>
+                <td style="font-weight:600;color:var(--text-heading);">${escHtml(o.to_name || '—')}</td>
+                <td>${escHtml(o.to_email || '—')}</td>
+                <td>${escHtml(o.company || '—')}</td>
+                <td style="color:var(--text-muted);">${escHtml(o.subject || '—')}</td>
+                <td style="color:var(--text-muted);">${o.opened_at ? new Date(o.opened_at).toLocaleString() : '—'}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>`;
+  } catch (e) {
+    console.error('Opens detail error:', e);
+    container.innerHTML = `<div class="empty-state"><p>Failed to load opens.</p></div>`;
+  }
 }
 
 async function syncCampaignStats(silent = false) {

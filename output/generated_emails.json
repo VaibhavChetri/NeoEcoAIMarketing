@@ -1,1 +1,45 @@
-[]
+[
+  {
+    "subject": "Eco-Friendly Cleaning for Your Properties in North London",
+    "body": "Hi Vaibhav,\n\nWe are at Neo Eco Cleaning, and we understand that maintaining pristine environments is crucial, especially in a dynamic company like Google.\n\nMany property managers face challenges with unreliable cleaning contractors, inconsistent standards, and the use of harsh chemicals in shared residential spaces. At Neo Eco Cleaning, we solve all three:\n\n• 100% eco-friendly cleaning products - no toxic chemicals in shared spaces\n\n• Ex-Hilton Hotel trained staff - hospitality-grade cleaning standards\n\n• Quality Guarantee - all complaints resolved at no additional cost\n\n• Trusted by Rendall & Rittner (Property Manager of the Year 2024), MVN Block Management and many estate agents.\n\nBased on your portfolio, we think these services could be particularly relevant:\n\nCommercial Office Cleaning - from £200/month, includes daily, 3x weekly, or weekly cleaning schedules.\n\nWindow Cleaning Service - from £100/session, includes internal, external, or both.\n\nPressure Washing Service - from £250/session, includes driveway, car park, or building exterior cleaning.\n\nResidential Deep Clean - from £150/session, includes one-off, weekly, or bi-weekly cleaning.\n\nWe work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.\n\nWould a free, no-obligation site survey work this week? We can assess your requirements and provide a tailored quote - completely free.",
+    "email_type": "cold_outreach",
+    "model": "gemini-2.5-flash",
+    "generated_at": "2026-04-30T16:28:15.569782+05:30",
+    "company_name": "Google",
+    "contact_name": "Vaibhav",
+    "ai_generated": true,
+    "tokens_used": 0,
+    "lead_id": "b6fa7478",
+    "to_email": "vaibhavchetri04@gmail.com",
+    "to_name": "Vaibhav",
+    "quality_score": {
+      "length": 60,
+      "personalization": 100,
+      "cta_clarity": 100,
+      "subject_line": 100,
+      "overall": 90
+    },
+    "campaign_id": "campaign_20260415_132430"
+  },
+  {
+    "subject": "Eco-Friendly Cleaning for Your North London Properties",
+    "body": "Hi pratik,\n\nWe are at Neo Eco Cleaning, a North London specialist in professional eco-friendly cleaning services. While we don't have specific details on Radlabs Technologies' property portfolio, we understand the importance of maintaining pristine and healthy environments for any professional setting.\n\nMany property managers face challenges with unreliable cleaning contractors, inconsistent standards, and the use of harsh chemicals in shared residential spaces. At Neo Eco Cleaning, we solve all three:\n\n• 100% eco-friendly cleaning products - no toxic chemicals in shared spaces\n\n• Ex-Hilton Hotel trained staff - hospitality-grade cleaning standards\n\n• Quality Guarantee - all complaints resolved at no additional cost\n\n• Trusted by Rendall & Rittner (Property Manager of the Year 2024), MVN Block Management and many estate agents.\n\nBased on your portfolio, we think these services could be particularly relevant:\n\nCommercial Office Cleaning - from £200/month, includes daily, 3x weekly, or weekly cleaning schedules with non-toxic products.\n\nEnd of Tenancy Deep Clean - from £180/property, 24-hour turnaround, meets letting agent standards.\n\nResidential Deep Clean - from £150/session, a one-off deep clean or recurring service using 100% natural products.\n\nPressure Washing Service - from £250/session, for driveways, car parks, or building exteriors using water-efficient systems.\n\nWindow Cleaning Service - from £100/session, internal, external, or both, with purified water systems.\n\nWe work with property managers and building management companies across North London, and we'd love to explore if we could help maintain the highest standards across your portfolio.\n\nWould a free, no-obligation site survey work this week? We can assess your requirements and provide a tailored quote - completely free.",
+    "email_type": "cold_outreach",
+    "model": "gemini-2.5-flash",
+    "generated_at": "2026-04-30T16:42:24.130488+05:30",
+    "company_name": "Radlabs Technologies",
+    "contact_name": "pratik",
+    "ai_generated": true,
+    "tokens_used": 0,
+    "lead_id": "cd478122",
+    "to_email": "pratik@radlabs.tech",
+    "to_name": "pratik",
+    "quality_score": {
+      "length": 60,
+      "personalization": 100,
+      "cta_clarity": 100,
+      "subject_line": 100,
+      "overall": 90.0
+    }
+  }
+]

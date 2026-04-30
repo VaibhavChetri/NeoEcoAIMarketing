@@ -737,6 +737,79 @@ async def api_send_all_emails(request: Request):
     return results
 
 
+@app.post("/api/emails/send-all/stream")
+async def api_send_all_emails_stream(request: Request):
+    """Stream send progress as NDJSON, one line per email plus a final summary."""
+    from outbound_engine.email_sender import send_email_async, DRY_RUN, DELAY_SECONDS
+    from fastapi.responses import StreamingResponse
+
+    try:
+        body = await request.json()
+        emails = body.get("emails")
+    except Exception:
+        emails = None
+
+    if not emails:
+        emails = _load_generated_emails()
+
+    async def event_stream():
+        if not emails:
+            yield json.dumps({"type": "error", "message": "No generated emails to send."}) + "\n"
+            return
+
+        total = len(emails)
+        results = {"sent": 0, "dry_run": 0, "skipped": 0, "errors": 0, "details": []}
+
+        yield json.dumps({"type": "start", "total": total, "dry_run_mode": DRY_RUN}) + "\n"
+
+        for i, email_data in enumerate(emails):
+            email_data["is_bulk"] = True
+            to_email = email_data.get("to_email", "")
+            subject = email_data.get("subject", "")
+            email_body = email_data.get("body", "")
+            company = email_data.get("company_name", "Unknown")
+
+            if not to_email:
+                detail = {"company": company, "status": "skipped", "reason": "No email address"}
+                results["skipped"] += 1
+            else:
+                result = await send_email_async(
+                    to_email=to_email,
+                    subject=subject,
+                    body=email_body,
+                    lead_id=email_data.get("lead_id", ""),
+                    campaign_id=email_data.get("campaign_id", ""),
+                    is_bulk=True,
+                )
+                lid = email_data.get("lead_id", "")
+                if lid and result.get("status") in ("sent", "dry_run"):
+                    from outbound_engine.lead_manager import update_lead_stage, get_lead
+                    lead = get_lead(lid)
+                    if lead and lead.get("stage") == "new":
+                        update_lead_stage(lid, "contacted", note="Auto-updated: outreach email sent")
+                status = result.get("status", "error")
+                results[status] = results.get(status, 0) + 1
+                detail = {"company": company, "email": to_email, **result}
+
+            results["details"].append(detail)
+
+            yield json.dumps({
+                "type": "progress",
+                "index": i + 1,
+                "total": total,
+                "detail": detail,
+            }) + "\n"
+
+            if i < total - 1 and not DRY_RUN:
+                await asyncio.sleep(DELAY_SECONDS)
+
+        results["dry_run_mode"] = DRY_RUN
+        results["total_processed"] = total
+        yield json.dumps({"type": "done", "results": results}) + "\n"
+
+    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+
+
 @app.post("/api/emails/send-single")
 async def api_send_single_email(request: Request):
     """Send a single generated email immediately."""
@@ -873,6 +946,43 @@ async def api_get_opens():
             opens = json.load(f)
         return {"opens": opens, "total": len(opens)}
     return {"opens": [], "total": 0}
+
+
+@app.get("/api/opens/detailed")
+async def api_get_opens_detailed():
+    """Opens joined with send logs to expose recipient + campaign info."""
+    if not OPENS_FILE.exists():
+        return {"opens": [], "total": 0}
+    with open(OPENS_FILE, "r") as f:
+        opens = json.load(f)
+
+    send_index: dict = {}
+    log_dir = BASE_DIR / "output" / "send_logs"
+    if log_dir.exists():
+        for log_path in log_dir.glob("*.json"):
+            try:
+                with open(log_path, "r") as f:
+                    for entry in json.load(f):
+                        sid = entry.get("send_id")
+                        if sid:
+                            send_index[sid] = entry
+            except Exception:
+                continue
+
+    detailed = []
+    for o in opens:
+        send = send_index.get(o.get("send_id"), {})
+        detailed.append({
+            "send_id": o.get("send_id"),
+            "opened_at": o.get("opened_at"),
+            "to_name": send.get("to_name", ""),
+            "to_email": send.get("to_email", ""),
+            "company": send.get("company", ""),
+            "subject": send.get("subject", ""),
+            "campaign_id": send.get("campaign_id", ""),
+        })
+    detailed.sort(key=lambda d: d.get("opened_at") or "", reverse=True)
+    return {"opens": detailed, "total": len(detailed)}
 
 
 # ═══════════════════════════════════════════════════════════════
