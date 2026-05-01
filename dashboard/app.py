@@ -970,8 +970,12 @@ async def api_get_opens_detailed():
                 continue
 
     detailed = []
+    unattributed = 0
     for o in opens:
-        send = send_index.get(o.get("send_id"), {})
+        send = send_index.get(o.get("send_id"))
+        if not send:
+            unattributed += 1
+            continue
         detailed.append({
             "send_id": o.get("send_id"),
             "opened_at": o.get("opened_at"),
@@ -982,7 +986,11 @@ async def api_get_opens_detailed():
             "campaign_id": send.get("campaign_id", ""),
         })
     detailed.sort(key=lambda d: d.get("opened_at") or "", reverse=True)
-    return {"opens": detailed, "total": len(detailed)}
+    return {
+        "opens": detailed,
+        "total": len(detailed),
+        "unattributed": unattributed,
+    }
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1020,6 +1028,14 @@ async def api_mark_all_replies_read():
     from outbound_engine.reply_tracker import mark_all_read
     count = mark_all_read()
     return {"success": True, "marked": count}
+
+
+@app.post("/api/replies/rescore-sentiment")
+async def api_rescore_reply_sentiment():
+    """Re-classify every stored reply with the current (Gemini-backed) sentiment model."""
+    from outbound_engine.reply_tracker import rescore_all_sentiments
+    result = await asyncio.to_thread(rescore_all_sentiments)
+    return result
 
 
 @app.get("/api/replies/stats")

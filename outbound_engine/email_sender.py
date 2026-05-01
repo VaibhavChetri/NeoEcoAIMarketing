@@ -35,6 +35,25 @@ DRY_RUN = os.environ.get("DRY_RUN", "true").lower() == "true"
 SEND_LOG_DIR = BASE_DIR / "output" / "send_logs"
 TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "https://neoecoaimarketing.onrender.com")
 
+# Inline logo: embedded as a CID attachment so it renders in Gmail, Outlook,
+# Yahoo, Apple Mail without depending on remote image fetches (which Outlook
+# and many corporate clients block by default).
+LOGO_PATH = BASE_DIR / "NeoEcoLogo.jpeg"
+LOGO_CID = "neoecologo"
+LOGO_MIME_SUBTYPE = "jpeg"
+
+
+def _load_logo_bytes() -> Optional[bytes]:
+    try:
+        if LOGO_PATH.exists():
+            return LOGO_PATH.read_bytes()
+    except Exception:
+        pass
+    return None
+
+
+_LOGO_BYTES_CACHE: Optional[bytes] = _load_logo_bytes()
+
 
 def _get_daily_send_count() -> int:
     today = now_ist().strftime("%Y-%m-%d")
@@ -130,7 +149,7 @@ def _build_html_email(
   </td></tr>
   <!-- Signature -->
   <tr><td style="padding:0 36px 24px 36px;border-top:1px solid #e5e7eb;">
-    <img src="https://files.catbox.moe/3ycvuj.jpeg" alt="Neo Eco Cleaning Logo" style="max-height: 80px; display: block; margin: 16px 0;" />
+    <img src="cid:{LOGO_CID}" alt="Neo Eco Cleaning Logo" width="160" style="max-height:80px;display:block;margin:16px 0;border:0;outline:none;text-decoration:none;" />
     <p style="margin:0 0 4px 0;font-size:13px;color:#374151;font-weight:600;">Neo Eco Cleaning Team</p>
     <p style="margin:0;font-size:12px;color:#6b7280;line-height:1.5;">
       Professional Eco-Friendly Cleaning · North London<br/>
@@ -241,17 +260,34 @@ async def send_email_async(
         try:
             if api_provider == "resend" and api_key:
                 import httpx
+                import base64
 
+                unsub_url = f"{TRACKING_BASE_URL}/unsubscribe?email={to_email}"
+                headers = {
+                    "X-Send-ID": send_id,
+                    # Gmail/Yahoo bulk-sender requirements (Feb 2024): a working
+                    # one-click unsubscribe in headers materially improves inbox
+                    # placement and avoids the spam folder.
+                    "List-Unsubscribe": f"<{unsub_url}>, <mailto:{SENDER_EMAIL}?subject=unsubscribe>",
+                    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+                }
                 payload = {
                     "from": f"{SENDER_NAME} <{SENDER_EMAIL}>",
                     "to": [to_email],
+                    "reply_to": SENDER_EMAIL,
                     "subject": subject,
                     "html": html_body,
                     "text": body,
-                    "headers": {
-                        "X-Send-ID": send_id
-                    },
+                    "headers": headers,
                 }
+                if _LOGO_BYTES_CACHE:
+                    payload["attachments"] = [{
+                        "filename": "neoecologo.jpeg",
+                        "content": base64.b64encode(_LOGO_BYTES_CACHE).decode("ascii"),
+                        "content_type": f"image/{LOGO_MIME_SUBTYPE}",
+                        "content_id": LOGO_CID,
+                        "disposition": "inline",
+                    }]
 
                 async with httpx.AsyncClient() as client:
                     response = await client.post(
@@ -278,14 +314,27 @@ async def send_email_async(
                 msg_root = MIMEMultipart("related")
                 msg_root["From"] = f"{SENDER_NAME} <{SENDER_EMAIL}>"
                 msg_root["To"] = to_email
+                msg_root["Reply-To"] = SENDER_EMAIL
                 msg_root["Subject"] = subject
                 msg_root["X-Send-ID"] = send_id
+
+                unsub_url = f"{TRACKING_BASE_URL}/unsubscribe?email={to_email}"
+                msg_root["List-Unsubscribe"] = (
+                    f"<{unsub_url}>, <mailto:{SENDER_EMAIL}?subject=unsubscribe>"
+                )
+                msg_root["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
 
                 msg_alt = MIMEMultipart("alternative")
                 msg_root.attach(msg_alt)
 
                 msg_alt.attach(MIMEText(body, "plain", "utf-8"))
                 msg_alt.attach(MIMEText(html_body, "html", "utf-8"))
+
+                if _LOGO_BYTES_CACHE:
+                    img = MIMEImage(_LOGO_BYTES_CACHE, _subtype=LOGO_MIME_SUBTYPE)
+                    img.add_header("Content-ID", f"<{LOGO_CID}>")
+                    img.add_header("Content-Disposition", "inline", filename="neoecologo.jpeg")
+                    msg_root.attach(img)
 
                 await aiosmtplib.send(
                     msg_root,

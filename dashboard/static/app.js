@@ -1717,15 +1717,21 @@ async function loadCampaignOpens() {
     const res = await fetch(`${API}/api/opens/detailed`);
     const data = await res.json();
     const opens = data.opens || [];
+    const unattributed = data.unattributed || 0;
+    const note = unattributed > 0
+      ? `<p style="color:var(--text-muted); font-size:0.8rem; padding:0 0 12px;">⚠️ ${unattributed} older open${unattributed === 1 ? '' : 's'} hidden — recipient info no longer available.</p>`
+      : '';
+
     if (!opens.length) {
-      container.innerHTML = `<div class="empty-state">
-        <div class="empty-icon">👁️</div>
-        <h3>No opens yet</h3>
-        <p>Once a recipient opens an email, they'll show up here.</p>
-      </div>`;
+      container.innerHTML = `${note}
+        <div class="empty-state">
+          <div class="empty-icon">👁️</div>
+          <h3>No attributable opens yet</h3>
+          <p>Opens from emails sent going forward will appear here in real time.</p>
+        </div>`;
       return;
     }
-    container.innerHTML = `
+    container.innerHTML = `${note}
       <div class="table-container">
         <table>
           <thead><tr><th>Person</th><th>Email</th><th>Company</th><th>Subject</th><th>Opened At</th></tr></thead>
@@ -2040,6 +2046,23 @@ async function scanInbox() {
 
   btn.disabled = false;
   btn.innerHTML = '🔄 Scan Inbox';
+}
+
+async function rescoreSentiments() {
+  const btn = document.getElementById('btn-rescore-sentiment');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Re-scoring...';
+  try {
+    const res = await fetch(`${API}/api/replies/rescore-sentiment`, { method: 'POST' });
+    const data = await res.json();
+    showToast(`🧠 Re-scored ${data.total} replies (${data.changed} changed).`, 'success');
+    loadReplies();
+  } catch (e) {
+    showToast('❌ Re-score failed: ' + e.message, 'error');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '🧠 Re-score Sentiment';
 }
 
 // ═══════════════════════════════════════════════════════════════

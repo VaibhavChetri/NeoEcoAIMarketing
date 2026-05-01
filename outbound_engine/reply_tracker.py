@@ -454,13 +454,12 @@ def scan_inbox(days: int = None) -> Dict:
     }
 
 
-def _quick_sentiment(text: str) -> str:
-    """Quick keyword-based sentiment detection for replies."""
+def _strip_quoted_reply(text: str) -> str:
+    """Drop quoted history so sentiment is judged only on what the recipient wrote."""
     if not text:
-        return "neutral"
-
+        return ""
     lines = text.split("\n")
-    cleaned_lines = []
+    cleaned = []
     for line in lines:
         if line.strip().startswith(">"):
             break
@@ -470,27 +469,119 @@ def _quick_sentiment(text: str) -> str:
             break
         if "________________________________" in line:
             break
-        cleaned_lines.append(line)
+        if line.strip().lower().startswith("-----original message-----"):
+            break
+        cleaned.append(line)
+    return " ".join(cleaned).strip()
 
-    cleaned_text = " ".join(cleaned_lines)
-    text_lower = cleaned_text.lower()
 
-    positive = ["interested", "great", "love", "wonderful", "perfect",
-                 "yes", "absolutely", "let's", "schedule", "meeting",
-                 "call", "discuss", "quote", "survey", "site visit",
-                 "look forward", "excited", "happy to", "keen",
-                 "cleaning", "properties"]
-    negative = ["not interested", "unsubscribe", "remove", "stop",
-                "no thanks", "no thank you", "don't contact", "spam",
-                "not relevant", "opt out"]
+def _gemini_sentiment(text: str) -> Optional[str]:
+    """Classify reply sentiment using Gemini. Returns None if unavailable."""
+    api_key = os.environ.get("GEMINI_API_KEY", "")
+    if not api_key or api_key.startswith("your"):
+        return None
+    try:
+        from google import genai
+        from google.genai import types
+    except ImportError:
+        return None
 
-    for word in negative:
-        if word in text_lower:
+    snippet = text[:1500]
+    prompt = (
+        "You classify replies to a B2B cold outreach email from a commercial "
+        "cleaning company. Read the reply below and label the sender's stance "
+        "toward continuing the conversation as exactly one of: positive, "
+        "neutral, negative.\n\n"
+        "Definitions:\n"
+        "- positive: shows buying intent — wants a quote/site survey/meeting/call, "
+        "asks pricing or scheduling questions, expresses interest, says yes.\n"
+        "- negative: rejects the offer — not interested, already have a provider, "
+        "asks to be removed/unsubscribed, hostile, marks as spam.\n"
+        "- neutral: out-of-office, auto-reply, asks a clarifying question without "
+        "commitment, forwards internally, undecided, or anything else ambiguous.\n\n"
+        "Respond with ONLY the single word: positive, neutral, or negative.\n\n"
+        f"REPLY:\n{snippet}"
+    )
+
+    try:
+        client = genai.Client(api_key=api_key)
+        model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+        try:
+            cfg = types.GenerateContentConfig(
+                temperature=0.0,
+                max_output_tokens=8,
+                thinking_config=types.ThinkingConfig(thinking_budget=0),
+            )
+        except (AttributeError, TypeError):
+            cfg = types.GenerateContentConfig(temperature=0.0, max_output_tokens=8)
+        resp = client.models.generate_content(model=model, contents=prompt, config=cfg)
+        raw = (resp.text or "").strip().lower()
+        for label in ("positive", "negative", "neutral"):
+            if label in raw:
+                return label
+    except Exception:
+        return None
+    return None
+
+
+def _keyword_sentiment(text: str) -> str:
+    """Conservative keyword fallback. Used only when Gemini is unavailable."""
+    cleaned = _strip_quoted_reply(text).lower()
+    if not cleaned:
+        return "neutral"
+
+    negative_phrases = [
+        "not interested", "no thanks", "no thank you", "don't contact",
+        "do not contact", "please remove", "unsubscribe", "opt out",
+        "opt-out", "stop emailing", "stop contacting", "spam",
+        "not relevant", "already have a", "we have a provider",
+        "we have a contractor", "no need", "leave us alone",
+    ]
+    for phrase in negative_phrases:
+        if phrase in cleaned:
             return "negative"
-    for word in positive:
-        if word in text_lower:
+
+    positive_phrases = [
+        "interested", "let's schedule", "let's set up", "book a call",
+        "send me a quote", "send a quote", "site survey", "site visit",
+        "free survey", "happy to discuss", "look forward to", "keen to",
+        "would love to", "sounds good", "yes please", "sign us up",
+        "when can you", "what's the cost", "what is the cost",
+        "how much would", "let's talk", "let us talk", "absolutely",
+    ]
+    for phrase in positive_phrases:
+        if phrase in cleaned:
             return "positive"
+
     return "neutral"
+
+
+def _quick_sentiment(text: str) -> str:
+    """Sentiment classifier: Gemini-first, keyword fallback."""
+    if not text:
+        return "neutral"
+    ai = _gemini_sentiment(text)
+    if ai:
+        return ai
+    return _keyword_sentiment(text)
+
+
+def rescore_all_sentiments() -> Dict:
+    """Re-run sentiment on every stored reply. Useful after upgrading the classifier."""
+    replies = _load_replies()
+    counts = {"positive": 0, "neutral": 0, "negative": 0}
+    changed = 0
+    for reply in replies:
+        body = reply.get("body", "") or ""
+        prev = reply.get("sentiment", "neutral")
+        new = _quick_sentiment(body)
+        if new != prev:
+            changed += 1
+        reply["sentiment"] = new
+        counts[new] = counts.get(new, 0) + 1
+    if replies:
+        _save_replies(replies)
+    return {"total": len(replies), "changed": changed, "sentiments": counts}
 
 
 def get_all_replies() -> List[Dict]:
