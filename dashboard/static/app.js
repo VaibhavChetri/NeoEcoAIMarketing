@@ -123,13 +123,12 @@ async function loadDashboard(isRefresh = false) {
     let meetings = stats.by_stage?.meeting_booked || 0;
     let inBin = stats.in_bin || 0;
     
-    // Fetch actual total sent emails across all logs to sync "Contacted"
-    try {
-      const syncRes = await fetch(`${API}/api/campaigns/sync`, { method: 'POST' });
-      const syncStats = await syncRes.json();
-      contacted = syncStats.total_sent || contacted;
-    } catch (e) {}
-    
+    // Note: do NOT override `contacted` with total_sent here. Total sends
+    // count every send-log entry (duplicates + retries) and routinely
+    // exceeds the lead count, which is misleading. The correct KPI for
+    // this card is unique leads in stage="contacted", which already lives
+    // in stats.by_stage.contacted from /api/leads/stats/pipeline.
+
     // Fetch actual total replies to keep dashboard synced with Replies tab
     try {
       const repliesRes = await fetch(`${API}/api/replies/stats`);
