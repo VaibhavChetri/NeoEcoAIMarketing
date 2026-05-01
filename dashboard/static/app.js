@@ -1710,11 +1710,18 @@ async function loadCampaigns() {
   loadCampaignOpens();
 }
 
-async function loadCampaignOpens() {
+async function loadCampaignOpens(force = false) {
   const container = document.getElementById('campaign-opens-list');
   if (!container) return;
+  const btn = [...document.querySelectorAll('button')].find(b => (b.getAttribute('onclick') || '').startsWith('loadCampaignOpens'));
+  const originalHtml = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loading-spinner"></span> Refreshing...';
+  }
   try {
-    const res = await fetch(`${API}/api/opens/resend`);
+    const url = force ? `${API}/api/opens/resend?force=1` : `${API}/api/opens/resend`;
+    const res = await fetch(url);
     const data = await res.json();
     if (data.error) {
       container.innerHTML = `<div class="empty-state"><p>${escHtml(data.error)}</p></div>`;
@@ -1751,6 +1758,11 @@ async function loadCampaignOpens() {
   } catch (e) {
     console.error('Opens detail error:', e);
     container.innerHTML = `<div class="empty-state"><p>Failed to load opens.</p></div>`;
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalHtml || '🔄 Refresh';
+    }
   }
 }
 

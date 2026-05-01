@@ -998,7 +998,7 @@ _RESEND_OPENS_TTL_SECS = 60
 
 
 @app.get("/api/opens/resend")
-async def api_opens_from_resend():
+async def api_opens_from_resend(force: int = 0):
     """Pull opened-status emails directly from Resend's API and join with our
     send logs to attach company/contact info. This is the source of truth
     because Resend injects its own open-tracking pixel."""
@@ -1011,7 +1011,8 @@ async def api_opens_from_resend():
     if api_provider != "resend" or not api_key:
         return {"opens": [], "total": 0, "error": "Resend API not configured"}
 
-    if (_time.time() - _RESEND_OPENS_CACHE["ts"] < _RESEND_OPENS_TTL_SECS
+    if (not force
+            and _time.time() - _RESEND_OPENS_CACHE["ts"] < _RESEND_OPENS_TTL_SECS
             and _RESEND_OPENS_CACHE["data"] is not None):
         return _RESEND_OPENS_CACHE["data"]
 
