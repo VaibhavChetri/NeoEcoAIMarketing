@@ -993,6 +993,105 @@ async def api_get_opens_detailed():
     }
 
 
+_RESEND_OPENS_CACHE: dict = {"ts": 0.0, "data": None}
+_RESEND_OPENS_TTL_SECS = 60
+
+
+@app.get("/api/opens/resend")
+async def api_opens_from_resend():
+    """Pull opened-status emails directly from Resend's API and join with our
+    send logs to attach company/contact info. This is the source of truth
+    because Resend injects its own open-tracking pixel."""
+    import time as _time
+    # Reads need a full-access (or read-scoped) key. Send-only keys (the
+    # default issued by Resend) return 401 here, so prefer a dedicated
+    # RESEND_READ_API_KEY when present and fall back to EMAIL_API_KEY.
+    api_key = os.environ.get("RESEND_READ_API_KEY", "") or os.environ.get("EMAIL_API_KEY", "")
+    api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
+    if api_provider != "resend" or not api_key:
+        return {"opens": [], "total": 0, "error": "Resend API not configured"}
+
+    if (_time.time() - _RESEND_OPENS_CACHE["ts"] < _RESEND_OPENS_TTL_SECS
+            and _RESEND_OPENS_CACHE["data"] is not None):
+        return _RESEND_OPENS_CACHE["data"]
+
+    sends_by_rid: dict = {}
+    log_dir = BASE_DIR / "output" / "send_logs"
+    if log_dir.exists():
+        for log_path in log_dir.glob("*.json"):
+            try:
+                with open(log_path, "r") as f:
+                    for entry in json.load(f):
+                        rid = entry.get("resend_email_id")
+                        if rid:
+                            sends_by_rid[rid] = entry
+            except Exception:
+                continue
+
+    import httpx
+    headers = {"Authorization": f"Bearer {api_key}"}
+
+    # Page through Resend's list endpoint — single source of truth, no
+    # per-id round-trips. clicked implies opened, so both count.
+    OPEN_EVENTS = {"opened", "clicked"}
+    all_emails: list = []
+    url = "https://api.resend.com/emails?limit=100"
+    auth_error: Optional[str] = None
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            while url and len(all_emails) < 1000:
+                r = await client.get(url, headers=headers)
+                if r.status_code in (401, 403):
+                    try:
+                        auth_error = r.json().get("message", "Resend API auth error")
+                    except Exception:
+                        auth_error = "Resend API auth error"
+                    break
+                if r.status_code != 200:
+                    break
+                body = r.json()
+                page = body.get("data", []) or []
+                all_emails.extend(page)
+                if not body.get("has_more") or not page:
+                    break
+                url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
+    except Exception:
+        pass
+
+    if auth_error:
+        return {
+            "opens": [],
+            "total": 0,
+            "error": (
+                "Resend API key lacks read permission. Create a 'Full access' "
+                f"key in Resend → API Keys and set RESEND_READ_API_KEY in .env. ({auth_error})"
+            ),
+        }
+
+    detailed = []
+    for em in all_emails:
+        if em.get("last_event") not in OPEN_EVENTS:
+            continue
+        rid = em.get("id")
+        send = sends_by_rid.get(rid, {})
+        to_field = em.get("to") or []
+        recipient_email = to_field[0] if isinstance(to_field, list) and to_field else ""
+        detailed.append({
+            "to_email": send.get("to_email") or recipient_email,
+            "to_name": send.get("to_name", ""),
+            "company": send.get("company", ""),
+            "subject": send.get("subject") or em.get("subject", ""),
+            "sent_at": em.get("created_at") or send.get("timestamp", ""),
+            "last_event": em.get("last_event", ""),
+            "resend_email_id": rid,
+        })
+
+    detailed.sort(key=lambda d: d.get("sent_at") or "", reverse=True)
+    payload = {"opens": detailed, "total": len(detailed)}
+    _RESEND_OPENS_CACHE.update(ts=_time.time(), data=payload)
+    return payload
+
+
 # ═══════════════════════════════════════════════════════════════
 #  REPLY TRACKING (IMAP)
 # ═══════════════════════════════════════════════════════════════

@@ -1,0 +1,17 @@
+[
+  {
+    "status": "sent",
+    "to_email": "pratik@radlabs.tech",
+    "to_name": "",
+    "company": "Radlabs",
+    "subject": "Radlabs Technologies \u2014 Eco-Friendly Block Cleaning for Your Properties",
+    "body": "",
+    "send_id": "ff895700-80d",
+    "resend_email_id": "ff895700-80d7-40a5-9a16-9dea0bb9527a",
+    "lead_id": "165fc2de",
+    "campaign_id": "",
+    "is_bulk": true,
+    "timestamp": "2026-04-17 05:51:53.973036+00",
+    "recovered_from_resend": true
+  }
+]

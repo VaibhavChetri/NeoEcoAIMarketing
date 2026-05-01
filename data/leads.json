@@ -62,14 +62,19 @@
     "tags": [],
     "notes": [
       {
-        "text": "Auto-detected reply from arshi@grange.london: Automatic reply: Grange London Limited — Eco-Friendly Block Cleaning for Your Properties",
+        "text": "Auto-detected reply from arshi@grange.london: Automatic reply: Grange London Limited \u2014 Eco-Friendly Block Cleaning for Your Properties",
         "timestamp": "2026-04-15T16:35:04.341042",
+        "stage_change": "replied"
+      },
+      {
+        "text": "Auto-detected reply from arshi@grange.london: Automatic reply: How Rendall & Rittner reduced tenant complaints by 90% \u2014 could we help Grange London Limited?",
+        "timestamp": "2026-05-01T15:21:50.385796+05:30",
         "stage_change": "replied"
       }
     ],
     "campaigns": [],
     "created_at": "2026-04-15T13:22:01.303182",
-    "updated_at": "2026-04-15T16:35:04.341036"
+    "updated_at": "2026-05-01T15:21:50.385774+05:30"
   },
   {
     "id": "9fe73771",
@@ -941,12 +946,12 @@
         "stage_change": "replied"
       },
       {
-        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies \u2014 Eco-Friendly Block Cleaning for Your Properties",
         "timestamp": "2026-04-15T13:30:17.266923",
         "stage_change": "replied"
       },
       {
-        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies \u2014 Eco-Friendly Block Cleaning for Your Properties",
         "timestamp": "2026-04-15T16:26:50.853952",
         "stage_change": "replied"
       },
@@ -971,7 +976,7 @@
         "stage_change": "replied"
       },
       {
-        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies — Eco-Friendly Block Cleaning for Your Properties",
+        "text": "Auto-detected reply from pratik@radlabs.tech: Re: Radlabs Technologies \u2014 Eco-Friendly Block Cleaning for Your Properties",
         "timestamp": "2026-04-25T13:44:20.422394",
         "stage_change": "replied"
       },
@@ -1017,7 +1022,7 @@
         "stage_change": "contacted"
       },
       {
-        "text": "Auto-detected reply from vaibhavchetri04@gmail.com: Re: Google — Eco-Friendly Block Cleaning for Your Properties",
+        "text": "Auto-detected reply from vaibhavchetri04@gmail.com: Re: Google \u2014 Eco-Friendly Block Cleaning for Your Properties",
         "timestamp": "2026-04-16T14:33:18.680793",
         "stage_change": "replied"
       }
@@ -1025,5 +1030,2645 @@
     "campaigns": [],
     "created_at": "2026-04-16T12:28:53.001043",
     "updated_at": "2026-04-16T14:33:18.680183"
+  },
+  {
+    "id": "c8c4401b",
+    "company_name": "Theroundtree",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Yitzi",
+        "email": "yitzi@theroundtree.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:26.935279+00"
+  },
+  {
+    "id": "6dde21b5",
+    "company_name": "Hoopersestateagents",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Kirit",
+        "email": "kirit.patel@hoopersestateagents.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:24.413215+00"
+  },
+  {
+    "id": "912f8f7c",
+    "company_name": "Noahslondon",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Jacob",
+        "email": "jacob@noahslondon.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:21.875882+00"
+  },
+  {
+    "id": "cedfa013",
+    "company_name": "Saltermcguinness",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Altin",
+        "email": "altin@saltermcguinness.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:19.332807+00"
+  },
+  {
+    "id": "bcf3a754",
+    "company_name": "Diamondestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Property",
+        "email": "property@diamondestates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:16.881456+00"
+  },
+  {
+    "id": "40bbec3b",
+    "company_name": "Coopersestateagents",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Dawn",
+        "email": "dawn.brown@coopersestateagents.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:14.247783+00"
+  },
+  {
+    "id": "4ee1ac0d",
+    "company_name": "Lbcestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@lbcestates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:11.627376+00"
+  },
+  {
+    "id": "0a6742a1",
+    "company_name": "Pureestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@pureestates.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:09.007705+00"
+  },
+  {
+    "id": "437ff1d1",
+    "company_name": "Mypropertylink",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Adam",
+        "email": "adam@mypropertylink.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:06.421558+00"
+  },
+  {
+    "id": "967e6099",
+    "company_name": "Portlandestateagents",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Mohan",
+        "email": "mohan@portlandestateagents.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:03.356195+00"
+  },
+  {
+    "id": "05f3a472",
+    "company_name": "Bryanmaher",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@bryanmaher.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:30:00.691465+00"
+  },
+  {
+    "id": "2628f7fe",
+    "company_name": "Kubie Gold",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Kevin",
+        "email": "kevin@kubie-gold.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:58.146508+00"
+  },
+  {
+    "id": "75d71cd1",
+    "company_name": "Greyandco",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Abigailgrey",
+        "email": "abigailgrey@greyandco.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:55.553092+00"
+  },
+  {
+    "id": "f257ded9",
+    "company_name": "Hiltonandfox",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Roy",
+        "email": "roy@hiltonandfox.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:53.023291+00"
+  },
+  {
+    "id": "665829fb",
+    "company_name": "Scope",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Kwesi",
+        "email": "kwesi.afful@scope.org.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:50.404998+00"
+  },
+  {
+    "id": "aad203d3",
+    "company_name": "Empirechase",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Naz",
+        "email": "naz@empirechase.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:47.96297+00"
+  },
+  {
+    "id": "01afebb5",
+    "company_name": "Movein Properties",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@movein-properties.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:45.416071+00"
+  },
+  {
+    "id": "afa1ded4",
+    "company_name": "Rawlinsongoldpinner",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Sharon",
+        "email": "sharon.h@rawlinsongoldpinner.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:42.870436+00"
+  },
+  {
+    "id": "a0b2f4a4",
+    "company_name": "Coopersresidential",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Olivia",
+        "email": "olivia.curtis@coopersresidential.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:40.358887+00"
+  },
+  {
+    "id": "dc322664",
+    "company_name": "Velestate",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Murugan",
+        "email": "murugan@velestate.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:37.8229+00"
+  },
+  {
+    "id": "fa1729fe",
+    "company_name": "Robsonsweb",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Sam",
+        "email": "sam.budgen@robsonsweb.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:35.169258+00"
+  },
+  {
+    "id": "0c0c04c0",
+    "company_name": "David Charles",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Warren",
+        "email": "warren@david-charles.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:32.743185+00"
+  },
+  {
+    "id": "829ae75e",
+    "company_name": "Paigeandpetrook",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Nicole",
+        "email": "nicole@paigeandpetrook.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:30.333373+00"
+  },
+  {
+    "id": "72e6605a",
+    "company_name": "Lrg",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Abusby",
+        "email": "abusby@lrg.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:27.796888+00"
+  },
+  {
+    "id": "72d8e67e",
+    "company_name": "Brockenhurst",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Aidan",
+        "email": "aidan@brockenhurst.info",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:25.249705+00"
+  },
+  {
+    "id": "f27fa585",
+    "company_name": "Andrew Pearce",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Eleanor",
+        "email": "eleanor.thompson@andrew-pearce.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:22.827507+00"
+  },
+  {
+    "id": "aa3da25c",
+    "company_name": "Armfordestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Mm",
+        "email": "mm@armfordestates.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:20.430644+00"
+  },
+  {
+    "id": "646b458a",
+    "company_name": "Shanproperties",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Shanavas",
+        "email": "shanavas@shanproperties.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:18.039231+00"
+  },
+  {
+    "id": "d1d2d813",
+    "company_name": "Mycitynest",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Accounts",
+        "email": "accounts@mycitynest.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:15.564927+00"
+  },
+  {
+    "id": "a00e8932",
+    "company_name": "Marshandparsons",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Hscott-Davies",
+        "email": "hscott-davies@marshandparsons.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:13.103951+00"
+  },
+  {
+    "id": "fdc79bea",
+    "company_name": "Dng",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Aalexander",
+        "email": "aalexander@dng.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:10.551999+00"
+  },
+  {
+    "id": "9d40affa",
+    "company_name": "Jtmhomes",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Leah",
+        "email": "leah@jtmhomes.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:08.031993+00"
+  },
+  {
+    "id": "198f6d05",
+    "company_name": "Fletcherestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Gilesmalyon",
+        "email": "gilesmalyon@fletcherestates.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:05.404741+00"
+  },
+  {
+    "id": "b5fa476c",
+    "company_name": "Novahauslondon",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Tom",
+        "email": "tom@novahauslondon.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:02.871011+00"
+  },
+  {
+    "id": "3a975634",
+    "company_name": "Fhm Metropolis",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@fhm-metropolis.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:29:00.300541+00"
+  },
+  {
+    "id": "13d6f370",
+    "company_name": "Benhams",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Miles",
+        "email": "miles.baim@benhams.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:57.7863+00"
+  },
+  {
+    "id": "b6fdf57c",
+    "company_name": "Chestertons",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Adam",
+        "email": "adam.jennings@chestertons.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:55.191922+00"
+  },
+  {
+    "id": "76883228",
+    "company_name": "Timesplace",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@timesplace.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:52.626342+00"
+  },
+  {
+    "id": "667c6406",
+    "company_name": "Blackstonesestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@blackstonesestates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:50.032267+00"
+  },
+  {
+    "id": "bb85c025",
+    "company_name": "Yahoo",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Alphaletuk",
+        "email": "alphaletuk@yahoo.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:47.503148+00"
+  },
+  {
+    "id": "1edc94e4",
+    "company_name": "Lixing",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Tatiana",
+        "email": "tatiana.dacosta@lixing.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:45.127137+00"
+  },
+  {
+    "id": "c41284ea",
+    "company_name": "Capitalhomesestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Andrew",
+        "email": "andrew@capitalhomesestates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:42.487938+00"
+  },
+  {
+    "id": "01102804",
+    "company_name": "Rightmove",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Customersupport",
+        "email": "customersupport@rightmove.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:39.941961+00"
+  },
+  {
+    "id": "aa2df208",
+    "company_name": "Smartletestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Enquiries",
+        "email": "enquiries@smartletestates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:37.418589+00"
+  },
+  {
+    "id": "934ecb07",
+    "company_name": "Ellisandco",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Jebin",
+        "email": "jebin@ellisandco.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-05-01 10:28:34.836932+00"
+  },
+  {
+    "id": "05219b31",
+    "company_name": "Radlabs",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Hello",
+        "email": "hello@radlabs.tech",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 11:14:10.910488+00"
+  },
+  {
+    "id": "e5ad1d20",
+    "company_name": "S5Maintenance",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@s5maintenance.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:51:06.177252+00"
+  },
+  {
+    "id": "e5bdd3ed",
+    "company_name": "Darcyresidential",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Rozita",
+        "email": "rozita@darcyresidential.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:51:03.817745+00"
+  },
+  {
+    "id": "a139de23",
+    "company_name": "Glp",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Kate",
+        "email": "kate@glp.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:51:01.447111+00"
+  },
+  {
+    "id": "dec31d6e",
+    "company_name": "Cowandco London",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Mark",
+        "email": "mark@cowandco-london.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:59.085407+00"
+  },
+  {
+    "id": "ec143f5d",
+    "company_name": "Uklondonhomes",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Stephen",
+        "email": "stephen@uklondonhomes.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:56.551288+00"
+  },
+  {
+    "id": "0f262883",
+    "company_name": "Rrproperties",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@rrproperties.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:54.225688+00"
+  },
+  {
+    "id": "97a1b917",
+    "company_name": "Johnbarclay",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Admin",
+        "email": "admin@johnbarclay.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:51.881186+00"
+  },
+  {
+    "id": "ae42e569",
+    "company_name": "Franklinlondon",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Chloe",
+        "email": "chloe@franklinlondon.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:49.545885+00"
+  },
+  {
+    "id": "91049d85",
+    "company_name": "Robinsondaviesproperties",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@robinsondaviesproperties.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:47.173069+00"
+  },
+  {
+    "id": "93412235",
+    "company_name": "Homegroundonline",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Vm",
+        "email": "vm@homegroundonline.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:42.477201+00"
+  },
+  {
+    "id": "07c1106d",
+    "company_name": "1Stpropertymanagement",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@1stpropertymanagement.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:40.153547+00"
+  },
+  {
+    "id": "d6e5a3ea",
+    "company_name": "Londonpropertymanagers",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@londonpropertymanagers.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:37.799407+00"
+  },
+  {
+    "id": "081fdaad",
+    "company_name": "Basicland",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@basicland.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:35.40228+00"
+  },
+  {
+    "id": "9906d702",
+    "company_name": "Blackstonesestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Jube",
+        "email": "jube@blackstonesestates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:33.032262+00"
+  },
+  {
+    "id": "39e9eaaf",
+    "company_name": "Anthonypepe",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Charlotte",
+        "email": "charlotte@anthonypepe.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:30.6218+00"
+  },
+  {
+    "id": "fd6c5f57",
+    "company_name": "Winkworth",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Llindsay",
+        "email": "llindsay@winkworth.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:28.21374+00"
+  },
+  {
+    "id": "1cf9d2b7",
+    "company_name": "Cousinsestateagents",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@cousinsestateagents.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:25.914872+00"
+  },
+  {
+    "id": "f630c56a",
+    "company_name": "Paulsimonresidential",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Richard",
+        "email": "richard@paulsimonresidential.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:21.194983+00"
+  },
+  {
+    "id": "3f0bef3d",
+    "company_name": "Castles",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Abraham",
+        "email": "abraham@castles.london",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:18.831421+00"
+  },
+  {
+    "id": "54a7b657",
+    "company_name": "Apollo Ec",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@apollo-ec.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:16.420239+00"
+  },
+  {
+    "id": "63c5f4f5",
+    "company_name": "Wilkinsonbyrne",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Ben",
+        "email": "ben@wilkinsonbyrne.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:13.990367+00"
+  },
+  {
+    "id": "79fde709",
+    "company_name": "Panorama",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Clover",
+        "email": "clover@panorama.es",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:11.652393+00"
+  },
+  {
+    "id": "fb1788a6",
+    "company_name": "Ellisandco",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Tottenham",
+        "email": "tottenham@ellisandco.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:06.814751+00"
+  },
+  {
+    "id": "fbe3ea49",
+    "company_name": "Jll",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Rosie",
+        "email": "rosie.williams@jll.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:50:02.12638+00"
+  },
+  {
+    "id": "96b0214b",
+    "company_name": "Propertyinc",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Sagar",
+        "email": "sagar@propertyinc.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:59.776126+00"
+  },
+  {
+    "id": "1c632a14",
+    "company_name": "Dexters",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Rickychan",
+        "email": "rickychan@dexters.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:57.395597+00"
+  },
+  {
+    "id": "d9d058c2",
+    "company_name": "Email",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "John",
+        "email": "john.smith@email.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:55.070911+00"
+  },
+  {
+    "id": "23c73c89",
+    "company_name": "Parkview Estates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@parkview-estates.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:52.74421+00"
+  },
+  {
+    "id": "3a1abdaa",
+    "company_name": "Hane",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Smiljana",
+        "email": "smiljana@hane.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:50.401144+00"
+  },
+  {
+    "id": "448a2b23",
+    "company_name": "Locusestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Haringey",
+        "email": "haringey@locusestates.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:47.985386+00"
+  },
+  {
+    "id": "784102c1",
+    "company_name": "Martyngerrard",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "N8",
+        "email": "n8@martyngerrard.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:45.660981+00"
+  },
+  {
+    "id": "3c48ca25",
+    "company_name": "Hunters",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Tottenham",
+        "email": "tottenham@hunters.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:43.333066+00"
+  },
+  {
+    "id": "2399bc2c",
+    "company_name": "Christopher Anthony",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Pm",
+        "email": "pm@christopher-anthony.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:40.943251+00"
+  },
+  {
+    "id": "a3c5044b",
+    "company_name": "Starestates",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Sal",
+        "email": "sal@starestates.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:38.585769+00"
+  },
+  {
+    "id": "8d079488",
+    "company_name": "Bracewellsestateagent",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Richard",
+        "email": "richard@bracewellsestateagent.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:36.274665+00"
+  },
+  {
+    "id": "1f958f8e",
+    "company_name": "Philipalexander",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Alex",
+        "email": "alex@philipalexander.net",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:33.934391+00"
+  },
+  {
+    "id": "cd35e77d",
+    "company_name": "Davidastburys",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Aaron",
+        "email": "aaron.cox@davidastburys.com",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:31.612852+00"
+  },
+  {
+    "id": "30bf414d",
+    "company_name": "Neptunehomes",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@neptunehomes.com.au",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:29.234637+00"
+  },
+  {
+    "id": "2b8ca6ac",
+    "company_name": "Daviesdavies",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Mark",
+        "email": "mark@daviesdavies.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:26.934207+00"
+  },
+  {
+    "id": "633b7526",
+    "company_name": "Hamptons",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Michaeln",
+        "email": "michaeln@hamptons.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:24.559143+00"
+  },
+  {
+    "id": "cf2d245b",
+    "company_name": "Kfh",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Crouchend",
+        "email": "crouchend.sales@kfh.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:21.565865+00"
+  },
+  {
+    "id": "4030b163",
+    "company_name": "Easypropertieslondon",
+    "website": "",
+    "about": "",
+    "country": "United Kingdom",
+    "industry": "",
+    "employees": "",
+    "revenue": "",
+    "founded": "",
+    "company_phone": "",
+    "company_linkedin": "",
+    "contacts": [
+      {
+        "name": "Info",
+        "email": "info@easypropertieslondon.co.uk",
+        "title": "",
+        "phone": "",
+        "linkedin": "",
+        "is_primary": true
+      }
+    ],
+    "stage": "contacted",
+    "score": 0,
+    "tags": [
+      "recovered_from_resend"
+    ],
+    "notes": [],
+    "created_at": "2026-04-16 08:49:19.182644+00"
   }
 ]

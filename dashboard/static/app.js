@@ -1714,27 +1714,27 @@ async function loadCampaignOpens() {
   const container = document.getElementById('campaign-opens-list');
   if (!container) return;
   try {
-    const res = await fetch(`${API}/api/opens/detailed`);
+    const res = await fetch(`${API}/api/opens/resend`);
     const data = await res.json();
+    if (data.error) {
+      container.innerHTML = `<div class="empty-state"><p>${escHtml(data.error)}</p></div>`;
+      return;
+    }
     const opens = data.opens || [];
-    const unattributed = data.unattributed || 0;
-    const note = unattributed > 0
-      ? `<p style="color:var(--text-muted); font-size:0.8rem; padding:0 0 12px;">⚠️ ${unattributed} older open${unattributed === 1 ? '' : 's'} hidden — recipient info no longer available.</p>`
-      : '';
 
     if (!opens.length) {
-      container.innerHTML = `${note}
+      container.innerHTML = `
         <div class="empty-state">
           <div class="empty-icon">👁️</div>
-          <h3>No attributable opens yet</h3>
-          <p>Opens from emails sent going forward will appear here in real time.</p>
+          <h3>No opens yet</h3>
+          <p>Synced from Resend. Send some emails and they'll appear here once recipients open them.</p>
         </div>`;
       return;
     }
-    container.innerHTML = `${note}
+    container.innerHTML = `
       <div class="table-container">
         <table>
-          <thead><tr><th>Person</th><th>Email</th><th>Company</th><th>Subject</th><th>Opened At</th></tr></thead>
+          <thead><tr><th>Person</th><th>Email</th><th>Company</th><th>Subject</th><th>Sent At</th></tr></thead>
           <tbody>
             ${opens.map(o => `
               <tr>
@@ -1742,7 +1742,7 @@ async function loadCampaignOpens() {
                 <td>${escHtml(o.to_email || '—')}</td>
                 <td>${escHtml(o.company || '—')}</td>
                 <td style="color:var(--text-muted);">${escHtml(o.subject || '—')}</td>
-                <td style="color:var(--text-muted);">${o.opened_at ? new Date(o.opened_at).toLocaleString() : '—'}</td>
+                <td style="color:var(--text-muted);">${o.sent_at ? new Date(o.sent_at).toLocaleString() : '—'}</td>
               </tr>
             `).join('')}
           </tbody>

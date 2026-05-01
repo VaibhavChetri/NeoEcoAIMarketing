@@ -295,5 +295,35 @@
     "campaign_id": "",
     "is_bulk": false,
     "timestamp": "2026-04-15T17:16:36.058374"
+  },
+  {
+    "status": "sent",
+    "to_email": "pratik@radlabs.tech",
+    "to_name": "",
+    "company": "Radlabs",
+    "subject": "Eco-Friendly Cleaning for Your North London Properties",
+    "body": "",
+    "send_id": "93c5b2dd-9fa",
+    "resend_email_id": "93c5b2dd-9faf-47b5-9a84-763c8b3519db",
+    "lead_id": "165fc2de",
+    "campaign_id": "",
+    "is_bulk": true,
+    "timestamp": "2026-04-15 12:11:25.734058+00",
+    "recovered_from_resend": true
+  },
+  {
+    "status": "sent",
+    "to_email": "vaibhav@radlabs.tech",
+    "to_name": "",
+    "company": "Radlabs",
+    "subject": "Resend API Test",
+    "body": "",
+    "send_id": "6e2ebb36-6a1",
+    "resend_email_id": "6e2ebb36-6a10-45c1-9b50-3a2073a28bc3",
+    "lead_id": "5f8651b9",
+    "campaign_id": "",
+    "is_bulk": true,
+    "timestamp": "2026-04-15 11:46:36.118215+00",
+    "recovered_from_resend": true
   }
 ]
