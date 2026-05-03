@@ -40,8 +40,21 @@ async function refreshRepliesUnreadBadge() {
 //  NAVIGATION
 // ═══════════════════════════════════════════════════════════════
 
+function toggleSidebar(force) {
+  const sb = document.getElementById('sidebar');
+  const bd = document.getElementById('sidebar-backdrop');
+  if (!sb) return;
+  const open = typeof force === 'boolean' ? force : !sb.classList.contains('open');
+  sb.classList.toggle('open', open);
+  if (bd) bd.classList.toggle('active', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
 function showPage(page) {
   currentPage = page;
+
+  // Auto-close mobile sidebar when navigating
+  if (window.matchMedia('(max-width: 900px)').matches) toggleSidebar(false);
 
   // Hide all page sections
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));

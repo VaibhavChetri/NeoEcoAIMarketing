@@ -885,9 +885,40 @@ async def api_analytics():
 
 @app.post("/api/campaigns/sync")
 async def api_sync_campaign_stats():
-    """Auto-sync all campaign stats from send logs, opens, and replies."""
+    """Auto-sync all campaign stats from send logs, opens, and replies.
+
+    Also pulls open events from Resend's API so the Opens KPI reflects
+    server-side tracked opens, not just our local pixel (which loses state
+    on Render's ephemeral filesystem)."""
     from outbound_engine.campaign_tracker import sync_stats_from_logs
-    return sync_stats_from_logs()
+
+    opened_resend_ids: set = set()
+    api_key = os.environ.get("RESEND_READ_API_KEY", "") or os.environ.get("EMAIL_API_KEY", "")
+    api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
+    if api_provider == "resend" and api_key:
+        OPEN_EVENTS = {"opened", "clicked"}
+        url = "https://api.resend.com/emails?limit=100"
+        headers = {"Authorization": f"Bearer {api_key}"}
+        try:
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                fetched = 0
+                while url and fetched < 1000:
+                    r = await client.get(url, headers=headers)
+                    if r.status_code != 200:
+                        break
+                    body = r.json()
+                    page = body.get("data", []) or []
+                    for em in page:
+                        if em.get("last_event") in OPEN_EVENTS and em.get("id"):
+                            opened_resend_ids.add(em["id"])
+                    fetched += len(page)
+                    if not body.get("has_more") or not page:
+                        break
+                    url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
+        except Exception:
+            pass
+
+    return sync_stats_from_logs(extra_opened_resend_ids=opened_resend_ids)
 
 
 # ═══════════════════════════════════════════════════════════════

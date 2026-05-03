@@ -241,10 +241,15 @@ def get_send_log_summary(days: int = 7) -> Dict:
     }
 
 
-def sync_stats_from_logs() -> Dict:
+def sync_stats_from_logs(extra_opened_resend_ids: Optional[set] = None) -> Dict:
     """
     Auto-sync campaign stats by scanning send logs, opens, and replies.
     Updates campaign records and returns a global summary.
+
+    `extra_opened_resend_ids` lets callers (e.g. the dashboard sync endpoint)
+    inject opens fetched from Resend's API. Resend's pixel is the source of
+    truth, so a send is counted as opened when EITHER our local pixel fired
+    OR Resend reports `last_event in (opened, clicked)` for its email id.
     """
     # --- Gather all send logs ---
     all_logs = []
@@ -267,6 +272,7 @@ def sync_stats_from_logs() -> Dict:
             pass
 
     opened_send_ids = {o.get("send_id") for o in opens if o.get("send_id")}
+    extra_rids = set(extra_opened_resend_ids or ())
 
     # --- Gather replies ---
     replies_file = CAMPAIGNS_FILE.parent / "replies.json"
@@ -308,7 +314,8 @@ def sync_stats_from_logs() -> Dict:
             if log.get("is_bulk"):
                 total_bulk_sent += 1
             send_id = log.get("send_id", "")
-            if send_id and send_id in opened_send_ids:
+            rid = log.get("resend_email_id", "")
+            if (send_id and send_id in opened_send_ids) or (rid and rid in extra_rids):
                 total_opened += 1
             to_email = log.get("to_email", "").lower()
             if to_email and to_email in reply_emails:
@@ -327,8 +334,12 @@ def sync_stats_from_logs() -> Dict:
         campaign_sent = sum(1 for l in campaign_logs if l.get("status") == "sent")
         campaign_bounced = sum(1 for l in campaign_logs if l.get("status") in ("bounced", "error"))
 
-        campaign_send_ids = {l.get("send_id") for l in campaign_logs if l.get("send_id")}
-        campaign_opened = sum(1 for sid in campaign_send_ids if sid in opened_send_ids)
+        campaign_opened = 0
+        for l in campaign_logs:
+            sid = l.get("send_id", "")
+            rid = l.get("resend_email_id", "")
+            if (sid and sid in opened_send_ids) or (rid and rid in extra_rids):
+                campaign_opened += 1
 
         campaign_to_emails = {l.get("to_email", "").lower() for l in campaign_logs if l.get("status") == "sent"}
         campaign_replied = sum(1 for em in campaign_to_emails if em in reply_emails)
