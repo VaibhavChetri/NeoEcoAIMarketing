@@ -820,6 +820,7 @@ tbody tr:hover {
     display: block; width: 18px; height: 2px;
     background: var(--text-primary); border-radius: 2px;
     transition: var(--transition);
+    pointer-events: none;
   }
   .mobile-brand {
     font-weight: 700;

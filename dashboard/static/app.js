@@ -20,7 +20,24 @@ document.addEventListener('DOMContentLoaded', () => {
   setupUploadDropzone();
   refreshRepliesUnreadBadge();
   setInterval(refreshRepliesUnreadBadge, 60000);
+
+  // Mobile menu — bind explicitly in case the inline onclick is stripped
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  if (menuBtn) menuBtn.addEventListener('click', (e) => { e.preventDefault(); toggleSidebar(); });
+  const backdrop = document.getElementById('sidebar-backdrop');
+  if (backdrop) backdrop.addEventListener('click', () => toggleSidebar(false));
 });
+
+// Expose for inline onclick handlers (kept as a safety net if scripts run before DOMContentLoaded)
+window.toggleSidebar = function (force) {
+  const sb = document.getElementById('sidebar');
+  const bd = document.getElementById('sidebar-backdrop');
+  if (!sb) return;
+  const open = typeof force === 'boolean' ? force : !sb.classList.contains('open');
+  sb.classList.toggle('open', open);
+  if (bd) bd.classList.toggle('active', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+};
 
 async function refreshRepliesUnreadBadge() {
   try {
@@ -39,16 +56,6 @@ async function refreshRepliesUnreadBadge() {
 // ═══════════════════════════════════════════════════════════════
 //  NAVIGATION
 // ═══════════════════════════════════════════════════════════════
-
-function toggleSidebar(force) {
-  const sb = document.getElementById('sidebar');
-  const bd = document.getElementById('sidebar-backdrop');
-  if (!sb) return;
-  const open = typeof force === 'boolean' ? force : !sb.classList.contains('open');
-  sb.classList.toggle('open', open);
-  if (bd) bd.classList.toggle('active', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-}
 
 function showPage(page) {
   currentPage = page;
