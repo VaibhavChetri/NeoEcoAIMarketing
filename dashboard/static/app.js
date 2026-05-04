@@ -1858,7 +1858,20 @@ async function syncCampaignStats(silent = false) {
     // Update global analytics cards
     const el = (id) => document.getElementById(id);
     if (el('camp-stat-sent')) el('camp-stat-sent').textContent = data.total_bulk_sent || 0;
-    if (el('camp-stat-opened')) el('camp-stat-opened').textContent = data.total_opened || 0;
+    if (el('camp-stat-opened')) {
+      el('camp-stat-opened').textContent = data.total_opened || 0;
+      // Surface auth/connection errors so the user knows why Opens is 0
+      const card = el('camp-stat-opened').closest('.stat-card');
+      const existingWarn = card && card.querySelector('.opens-source-warning');
+      if (existingWarn) existingWarn.remove();
+      if (data.opens_source_error && card) {
+        const warn = document.createElement('div');
+        warn.className = 'opens-source-warning';
+        warn.style.cssText = 'margin-top:8px;font-size:0.7rem;color:var(--accent-amber);line-height:1.3;';
+        warn.textContent = '⚠ ' + data.opens_source_error;
+        card.appendChild(warn);
+      }
+    }
     if (el('camp-stat-replies')) el('camp-stat-replies').textContent = data.total_replied || 0;
     if (el('camp-stat-bounced')) el('camp-stat-bounced').textContent = data.total_bounced || 0;
     if (el('camp-stat-open-rate')) el('camp-stat-open-rate').textContent = data.open_rate || '0%';

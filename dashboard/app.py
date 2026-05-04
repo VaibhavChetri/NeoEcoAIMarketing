@@ -947,9 +947,15 @@ async def api_sync_campaign_stats():
     from outbound_engine.campaign_tracker import sync_stats_from_logs
 
     opened_resend_ids: set = set()
+    resend_status = "skipped"
+    resend_error: Optional[str] = None
     api_key = os.environ.get("RESEND_READ_API_KEY", "") or os.environ.get("EMAIL_API_KEY", "")
     api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
-    if api_provider == "resend" and api_key:
+    if api_provider != "resend":
+        resend_error = "EMAIL_API_PROVIDER is not 'resend' — Opens KPI will use local pixel only."
+    elif not api_key:
+        resend_error = "No Resend API key configured (set RESEND_READ_API_KEY or EMAIL_API_KEY)."
+    else:
         OPEN_EVENTS = {"opened", "clicked"}
         url = "https://api.resend.com/emails?limit=100"
         headers = {"Authorization": f"Bearer {api_key}"}
@@ -958,7 +964,19 @@ async def api_sync_campaign_stats():
                 fetched = 0
                 while url and fetched < 1000:
                     r = await client.get(url, headers=headers)
+                    if r.status_code in (401, 403):
+                        try:
+                            msg = r.json().get("message", "")
+                        except Exception:
+                            msg = ""
+                        resend_error = (
+                            "Resend key lacks read permission. Create a 'Full access' key "
+                            "in Resend → API Keys and set RESEND_READ_API_KEY."
+                            + (f" ({msg})" if msg else "")
+                        )
+                        break
                     if r.status_code != 200:
+                        resend_error = f"Resend returned HTTP {r.status_code}"
                         break
                     body = r.json()
                     page = body.get("data", []) or []
@@ -969,10 +987,17 @@ async def api_sync_campaign_stats():
                     if not body.get("has_more") or not page:
                         break
                     url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
-        except Exception:
-            pass
+            if resend_error is None:
+                resend_status = "ok"
+        except Exception as e:
+            resend_error = f"Resend network error: {e}"
 
-    return sync_stats_from_logs(extra_opened_resend_ids=opened_resend_ids)
+    payload = sync_stats_from_logs(extra_opened_resend_ids=opened_resend_ids)
+    payload["opens_source"] = resend_status if resend_error is None else "error"
+    payload["opens_resend_count"] = len(opened_resend_ids)
+    if resend_error:
+        payload["opens_source_error"] = resend_error
+    return payload
 
 
 # ═══════════════════════════════════════════════════════════════
