@@ -281,8 +281,9 @@ async def api_sent_mails():
                             "status": status,
                             "to_email": to_email,
                             "subject": email.get("subject", ""),
-                            "body": "Body fetched from Resend. Cannot view full body via Resend List API.",
+                            "body": "",  # Body fetched lazily via /api/sent-mails/body
                             "send_id": resend_id,
+                            "resend_email_id": resend_id,
                             "is_bulk": False, # Fallback
                             "timestamp": email.get("created_at", "")
                         })
@@ -337,6 +338,59 @@ async def api_sent_mails():
         "sent_mails": unique_logs,
         "total": len(unique_logs),
     }
+
+_RESEND_BODY_CACHE: dict = {}
+
+
+@app.get("/api/sent-mails/body")
+async def api_sent_mail_body(id: str):
+    """Fetch the full HTML/text body of a sent email from Resend.
+
+    Older send-log entries (before we started persisting bodies, and entries
+    recovered from Resend list API) have an empty `body`. Resend's per-email
+    GET endpoint does include the rendered HTML/text, so we fetch it on
+    demand when the user opens the email-details modal."""
+    if not id:
+        return JSONResponse(status_code=400, content={"error": "id is required"})
+
+    if id in _RESEND_BODY_CACHE:
+        return _RESEND_BODY_CACHE[id]
+
+    api_key = os.environ.get("RESEND_READ_API_KEY", "") or os.environ.get("EMAIL_API_KEY", "")
+    if (os.environ.get("EMAIL_API_PROVIDER", "").lower() != "resend") or not api_key:
+        return {"html": "", "text": "", "error": "Resend API not configured"}
+
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            r = await client.get(
+                f"https://api.resend.com/emails/{id}",
+                headers={"Authorization": f"Bearer {api_key}"},
+            )
+            if r.status_code in (401, 403):
+                msg = "Resend read key missing — set RESEND_READ_API_KEY in .env"
+                try:
+                    msg = r.json().get("message", msg)
+                except Exception:
+                    pass
+                return {"html": "", "text": "", "error": msg}
+            if r.status_code == 404:
+                return {"html": "", "text": "", "error": "Email not found in Resend (may have aged out)"}
+            if r.status_code != 200:
+                return {"html": "", "text": "", "error": f"Resend returned HTTP {r.status_code}"}
+            data = r.json()
+            payload = {
+                "html": data.get("html", "") or "",
+                "text": data.get("text", "") or "",
+                "subject": data.get("subject", ""),
+                "from": data.get("from", ""),
+                "to": data.get("to", []),
+                "created_at": data.get("created_at", ""),
+            }
+            _RESEND_BODY_CACHE[id] = payload
+            return payload
+    except Exception as e:
+        return {"html": "", "text": "", "error": f"Network error: {e}"}
+
 
 @app.get("/api/leads/{lead_id}/emails")
 async def api_get_lead_emails(lead_id: str):

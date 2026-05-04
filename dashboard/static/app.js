@@ -1661,14 +1661,50 @@ function viewSentMailDetails(index) {
     </div>
     
     <div style="font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; font-size: 0.9rem;">Message Body</div>
-    <div style="background: var(--bg-default); padding: 16px; border-radius: 8px; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; overflow-y: auto; max-height: 300px; border: 1px solid var(--border-color);">${escHtml(mail.body || 'No content available (message body was not recorded in legacy logs). Future sends will capture the full text.')}</div>
-    
+    <div id="sent-mail-body" style="background: var(--bg-default); padding: 16px; border-radius: 8px; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; overflow-y: auto; max-height: 360px; border: 1px solid var(--border-color);">
+      ${mail.body
+        ? escHtml(mail.body)
+        : '<span style="color:var(--text-muted);">⏳ Loading body from Resend…</span>'}
+    </div>
+
     ${mail.error ? `
     <div style="margin-top: 16px; padding: 12px; background: rgba(244, 63, 94, 0.1); border-left: 4px solid var(--accent-rose); border-radius: 4px; font-size: 0.85rem;">
       <strong>Error:</strong> ${escHtml(mail.error)}
     </div>` : ''}
   `;
   document.getElementById('modal-overlay').classList.add('active');
+
+  // Lazy-load body from Resend if local log didn't capture it
+  if (!mail.body) {
+    const remoteId = mail.resend_email_id || mail.send_id || '';
+    if (remoteId) loadSentMailBody(remoteId);
+    else {
+      const el = document.getElementById('sent-mail-body');
+      if (el) el.textContent = 'No content available — this send predates body persistence and has no Resend reference.';
+    }
+  }
+}
+
+async function loadSentMailBody(remoteId) {
+  const el = document.getElementById('sent-mail-body');
+  if (!el) return;
+  try {
+    const res = await fetch(`${API}/api/sent-mails/body?id=${encodeURIComponent(remoteId)}`);
+    const data = await res.json();
+    if (data.html) {
+      // Render Resend HTML directly (it's the same body we sent)
+      el.style.whiteSpace = 'normal';
+      el.innerHTML = data.html;
+    } else if (data.text) {
+      el.textContent = data.text;
+    } else if (data.error) {
+      el.innerHTML = `<span style="color:var(--accent-rose);">${escHtml(data.error)}</span>`;
+    } else {
+      el.textContent = 'Body not available.';
+    }
+  } catch (e) {
+    el.innerHTML = `<span style="color:var(--accent-rose);">Failed to load body: ${escHtml(e.message || e)}</span>`;
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
