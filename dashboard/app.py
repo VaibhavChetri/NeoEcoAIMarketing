@@ -946,51 +946,117 @@ async def api_sync_campaign_stats():
     on Render's ephemeral filesystem)."""
     from outbound_engine.campaign_tracker import sync_stats_from_logs
 
+    import time as _time
     opened_resend_ids: set = set()
     resend_status = "skipped"
     resend_error: Optional[str] = None
     api_key = os.environ.get("RESEND_READ_API_KEY", "") or os.environ.get("EMAIL_API_KEY", "")
     api_provider = os.environ.get("EMAIL_API_PROVIDER", "").lower()
+
     if api_provider != "resend":
         resend_error = "EMAIL_API_PROVIDER is not 'resend' — Opens KPI will use local pixel only."
     elif not api_key:
         resend_error = "No Resend API key configured (set RESEND_READ_API_KEY or EMAIL_API_KEY)."
     else:
-        OPEN_EVENTS = {"opened", "clicked"}
-        url = "https://api.resend.com/emails?limit=100"
-        headers = {"Authorization": f"Bearer {api_key}"}
-        try:
-            async with httpx.AsyncClient(timeout=15.0) as client:
-                fetched = 0
-                while url and fetched < 1000:
-                    r = await client.get(url, headers=headers)
-                    if r.status_code in (401, 403):
-                        try:
-                            msg = r.json().get("message", "")
-                        except Exception:
-                            msg = ""
-                        resend_error = (
-                            "Resend key lacks read permission. Create a 'Full access' key "
-                            "in Resend → API Keys and set RESEND_READ_API_KEY."
-                            + (f" ({msg})" if msg else "")
-                        )
-                        break
-                    if r.status_code != 200:
-                        resend_error = f"Resend returned HTTP {r.status_code}"
-                        break
-                    body = r.json()
-                    page = body.get("data", []) or []
-                    for em in page:
-                        if em.get("last_event") in OPEN_EVENTS and em.get("id"):
-                            opened_resend_ids.add(em["id"])
-                    fetched += len(page)
-                    if not body.get("has_more") or not page:
-                        break
-                    url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
-            if resend_error is None:
-                resend_status = "ok"
-        except Exception as e:
-            resend_error = f"Resend network error: {e}"
+        # Reuse the /api/opens/resend cache when fresh — avoids hammering Resend
+        # (free tier ~2 req/s) when the user clicks Sync repeatedly.
+        cache = _RESEND_OPENS_CACHE
+        if (cache["data"] is not None
+                and _time.time() - cache["ts"] < _RESEND_OPENS_TTL_SECS):
+            for o in cache["data"].get("opens", []):
+                rid = o.get("resend_email_id")
+                if rid:
+                    opened_resend_ids.add(rid)
+            resend_status = "ok-cache"
+        else:
+            OPEN_EVENTS = {"opened", "clicked"}
+            url = "https://api.resend.com/emails?limit=100"
+            headers = {"Authorization": f"Bearer {api_key}"}
+            collected_emails: list = []  # full payload, mirrors /api/opens/resend
+            try:
+                async with httpx.AsyncClient(timeout=15.0) as client:
+                    fetched = 0
+                    pages = 0
+                    while url and fetched < 1000 and pages < 12:
+                        r = await client.get(url, headers=headers)
+
+                        # Rate-limit: back off and retry once before giving up.
+                        if r.status_code == 429:
+                            await asyncio.sleep(2.0)
+                            r = await client.get(url, headers=headers)
+
+                        if r.status_code in (401, 403):
+                            try:
+                                msg = r.json().get("message", "")
+                            except Exception:
+                                msg = ""
+                            resend_error = (
+                                "Resend key lacks read permission. Create a 'Full access' key "
+                                "in Resend → API Keys and set RESEND_READ_API_KEY."
+                                + (f" ({msg})" if msg else "")
+                            )
+                            break
+                        if r.status_code == 429:
+                            resend_error = (
+                                "Resend rate-limited the request (HTTP 429). Stats refresh "
+                                "automatically every minute — no action needed."
+                            )
+                            break
+                        if r.status_code != 200:
+                            resend_error = f"Resend returned HTTP {r.status_code}"
+                            break
+
+                        body = r.json()
+                        page = body.get("data", []) or []
+                        collected_emails.extend(page)
+                        for em in page:
+                            if em.get("last_event") in OPEN_EVENTS and em.get("id"):
+                                opened_resend_ids.add(em["id"])
+                        fetched += len(page)
+                        pages += 1
+                        if not body.get("has_more") or not page:
+                            break
+                        url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
+                        # Throttle to stay under Resend's free-tier rate limit
+                        await asyncio.sleep(0.4)
+                if resend_error is None:
+                    resend_status = "ok"
+                    # Populate the shared cache so the Who-Opened table also benefits
+                    sends_by_rid: dict = {}
+                    log_dir = BASE_DIR / "output" / "send_logs"
+                    if log_dir.exists():
+                        for log_path in log_dir.glob("*.json"):
+                            try:
+                                with open(log_path, "r") as f:
+                                    for entry in json.load(f):
+                                        rid = entry.get("resend_email_id")
+                                        if rid:
+                                            sends_by_rid[rid] = entry
+                            except Exception:
+                                continue
+                    detailed = []
+                    for em in collected_emails:
+                        if em.get("last_event") not in OPEN_EVENTS:
+                            continue
+                        rid = em.get("id")
+                        send = sends_by_rid.get(rid, {})
+                        to_field = em.get("to") or []
+                        recipient_email = to_field[0] if isinstance(to_field, list) and to_field else ""
+                        detailed.append({
+                            "to_email": send.get("to_email") or recipient_email,
+                            "to_name": send.get("to_name", ""),
+                            "company": send.get("company", ""),
+                            "subject": send.get("subject") or em.get("subject", ""),
+                            "sent_at": em.get("created_at") or send.get("timestamp", ""),
+                            "last_event": em.get("last_event", ""),
+                            "resend_email_id": rid,
+                        })
+                    detailed.sort(key=lambda d: d.get("sent_at") or "", reverse=True)
+                    _RESEND_OPENS_CACHE.update(
+                        ts=_time.time(), data={"opens": detailed, "total": len(detailed)}
+                    )
+            except Exception as e:
+                resend_error = f"Resend network error: {e}"
 
     payload = sync_stats_from_logs(extra_opened_resend_ids=opened_resend_ids)
     payload["opens_source"] = resend_status if resend_error is None else "error"
@@ -1150,8 +1216,13 @@ async def api_opens_from_resend(force: int = 0):
     auth_error: Optional[str] = None
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
-            while url and len(all_emails) < 1000:
+            pages = 0
+            while url and len(all_emails) < 1000 and pages < 12:
                 r = await client.get(url, headers=headers)
+                # Rate-limit: back off and retry once
+                if r.status_code == 429:
+                    await asyncio.sleep(2.0)
+                    r = await client.get(url, headers=headers)
                 if r.status_code in (401, 403):
                     try:
                         auth_error = r.json().get("message", "Resend API auth error")
@@ -1163,9 +1234,12 @@ async def api_opens_from_resend(force: int = 0):
                 body = r.json()
                 page = body.get("data", []) or []
                 all_emails.extend(page)
+                pages += 1
                 if not body.get("has_more") or not page:
                     break
                 url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
+                # Stay under Resend's free-tier ~2 req/sec limit
+                await asyncio.sleep(0.4)
     except Exception:
         pass
 
