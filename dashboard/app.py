@@ -276,11 +276,15 @@ async def api_sent_mails():
                     page = resend_data.get("data", []) or []
                     for email in page:
                         resend_id = email.get("id")
-                        status = email.get("last_event", "sent")
-                        if status in ["delivered", "sent"]:
-                            status = "sent"
-                        elif status in ["bounced"]:
+                        last_event = email.get("last_event", "sent")
+                        # Engagement events (opened/clicked) still mean the
+                        # message was successfully sent — collapse them to
+                        # "sent" so the Sent Mails badge reflects send status,
+                        # not the latest tracking event.
+                        if last_event in ("bounced", "complained"):
                             status = "bounced"
+                        else:
+                            status = "sent"
 
                         to_list = email.get("to", [])
                         to_email = to_list[0] if to_list else ""

@@ -1633,12 +1633,12 @@ function renderSentMails(mails) {
     const dt = new Date(mail.timestamp);
     const dateStr = dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     
-    // Status visual
+    // Status visual — engagement events (delivered/opened/clicked) still
+    // represent a successful send, so render them as "Sent".
     let statusBadge = '';
-    if (mail.status === 'sent') statusBadge = '<span class="badge badge-replied">Sent</span>';
-    else if (mail.status === 'dry_run') statusBadge = '<span class="badge badge-contacted">Dry Run</span>';
+    if (mail.status === 'dry_run') statusBadge = '<span class="badge badge-contacted">Dry Run</span>';
     else if (mail.status === 'error' || mail.status === 'bounced') statusBadge = `<span class="badge badge-lost">${mail.status}</span>`;
-    else statusBadge = `<span class="badge" style="background:var(--text-muted);">${mail.status}</span>`;
+    else statusBadge = '<span class="badge badge-replied">Sent</span>';
 
     return `
       <tr>
