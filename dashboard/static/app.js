@@ -1746,10 +1746,23 @@ async function loadSentMailBody(remoteId) {
 //  CAMPAIGNS
 // ═══════════════════════════════════════════════════════════════
 
+let _campaignAutoSyncTimer = null;
+
+function _startCampaignAutoSync() {
+  // Live-refresh Opens/Replies/Bounced KPIs every 30s while the user is on
+  // the Campaigns page. Cache on the server keeps this cheap.
+  if (_campaignAutoSyncTimer) clearInterval(_campaignAutoSyncTimer);
+  _campaignAutoSyncTimer = setInterval(() => {
+    if (currentPage === 'campaigns') syncCampaignStats(true);
+    else { clearInterval(_campaignAutoSyncTimer); _campaignAutoSyncTimer = null; }
+  }, 30000);
+}
+
 async function loadCampaigns() {
   try {
-    // Auto-sync stats first
+    // Auto-sync stats first, then refresh in the background while we stay here
     await syncCampaignStats(true);
+    _startCampaignAutoSync();
 
     const res = await fetch(`${API}/api/campaigns`);
     const data = await res.json();
@@ -2002,6 +2015,11 @@ async function confirmClearBounced() {
 
 async function loadReplies() {
   try {
+    // Mark everything as read BEFORE we fetch+render, so visiting the Replies
+    // page is the read trigger. Otherwise a refresh shows the unread highlight
+    // again because the prior read-all only fired after render.
+    try { await fetch(`${API}/api/replies/read-all`, { method: 'POST' }); } catch (_) {}
+
     const res = await fetch(`${API}/api/replies`);
     const data = await res.json();
     const replies = data.replies || [];
@@ -2081,16 +2099,7 @@ async function loadReplies() {
       }).join('')}
     </div>`;
 
-    // Mark all replies as read on visit so unread count clears in this and future sessions
-    if ((stats.unread || 0) > 0) {
-      try {
-        await fetch(`${API}/api/replies/read-all`, { method: 'POST' });
-        if (el('reply-stat-unread')) el('reply-stat-unread').textContent = 0;
-        if (badge) badge.style.display = 'none';
-      } catch (err) {
-        console.error('Mark-all-read failed:', err);
-      }
-    }
+    // (Replies were marked-all-read at the top of this function.)
 
   } catch (e) {
     console.error('Replies error:', e);

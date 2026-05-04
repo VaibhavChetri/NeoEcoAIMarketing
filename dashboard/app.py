@@ -253,30 +253,38 @@ async def api_sent_mails():
     api_key = os.getenv("EMAIL_API_KEY", "")
     
     if api_provider == "resend" and api_key:
+        # Paginate so Sent Mails survives Render's ephemeral disk wipes — without
+        # this, only the most recent ~10 (Resend's default page size) come back
+        # after a redeploy.
         try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get(
-                    "https://api.resend.com/emails",
-                    headers={
-                        "Authorization": f"Bearer {api_key}",
-                        "Content-Type": "application/json"
-                    }
-                )
-                if response.status_code == 200:
+            url = "https://api.resend.com/emails?limit=100"
+            headers = {
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            }
+            async with httpx.AsyncClient(timeout=15.0) as client:
+                pages = 0
+                fetched = 0
+                while url and pages < 12 and fetched < 1000:
+                    response = await client.get(url, headers=headers)
+                    if response.status_code == 429:
+                        await asyncio.sleep(2.0)
+                        response = await client.get(url, headers=headers)
+                    if response.status_code != 200:
+                        break
                     resend_data = response.json()
-                    for email in resend_data.get("data", []):
-                        # Resend structure -> Dashboard structure
-                        # A resend email has id, to (list), subject, created_at, last_event
+                    page = resend_data.get("data", []) or []
+                    for email in page:
                         resend_id = email.get("id")
                         status = email.get("last_event", "sent")
                         if status in ["delivered", "sent"]:
                             status = "sent"
                         elif status in ["bounced"]:
                             status = "bounced"
-                            
+
                         to_list = email.get("to", [])
                         to_email = to_list[0] if to_list else ""
-                        
+
                         all_logs.append({
                             "status": status,
                             "to_email": to_email,
@@ -284,9 +292,16 @@ async def api_sent_mails():
                             "body": "",  # Body fetched lazily via /api/sent-mails/body
                             "send_id": resend_id,
                             "resend_email_id": resend_id,
-                            "is_bulk": False, # Fallback
-                            "timestamp": email.get("created_at", "")
+                            "is_bulk": False,  # Fallback
+                            "timestamp": email.get("created_at", ""),
                         })
+                    fetched += len(page)
+                    pages += 1
+                    if not resend_data.get("has_more") or not page:
+                        break
+                    url = f"https://api.resend.com/emails?limit=100&after={page[-1]['id']}"
+                    # Stay under Resend's free-tier ~2 req/sec rate limit
+                    await asyncio.sleep(0.4)
         except Exception as e:
             print(f"Error fetching from Resend API: {e}")
 
