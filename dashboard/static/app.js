@@ -1321,6 +1321,10 @@ function viewLeadDetail(leadId) {
             else if (mail.status === 'dry_run') statusBadge = 'badge-contacted';
             else statusBadge = 'badge-new';
             
+            const remoteId = mail.resend_email_id || mail.send_id || '';
+            const bodyHtml = mail.body
+              ? escHtml(mail.body)
+              : '<span style="color:var(--text-muted);">⏳ Loading body from Resend…</span>';
             html += `
                 <tr style="border-bottom:1px solid var(--border-color);">
                     <td style="padding:4px;">${dt}</td>
@@ -1328,11 +1332,13 @@ function viewLeadDetail(leadId) {
                     <td style="padding:4px;">${mail.is_bulk ? 'Bulk' : 'Single'}</td>
                     <td style="padding:4px;"><span class="badge ${statusBadge}">${mail.status}</span></td>
                     <td style="padding:4px;">
-                        <button class="btn btn-sm btn-secondary" style="padding:2px 6px; font-size:0.75rem;" onclick="document.getElementById('lead-mail-body-${idx}').style.display = document.getElementById('lead-mail-body-${idx}').style.display === 'none' ? 'table-row' : 'none'">View</button>
+                        <button class="btn btn-sm btn-secondary" style="padding:2px 6px; font-size:0.75rem;" onclick="toggleLeadMailBody('${idx}', '${remoteId}', ${!mail.body})">View</button>
                     </td>
                 </tr>
                 <tr id="lead-mail-body-${idx}" style="display:none; background:var(--bg-default);">
-                    <td colspan="5" style="padding:12px; font-size:0.85rem; white-space:pre-wrap; border-bottom:1px solid var(--border-color);">${escHtml(mail.body || 'No text content available.')}</td>
+                    <td colspan="5" style="padding:12px; font-size:0.85rem; white-space:pre-wrap; border-bottom:1px solid var(--border-color);">
+                      <div id="lead-mail-body-content-${idx}">${bodyHtml}</div>
+                    </td>
                 </tr>`;
         });
         html += `</tbody></table></div>`;
@@ -1341,6 +1347,35 @@ function viewLeadDetail(leadId) {
     .catch(err => {
         document.getElementById('lead-email-history').innerHTML = `<p style="font-size:0.85rem;color:var(--accent-rose);">Failed to load emails.</p>`;
     });
+}
+
+async function toggleLeadMailBody(idx, remoteId, needsFetch) {
+  const row = document.getElementById(`lead-mail-body-${idx}`);
+  if (!row) return;
+  const opening = row.style.display === 'none';
+  row.style.display = opening ? 'table-row' : 'none';
+  if (!opening || !needsFetch || !remoteId) return;
+
+  // Fetch once and cache by reusing the rendered content
+  const content = document.getElementById(`lead-mail-body-content-${idx}`);
+  if (!content || content.dataset.loaded === '1') return;
+  content.dataset.loaded = '1';
+  try {
+    const res = await fetch(`${API}/api/sent-mails/body?id=${encodeURIComponent(remoteId)}`);
+    const data = await res.json();
+    if (data.html) {
+      content.style.whiteSpace = 'normal';
+      content.innerHTML = data.html;
+    } else if (data.text) {
+      content.textContent = data.text;
+    } else if (data.error) {
+      content.innerHTML = `<span style="color:var(--accent-rose);">${escHtml(data.error)}</span>`;
+    } else {
+      content.textContent = 'Body not available.';
+    }
+  } catch (e) {
+    content.innerHTML = `<span style="color:var(--accent-rose);">Failed to load: ${escHtml(e.message || e)}</span>`;
+  }
 }
 
 async function updateLeadStage(leadId, stage) {
